@@ -1,2 +1,5 @@
-# 23-teampjt-_
-23-teampjt-_ created by GitHub Classroom
+# 이석희_
+
+정보융합학부 고석환 (PM)
+정보융합학부 이종민
+정보융합학부 이건희 

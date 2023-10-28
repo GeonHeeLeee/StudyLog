@@ -15,7 +15,7 @@ describe('login Test', () => {
     expect(initValue).toBe(initForm);
   });
 
-  test('id Change', () => {
+  test('Id Input Change', () => {
     const { result } = renderHook(() => useInput(initForm));
     const [, onChangeHandler] = result.current;
     const changedId = 'aaa';
@@ -32,7 +32,7 @@ describe('login Test', () => {
     expect(changedForm.id).toBe(changedId);
   });
 
-  test('Pw Change', () => {
+  test('Password Input Change', () => {
     const { result } = renderHook(() => useInput(initForm));
     const [, onChangeHandler] = result.current;
     const changedPw = 'aaabbb';

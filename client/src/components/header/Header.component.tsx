@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
-  return (
+  const { pathname } = useLocation();
+
+  return pathname !== '/signin' ? (
     <header>
       <ul>
         <li>
@@ -22,5 +24,7 @@ export default function Header() {
         </li>
       </ul>
     </header>
+  ) : (
+    <></>
   );
 }

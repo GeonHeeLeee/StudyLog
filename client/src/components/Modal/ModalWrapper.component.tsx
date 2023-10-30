@@ -24,4 +24,4 @@ export default function ModalWrapper({
       </div>
     </div>
   );
-}
+} 

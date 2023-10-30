@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/Input/Input.component';
 import useInput from '../../hooks/form/useInput';
 import Button from '../../components/Button/Button.component';
 import ModalPortal from '../../components/Portal/ModalPortal.component';
 import SignUpModal from '../../components/Modal/SignUpModal.component';
 import ModalWrapper from '../../components/Modal/ModalWrapper.component';
+import useLoginState from '../../stores/login';
+import { useNavigate } from 'react-router-dom';
 
 const initialForm = {
   id: '',
@@ -14,10 +16,16 @@ const initialForm = {
 export default function SignIn() {
   const [form, onChangeHandler] = useInput(initialForm);
   const [showModal, toggleShowModal] = useState(false);
+  const { isLogin, signIn } = useLoginState();
+  const navigate = useNavigate();
   const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
+    signIn();
   };
+
+  useEffect(() => {
+    isLogin && navigate('/');
+  }, [isLogin, navigate]);
 
   return (
     <form onSubmit={loginHandler}>
@@ -39,6 +47,7 @@ export default function SignIn() {
         text='회원가입'
         onClick={() => toggleShowModal((prev) => !prev)}
       />
+
       {showModal && (
         <ModalPortal>
           <ModalWrapper

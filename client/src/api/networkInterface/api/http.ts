@@ -3,9 +3,9 @@ import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
 export interface ICommunication {
   get(url: string, config?: any): Promise<any>;
 
-  put(url: string, data: any, config?: any): Promise<any>;
+  put(url: string, data: any, config?: AxiosRequestConfig<any>): Promise<any>;
 
-  post(url: string, data: any, config?: any): Promise<any>;
+  post(url: string, data: any, config?: AxiosRequestConfig<any>): Promise<any>;
 
   delete(url: string, config?: any): Promise<any>;
 }

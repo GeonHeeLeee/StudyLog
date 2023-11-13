@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import useLoginState from '../../stores/login';
 
 export default function Header() {
   const { pathname } = useLocation();
+  const { signOut } = useLoginState();
 
   return pathname !== '/signin' ? (
     <header>
@@ -22,6 +24,7 @@ export default function Header() {
         <li>
           <Link to='/'>StudyLog</Link>
         </li>
+        <li onClick={() => signOut()}>로그아웃</li>
       </ul>
     </header>
   ) : (

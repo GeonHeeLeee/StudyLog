@@ -27,28 +27,35 @@ const fetchUrl = async (url: string) => {
 };
 
 export default function FeedContainer() {
-  const { data, isLoading, fetchNextPage, hasNextPage, isError, error } =
-    useInfiniteQuery({
-      queryKey: ['mainFeeds'],
-      queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam + ''),
-      initialPageParam: undefined,
-      getNextPageParam: (lastPage: {
-        next?: string;
-        count?: number;
-        previous: string | null;
-        results: FeedResult[];
-      }) => {
-        console.log(lastPage.next);
-        return lastPage.next || undefined;
-      },
-    });
+  const {
+    data,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ['mainFeeds'],
+    queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam + ''),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage: {
+      next?: string;
+      count?: number;
+      previous: string | null;
+      results: FeedResult[];
+    }) => {
+      console.log(lastPage.next);
+      return lastPage.next || undefined;
+    },
+  });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
 
-  console.log(data?.pages, isLoading);
+  console.log(data, isLoading);
 
   if (isError) {
     console.error(error);
@@ -56,14 +63,19 @@ export default function FeedContainer() {
     return <h1>Error!</h1>;
   }
 
+  console.log(isLoading);
+
   return (
     <div>
       <ul>
         {data?.pages.map((feeds, idx) => (
           <Feeds key={idx} feeds={feeds?.results} />
         ))}
+        {/* {isLoading && <div>로딩 중...</div>} */}
+        {/* {isFetching && <div>로딩 중...</div>} */}
       </ul>
-      <div ref={setTarget} style={{ width: '100%', height: '1rem' }} />
+      <div ref={setTarget} style={{ width: '100%', height: '10rem' }} />
+      {isFetching && data?.pages[data?.pages.length-1].count}
     </div>
   );
 }

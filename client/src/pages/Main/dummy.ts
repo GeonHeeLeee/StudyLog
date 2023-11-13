@@ -3,7 +3,11 @@ export const dummy = [
     count: 5,
     next: 'localhost:3000/api/?page=2',
     previous: null,
-    results: [],
+    results: [
+      {
+        
+      }
+    ],
   },
   {
     count: 5,

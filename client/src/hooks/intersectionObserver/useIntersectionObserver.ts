@@ -14,13 +14,11 @@ export const useIntersectionObserver = ({
 }: IuseIntersectionObserverProps) => {
   // 관찰할 요소
   const [target, setTarget] = useState<HTMLDivElement | undefined | null>(null);
-  console.log(target);
 
   const observerCb: IntersectionObserverCallback = useCallback(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && hasNextPage) {
-          console.log('start');
           fetchNextPage();
         }
       });

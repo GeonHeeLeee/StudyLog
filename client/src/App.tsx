@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from './pages/Layout';
@@ -8,11 +8,14 @@ import SignIn from './pages/SignIn/SignIn';
 import useLoginState from './stores/login';
 
 function App() {
-  const { isLogin } = useLoginState();
+  const { isLogin, signOut } = useLoginState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    !isLogin && navigate('/signin');
+    if (!isLogin) {
+      navigate('/signin');
+      signOut();
+    }
   }, [isLogin, navigate]);
 
   return (

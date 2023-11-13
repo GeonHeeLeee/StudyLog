@@ -7,16 +7,21 @@ type Props = {
 
 export default function Feed({ feed }: Props) {
   return (
-    <article style={{minHeight: '30vh'}}>
-      <div></div>
-      {/* IMG가 존재하면 보여주기 */}
-      {<img src='' alt='' />}
+    <article style={{ minHeight: '30vh' }}>
       <div>
-        <span>♡</span>
-        <span>💬</span>
-        <span></span>
+        <span>이름</span>
+        <span>아이디(@)</span>
+        <span>날짜</span>
       </div>
-      <div></div>
+      {/* IMG가 존재하면 보여주기 */}
+      <div>
+        <p>문단...</p>
+      </div>
+      <div>{<img src='' alt='' />}</div>
+      <div>
+        <span>댓글 아이콘</span>
+        <span>좋아요 아이콘</span>
+      </div>
     </article>
   );
 }

@@ -1,6 +1,6 @@
 export type SignInData = {
-  userId: string;
-  userPassword: string;
+  id: string;
+  password: string;
 };
 
 export type SignUpData = {

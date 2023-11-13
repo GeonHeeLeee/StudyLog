@@ -9,12 +9,10 @@ interface INetwork {
 
 const useNetwork = create<INetwork>()(
   devtools(
-    persist(
-      () => ({
-        httpInterface: new HttpInterface(new Http()),
-      }),
-      { name: 'network' }
-    )
+    () => ({
+      httpInterface: new HttpInterface(new Http()),
+    }),
+    { name: 'network' }
   )
 );
 

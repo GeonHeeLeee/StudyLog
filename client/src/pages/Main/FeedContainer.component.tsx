@@ -1,6 +1,8 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useIntersectionObserver } from '../../hooks/intersectionObserver/useIntersectionObserver';
+import {useInfiniteQuery} from '@tanstack/react-query';
+import {useIntersectionObserver} from '../../hooks/intersectionObserver/useIntersectionObserver';
 import Feeds from './Feeds.component';
+import {useEffect, useRef, useState} from "react";
+import FeedSkeleton from "./FeedSkeleton";
 
 // interface FetchUrl {
 //   <T>(params: { pageParam: number }): Promise<T>;
@@ -26,6 +28,7 @@ const fetchUrl = async (url: string) => {
   return response.json();
 };
 
+const MIN_FEED_COUNT = 10;
 export default function FeedContainer() {
   const {
     data,
@@ -37,7 +40,7 @@ export default function FeedContainer() {
     error,
   } = useInfiniteQuery({
     queryKey: ['mainFeeds'],
-    queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam + ''),
+    queryFn: ({pageParam = initialUrl}) => fetchUrl(pageParam + ''),
     initialPageParam: undefined,
     getNextPageParam: (lastPage: {
       next?: string;
@@ -45,17 +48,34 @@ export default function FeedContainer() {
       previous: string | null;
       results: FeedResult[];
     }) => {
-      console.log(lastPage.next);
       return lastPage.next || undefined;
     },
   });
 
-  const { setTarget } = useIntersectionObserver({
+  const {setTarget} = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
+  const elemRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver>();
+  const [isLoad, setIsLoad] = useState(false);
 
-  console.log(data, isLoading);
+  const onIntersection = (entries: IntersectionObserverEntry[], io: IntersectionObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        io.unobserve(entry.target);
+        setIsLoad(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (!observerRef.current) {
+      observerRef.current = new IntersectionObserver(onIntersection);
+    }
+
+    elemRef.current && observerRef.current.observe(elemRef.current);
+  }, []);
 
   if (isError) {
     console.error(error);
@@ -63,19 +83,25 @@ export default function FeedContainer() {
     return <h1>Error!</h1>;
   }
 
-  console.log(isLoading);
 
   return (
-    <div>
-      <ul>
-        {data?.pages.map((feeds, idx) => (
-          <Feeds key={idx} feeds={feeds?.results} />
-        ))}
-        {/* {isLoading && <div>로딩 중...</div>} */}
-        {/* {isFetching && <div>로딩 중...</div>} */}
-      </ul>
-      <div ref={setTarget} style={{ width: '100%', height: '10rem' }} />
-      {isFetching && data?.pages[data?.pages.length-1].count}
-    </div>
+      <div>
+        <main>
+          {data?.pages.map((feeds, idx) => (
+              <Feeds key={idx} feeds={feeds?.results}/>
+          ))}
+          {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
+        </main>
+
+        <div ref={setTarget} style={{width: '100%', height: '10rem'}}/>
+
+      </div>
   );
+}
+
+function createSkeletonFeed(count: number) {
+  let skeletonFeedCount = Array.from({ length: count }, (v, i) => i);
+  return skeletonFeedCount.map(num => {
+    return <FeedSkeleton key={num} />;
+  });
 }

@@ -1,0 +1,8 @@
+.feed-article{
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+}
+.profile-icon {
+    flex-basis: 20px;
+}

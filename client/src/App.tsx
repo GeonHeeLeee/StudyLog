@@ -22,9 +22,9 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route path='/' element={<Main />} />
-        <Route path='/signin' element={<SignIn />} />
         <Route path='/profile' element={<Profile />} />
       </Route>
+      <Route path='/signin' element={<SignIn />} />
     </Routes>
   );
 }

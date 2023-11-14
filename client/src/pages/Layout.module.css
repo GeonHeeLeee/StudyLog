@@ -1,0 +1,15 @@
+.layout-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.layout-header {
+    flex-basis: 180px;
+    flex-shrink: 1;
+    text-align: center;
+}
+
+.layout-container > div:nth-child(2) {
+    flex-grow: 1;
+}
+

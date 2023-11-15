@@ -3,6 +3,7 @@ import {FeedResult} from './FeedContainer.component';
 import styles from './Feed.module.css';
 import Image from "../../components/Image/Image";
 import {useIsElementInViewport} from "../../hooks/intersectionObserver/useIsElementInViewport";
+import {FaCommentAlt, FaThumbsUp} from "react-icons/fa";
 
 type Props = {
   feed: FeedResult;
@@ -30,11 +31,11 @@ export default function Feed({feed}: Props) {
           </div>
           <div className={styles['feed-meta']}>
             <div className={styles['feed-comments']}>
-              <span>댓글 아이콘</span>
+              <span><FaCommentAlt /></span>
               <span>6</span>
             </div>
             <div className={styles['feed-likes']}>
-              <span>좋아요 아이콘</span>
+              <span><FaThumbsUp /></span>
               <span>16</span>
             </div>
           </div>

@@ -2,6 +2,7 @@ import styles from './Skeleton.module.css';
 import Image from "../../components/Image/Image";
 import React from "react";
 import {MoonLoader} from "react-spinners";
+import {FaCommentAlt, FaThumbsUp} from "react-icons/fa";
 
 
 export default function FeedSkeleton() {
@@ -28,12 +29,12 @@ export default function FeedSkeleton() {
             </div>
           </div>
           <div className={styles['feed-meta']}>
-            <div>
-              <span>댓글 아이콘</span>
+            <div className={styles['feed-comments']}>
+              <span><FaCommentAlt /></span>
               <span>6</span>
             </div>
-            <div>
-              <span>좋아요 아이콘</span>
+            <div className={styles['feed-likes']}>
+              <span><FaThumbsUp /></span>
               <span>16</span>
             </div>
           </div>

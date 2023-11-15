@@ -6,4 +6,6 @@
     position: fixed;
 }
 
-
+.navbar > li > a {
+    display: flex;
+}

@@ -1,8 +1,6 @@
 package KWUniv.studyLog.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -12,7 +10,10 @@ public class Feed {
     @Id @GeneratedValue
     private Integer feedId;
 
-    private String writerId; //User 테이블의 userId와 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writerId")
+    private User user; //작성자 - User 테이블의 userId와 연결
+
     private LocalDateTime date;
     private Integer likes; //중복을 피하려면 생성해야 될 것 같음 - 배열, 테이블
 

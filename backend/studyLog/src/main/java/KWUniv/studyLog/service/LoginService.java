@@ -13,7 +13,7 @@ public class LoginService {
     @Autowired
     private UserRepository userRepository;
 
-    public boolean regiserUser(User user) {
+    public boolean registerUser(User user) {
         if(validateUser(user))
             return false;
         userRepository.save(user);

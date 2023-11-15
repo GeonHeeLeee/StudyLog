@@ -12,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
-@RequestMapping("/users")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping
+    @PostMapping("/join")
     public ResponseEntity registerUser(@RequestBody User user) {
-        boolean registerUserResult = loginService.regiserUser(user);
+        boolean registerUserResult = loginService.registerUser(user);
         return registerUserResult ? new ResponseEntity<>(HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -34,4 +33,6 @@ public class LoginController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    //logout도 구현하기
 }

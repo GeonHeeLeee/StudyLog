@@ -1,8 +1,7 @@
 package KWUniv.studyLog.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Comment {
@@ -10,10 +9,15 @@ public class Comment {
     @Id @GeneratedValue
     private Integer commentId;
 
-    private Integer feedId; //Feed 테이블의 feedId와 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "feedId")
+    private Feed feed; //Feed 테이블의 feedId와 연결
 
-    private String writerId; //User 테이블의 userId와 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writerId")
+    private User user;
 
+    private LocalDateTime date;
     private String commentBody;
 
 

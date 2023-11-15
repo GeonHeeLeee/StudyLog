@@ -2,7 +2,59 @@
     min-height: 30vh;
     display: flex;
     justify-content: center;
+    /*margin-bottom: 1.25rem;*/
+    border: 1px solid lightgray;
+    border-bottom: none;
 }
+
 .profile-icon {
     flex-basis: 20px;
+    padding: 0.35rem;
+}
+.profile-icon > div {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: yellow;
+}
+
+.feed-main {
+    flex-grow: 1;
+}
+.feed-userinfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    font-size: 0.75rem;
+}
+.username {
+    font-weight: bold;
+    margin-right: 0.35rem;
+}
+.userid {
+    color: lightgray;
+    font-size: 0.65rem;
+    margin-right: 0.35rem;
+}
+.date {
+    color: lightgray;
+    font-size: 0.65rem;
+}
+.feed-content {
+    display: flex;
+    flex-direction: column;
+}
+.feed-image {
+    border-radius: 1rem;
+
+}
+.feed-meta {
+    color: lightgray;
+    font-size: 0.65rem;
+    display: flex;
+}
+.feed-comments {
+    margin-right: 1rem;
+}
+.feed-likes {
 }

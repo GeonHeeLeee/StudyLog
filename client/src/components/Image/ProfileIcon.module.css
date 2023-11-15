@@ -2,14 +2,14 @@
     border-radius: 50%;
 }
 .small {
-    width: 10px;
-    height: 10px;
-}
-.medium {
     width: 30px;
     height: 30px;
 }
-.large {
+.medium {
     width: 50px;
     height: 50px;
+}
+.large {
+    width: 70px;
+    height: 70px;
 }

@@ -5,9 +5,10 @@ import Placeholder from '../../img/placeholder.jpeg';
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
   // lazy?: boolean;
+  className: string;
 }
 
-export default function Image({ src, alt}: Props) {
+export default function Image({src, alt, className}: Props) {
   const imgRef = useRef<HTMLImageElement>(null);
   const observerRef = useRef<IntersectionObserver>();
   const [isLoad, setIsLoad] = useState(false);
@@ -22,6 +23,7 @@ export default function Image({ src, alt}: Props) {
 
     imgRef.current && observerRef.current.observe(imgRef.current);
   }, []);
+
   function onIntersection(
       entries: IntersectionObserverEntry[],
       io: IntersectionObserver
@@ -35,10 +37,10 @@ export default function Image({ src, alt}: Props) {
   }
 
   return <img
-    ref={imgRef}
-    alt={alt}
-    src={isLoad ? src: Placeholder}
-    className={styles['image']}
+      ref={imgRef}
+      alt={alt}
+      src={isLoad ? src : Placeholder}
+      className={`${styles['image']} ${className}`}
   />
 
 }

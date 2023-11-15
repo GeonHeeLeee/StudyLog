@@ -93,7 +93,7 @@ export default function FeedContainer() {
           {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
         </main>
 
-        <div ref={setTarget} style={{width: '100%', height: '10rem'}}/>
+        {hasNextPage && <div ref={setTarget} style={{width: '100%', height: '0.25rem'}}/>}
 
       </div>
   );

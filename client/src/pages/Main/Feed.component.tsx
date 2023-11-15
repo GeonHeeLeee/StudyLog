@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeedResult } from './FeedContainer.component';
+import {FeedResult} from './FeedContainer.component';
 import styles from './Feed.module.css';
 import Image from "../../components/Image/Image";
 import {useIsElementInViewport} from "../../hooks/intersectionObserver/useIsElementInViewport";
@@ -8,33 +8,37 @@ type Props = {
   feed: FeedResult;
 };
 
-export default function Feed({ feed }: Props) {
-  // const {elementRef, isVisible} = useIsElementInViewport<HTMLDivElement>({
-  //   rootMargin: '0px 0px 500px 0px', // viewport 하단 500px 영역 내에 들어왔을 때
-  // })
+export default function Feed({feed}: Props) {
   return (
-    <article className={styles['feed-article']} >
-      <div className={styles['profile-icon']}>
-        <a>Profile 아이콘</a>
-      </div>
-      <main>
-        <div>
-          <span>이름</span>
-          <span>아이디(@)</span>
-          <span>날짜</span>
+      <article className={styles['feed-article']}>
+        <div className={styles['profile-icon']}>
+          {/*<a>Profile 아이콘</a>*/}
+          <div></div>
         </div>
-        <div>
-          <p>문단...</p>
-        </div>
-        <div>
-        {/* IMG가 존재하면 보여주기 */}
-          <Image src='/img.jpg' alt={''} />
-        </div>
-        <div>
-          <span>댓글 아이콘</span>
-          <span>좋아요 아이콘</span>
-        </div>
-      </main>
-    </article>
+        <main className={styles['feed-main']}>
+          <div className={styles['feed-userinfo']}>
+            <span className={styles['username']}>이석희</span>
+            <span className={styles['userid']}>@devLee</span>
+            <span className={styles['date']}>{new Date().toLocaleString()}</span>
+          </div>
+          <div className={styles['feed-content']}>
+            <p>문단...</p>
+            {/* IMG가 존재하면 보여주기 */}
+            <div>
+              <Image src='/img.jpg' alt={''} className={styles['feed-image']}/>
+            </div>
+          </div>
+          <div className={styles['feed-meta']}>
+            <div className={styles['feed-comments']}>
+              <span>댓글 아이콘</span>
+              <span>6</span>
+            </div>
+            <div className={styles['feed-likes']}>
+              <span>좋아요 아이콘</span>
+              <span>16</span>
+            </div>
+          </div>
+        </main>
+      </article>
   );
 }

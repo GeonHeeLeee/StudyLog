@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function Feeds({ feeds }: Props) {
-  console.log(feeds);
 
   return (
     <>

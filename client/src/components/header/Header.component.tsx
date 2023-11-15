@@ -3,6 +3,7 @@ import {Link, useLocation} from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import styles from './Header.module.css'
 import {FaBookOpen} from "react-icons/fa";
+import {IoMdHome} from "react-icons/io";
 
 interface Props {
   className: string;
@@ -19,7 +20,10 @@ export default function Header({className}: Props) {
             StudyLog
           </li>
           <li>
-            <Link to='/'>Home</Link>
+            <Link to='/'>
+              <IoMdHome />
+              Home
+            </Link>
           </li>
           <li>
             <Link to='/search'>Search</Link>

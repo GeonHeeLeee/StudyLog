@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 import { FaBookOpen, FaSearch } from 'react-icons/fa';
 import { IoIosSettings, IoMdHome } from 'react-icons/io';
 import { ImProfile } from 'react-icons/im';
-import { CiLogout } from "react-icons/ci";
+import { CiLogout } from 'react-icons/ci';
 
 export default function Header() {
   const { signOut } = useLoginState();
@@ -35,15 +35,15 @@ export default function Header() {
           </Link>
         </li>
         <li>
-          <Link to='/setting'>
-            <IoIosSettings />
-            Setting
-          </Link>
-        </li>
-        <li>
           <Link to='/schedule'>
             <FaBookOpen />
             Schedule
+          </Link>
+        </li>
+        <li>
+          <Link to='/setting'>
+            <IoIosSettings />
+            Setting
           </Link>
         </li>
         <li onClick={() => signOut()}>

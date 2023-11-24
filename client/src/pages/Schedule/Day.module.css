@@ -1,0 +1,21 @@
+.container {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+.blank {
+  border: none;
+  background-color: transparent;
+}
+
+.current {
+  border-radius: 50%;
+  border: 2px solid red;
+}
+
+.day {
+  margin: 0.25rem;
+  display: inline-block;
+}

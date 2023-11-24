@@ -8,6 +8,7 @@ import ModalWrapper from '../../components/Modal/ModalWrapper.component';
 import useLoginState from '../../stores/login';
 import { useNavigate } from 'react-router-dom';
 import useNetwork from '../../stores/network';
+import { FaBookOpen } from 'react-icons/fa';
 
 const initialForm = {
   id: '',
@@ -20,7 +21,6 @@ export default function SignIn() {
   const { httpInterface } = useNetwork();
   const { isLogin, signIn } = useLoginState();
   const navigate = useNavigate();
-  console.log(httpInterface);
 
   const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,36 +36,41 @@ export default function SignIn() {
   }, [isLogin, navigate]);
 
   return (
-    <form onSubmit={loginHandler}>
-      <Input
-        type='text'
-        onChangeHandler={onChangeHandler}
-        name='id'
-        value={form.id}
-      />
-      <Input
-        type='text'
-        onChangeHandler={onChangeHandler}
-        name='password'
-        value={form.password}
-      />
-      <Button type='submit' text='로그인' />
-      <Button
-        type='button'
-        text='회원가입'
-        onClick={() => toggleShowModal((prev) => !prev)}
-      />
+    <>
+      <p>
+        <FaBookOpen />
+      </p>
+      <form onSubmit={loginHandler}>
+        <Input
+          type='text'
+          onChangeHandler={onChangeHandler}
+          name='id'
+          value={form.id}
+        />
+        <Input
+          type='text'
+          onChangeHandler={onChangeHandler}
+          name='password'
+          value={form.password}
+        />
+        <Button type='submit' text='로그인' />
+        <Button
+          type='button'
+          text='회원가입'
+          onClick={() => toggleShowModal((prev) => !prev)}
+        />
 
-      {showModal && (
-        <ModalPortal>
-          <ModalWrapper
-            show={showModal}
-            closeModal={() => toggleShowModal(false)}
-          >
-            <SignUpModal />
-          </ModalWrapper>
-        </ModalPortal>
-      )}
-    </form>
+        {showModal && (
+          <ModalPortal>
+            <ModalWrapper
+              show={showModal}
+              closeModal={() => toggleShowModal(false)}
+            >
+              <SignUpModal />
+            </ModalWrapper>
+          </ModalPortal>
+        )}
+      </form>
+    </>
   );
 }

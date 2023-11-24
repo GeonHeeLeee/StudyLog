@@ -32,7 +32,7 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    isLogin && navigate('/');
+    isLogin && navigate('/main');
   }, [isLogin, navigate]);
 
   return (
@@ -46,12 +46,14 @@ export default function SignIn() {
           onChangeHandler={onChangeHandler}
           name='id'
           value={form.id}
+          placeholder='ID를 입력해주세요'
         />
         <Input
           type='text'
           onChangeHandler={onChangeHandler}
           name='password'
           value={form.password}
+          placeholder='비밀번호를 입력해주세요'
         />
         <Button type='submit' text='로그인' />
         <Button

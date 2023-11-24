@@ -1,7 +1,9 @@
 .layout-header {
-  flex-basis: 180px;
+  flex-basis: 160px;
   flex-shrink: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 .navbar {
   display: flex;
@@ -9,10 +11,27 @@
   align-items: flex-start;
   row-gap: 1rem;
   position: fixed;
+  padding: 0;
 }
 
-.navbar > li > a {
+.navbar > li > strong {
+  font-size: 1.45rem;
+}
+
+.navbar > li > a,
+.navbar > li > span {
+  color: lightgray;
   display: flex;
+  transition: 500ms all;
+}
+
+.navbar > li > a:hover,
+.navbar > li > span:hover {
+  color: gray;
+}
+
+.navbar li.select > a{
+  color: black;
 }
 
 @media (max-width: 700px) {

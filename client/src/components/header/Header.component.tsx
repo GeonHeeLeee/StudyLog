@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import styles from './Header.module.css';
 import { FaBookOpen, FaSearch } from 'react-icons/fa';
@@ -8,6 +8,15 @@ import { ImProfile } from 'react-icons/im';
 import { CiLogout } from 'react-icons/ci';
 
 export default function Header() {
+  const location = useLocation();
+  const path = location.pathname;
+  console.log(path, path.includes('profile'));
+
+  const checkClicked = useCallback(
+    (to: string) => (path.includes(to) ? styles.select : ''),
+    [path]
+  );
+
   const { signOut } = useLoginState();
   // TODO: 아이콘 넣기
   return (
@@ -16,39 +25,41 @@ export default function Header() {
         <li>
           <strong>StudyLog</strong>
         </li>
-        <li>
-          <Link to='/'>
+        <li className={checkClicked('/main')}>
+          <Link to='/main'>
             <IoMdHome />
             Home
           </Link>
         </li>
-        <li>
+        <li className={checkClicked('/search')}>
           <Link to='/search'>
             <FaSearch />
             Search
           </Link>
         </li>
-        <li>
+        <li className={checkClicked('/profile')}>
           <Link to='/profile'>
             <ImProfile />
             Profile
           </Link>
         </li>
-        <li>
+        <li className={checkClicked('/schedule')}>
           <Link to='/schedule'>
             <FaBookOpen />
             Schedule
           </Link>
         </li>
-        <li>
+        <li className={checkClicked('/setting')}>
           <Link to='/setting'>
             <IoIosSettings />
             Setting
           </Link>
         </li>
         <li onClick={() => signOut()}>
-          <CiLogout />
-          로그아웃
+          <span>
+            <CiLogout />
+            로그아웃
+          </span>
         </li>
       </ul>
     </aside>

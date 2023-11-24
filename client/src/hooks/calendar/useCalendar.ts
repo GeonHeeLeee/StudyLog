@@ -15,7 +15,7 @@ interface UseCalendarResult {
 function useCalendar(): UseCalendarResult {
   const firstOfMonthDate = useRef(new Date());
   const todayDate = useRef(new Date());
-  const [_, setRerender] = useState(false);
+  const [, setRerender] = useState(false);
   firstOfMonthDate.current.setDate(1);
 
   const isFutureMonth = () =>

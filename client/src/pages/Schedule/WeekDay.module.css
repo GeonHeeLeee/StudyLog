@@ -1,4 +1,9 @@
-.container {
+.week-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.week-header {
   display: flex;
   flex-wrap: nowrap;
 }
@@ -10,9 +15,4 @@
   align-items: center;
   margin-right: 0.5rem;
   font-weight: 700;
-}
-.week-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }

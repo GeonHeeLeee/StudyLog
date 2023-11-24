@@ -6,7 +6,6 @@ import Main from './pages/Main/Main';
 import Profile from './pages/Profile/Profile';
 import SignIn from './pages/SignIn/SignIn';
 import useLoginState from './stores/login';
-import Calendar from './pages/Schedule/Calendar.component';
 import Schedule from './pages/Schedule/Schedule';
 
 function App() {

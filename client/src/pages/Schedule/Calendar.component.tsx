@@ -16,19 +16,23 @@ export default function Calendar() {
     handleIncrementMonth,
     isCurrentMonth,
     isFutureMonth,
-    todayDate,
+    // todayDate,
   } = useCalendar();
 
   return (
     <section className={styles['calendar-container']}>
-      <nav>
-        <button onClick={handleDecrementMonth}>﹤</button>
-        <span>
+      <nav className={styles.nav}>
+        <button className={styles.button} onClick={handleDecrementMonth}>
+          ◀
+        </button>
+        <strong className={styles.text}>
           {`${firstOfMonthDate.getFullYear()}년 ${
             MONTHS[firstOfMonthDate.getMonth()]
           }월`}
-        </span>
-        <button onClick={handleIncrementMonth}>﹥</button>
+        </strong>
+        <button className={styles.button} onClick={handleIncrementMonth}>
+          ▶
+        </button>
       </nav>
       <div className={styles.calendar}>
         <WeekDay />

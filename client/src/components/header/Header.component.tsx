@@ -1,22 +1,21 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import styles from './Header.module.css';
-import { FaBookOpen } from 'react-icons/fa';
-import { IoMdHome } from 'react-icons/io';
+import { FaBookOpen, FaSearch } from 'react-icons/fa';
+import { IoIosSettings, IoMdHome } from 'react-icons/io';
+import { ImProfile } from 'react-icons/im';
+import { CiLogout } from "react-icons/ci";
 
-interface Props {
-  className: string;
-}
-
-export default function Header({ className }: Props) {
-  const { pathname } = useLocation();
+export default function Header() {
   const { signOut } = useLoginState();
   // TODO: 아이콘 넣기
   return (
-    <aside className={className}>
+    <aside className={styles['layout-header']}>
       <ul className={styles.navbar}>
-        <li>StudyLog</li>
+        <li>
+          <strong>StudyLog</strong>
+        </li>
         <li>
           <Link to='/'>
             <IoMdHome />
@@ -24,21 +23,33 @@ export default function Header({ className }: Props) {
           </Link>
         </li>
         <li>
-          <Link to='/search'>Search</Link>
+          <Link to='/search'>
+            <FaSearch />
+            Search
+          </Link>
         </li>
         <li>
-          <Link to='/profile'>Profile</Link>
+          <Link to='/profile'>
+            <ImProfile />
+            Profile
+          </Link>
         </li>
         <li>
-          <Link to='/setting'>Setting</Link>
+          <Link to='/setting'>
+            <IoIosSettings />
+            Setting
+          </Link>
         </li>
         <li>
           <Link to='/schedule'>
             <FaBookOpen />
-            StudyLog
+            Schedule
           </Link>
         </li>
-        <li onClick={() => signOut()}>로그아웃</li>
+        <li onClick={() => signOut()}>
+          <CiLogout />
+          로그아웃
+        </li>
       </ul>
     </aside>
   );

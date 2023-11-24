@@ -6,8 +6,10 @@ import styles from './Layout.module.css';
 export default function Layout() {
   return (
     <div className={styles['layout-container']}>
-      <HeaderComponent className={styles['layout-header']} />
-      <Outlet />
+      <HeaderComponent />
+      <div className={styles['main-body']}>
+        <Outlet />
+      </div>
     </div>
   );
 }

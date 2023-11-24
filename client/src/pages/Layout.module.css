@@ -1,15 +1,20 @@
 .layout-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.layout-header {
-    flex-basis: 180px;
-    flex-shrink: 1;
-    text-align: center;
+  display: flex;
+  flex-direction: row;
+  min-width: 500px;
 }
 
 .layout-container > div:nth-child(2) {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
+@media (max-width: 700px) {
+  .layout-container {
+    flex-basis: 5vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-body {
+    transform: translateY(5vh);
+  }
+}

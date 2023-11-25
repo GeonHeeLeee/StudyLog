@@ -11,7 +11,7 @@ import styles from './SignIn.module.css';
 
 import useInput from '../../hooks/form/useInput';
 import useLoginState from '../../stores/login';
-import useNetwork from '../../stores/network';
+// import useNetwork from '../../stores/network';
 
 const initialForm = {
   userId: '',
@@ -21,7 +21,7 @@ const initialForm = {
 export default function SignIn() {
   const [form, onChangeHandler] = useInput(initialForm);
   const [showModal, toggleShowModal] = useState(false);
-  const { httpInterface } = useNetwork();
+  // const { httpInterface } = useNetwork();
   const { isLogin, signIn } = useLoginState();
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function SignIn() {
     //   signIn({id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)'});
     // });
     signIn({
-      id: form.userId,
+      userId: form.userId,
       name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
     });
   };

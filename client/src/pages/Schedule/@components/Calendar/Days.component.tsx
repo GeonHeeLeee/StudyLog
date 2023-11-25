@@ -1,5 +1,5 @@
 import React from 'react';
-import { CurrentDays } from '../../hooks/calendar/useCalendar';
+import { CurrentDays } from '../../../../hooks/calendar/useCalendar';
 import Day from './Day.component';
 
 import styles from './Days.module.css';
@@ -8,12 +8,14 @@ type Props = {
   getCurrentDays: () => CurrentDays;
   isCurrentMonth: () => boolean;
   isFutureMonth: () => boolean;
+  firstOfMonthDate: Date;
 };
 
 export default function Days({
   getCurrentDays,
   isCurrentMonth,
   isFutureMonth,
+  firstOfMonthDate
 }: Props) {
   return (
     <section className={styles['days-container']}>
@@ -22,6 +24,7 @@ export default function Days({
           <Day
             key={idx}
             day={day}
+            firstOfMonthDate={firstOfMonthDate}
             isCurrentMonth={isCurrentMonth()}
             isFutureMonth={isFutureMonth()}
           />

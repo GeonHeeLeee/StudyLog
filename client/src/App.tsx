@@ -11,6 +11,7 @@ import Setting from './pages/Settings/Setting';
 import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound';
 import NavToMain from './pages/NavToMain/NavToMain';
+import { ScheduleProvider } from './pages/Schedule/@contexts/useSchedule';
 
 function App() {
   const { isLogin, signOut } = useLoginState();
@@ -29,7 +30,14 @@ function App() {
         <Route path='/' element={<NavToMain />} />
         <Route path='/main' element={<Main />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/schedule' element={<Schedule />} />
+        <Route
+          path='/schedule'
+          element={
+            <ScheduleProvider>
+              <Schedule />
+            </ScheduleProvider>
+          }
+        />
         <Route path='/search' element={<SearchPage />} />
         <Route path='/setting' element={<Setting />} />
         <Route path='/*' element={<NotFound />} />

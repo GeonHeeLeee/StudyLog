@@ -1,4 +1,4 @@
-import { DAYS } from '../../@constants/day';
+import { DAYS } from '../../../../@constants/day';
 import styles from './WeekDay.module.css';
 
 export default function WeekDay() {

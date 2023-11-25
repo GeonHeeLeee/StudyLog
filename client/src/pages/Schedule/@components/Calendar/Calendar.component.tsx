@@ -1,9 +1,10 @@
-import { MONTHS } from '../../@constants/day';
-import useCalendar from '../../hooks/calendar/useCalendar';
+import { MONTHS } from '../../../../@constants/day';
+import useCalendar from '../../../../hooks/calendar/useCalendar';
 import Days from './Days.component';
 import WeekDay from './WeekDay.component';
 
 import styles from './Calendar.module.css';
+import { useScheduleContext } from '../../@contexts/useSchedule';
 
 // const DAYS = ['일', '월', '화', '수', '목', '금', '토'] as const;
 // const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
@@ -18,11 +19,18 @@ export default function Calendar() {
     isFutureMonth,
     // todayDate,
   } = useCalendar();
+  const { reset } = useScheduleContext();
 
   return (
     <section className={styles['calendar-container']}>
       <nav className={styles.nav}>
-        <button className={styles.button} onClick={handleDecrementMonth}>
+        <button
+          className={styles.button}
+          onClick={() => {
+            reset();
+            handleDecrementMonth();
+          }}
+        >
           ◀
         </button>
         <strong className={styles.text}>
@@ -30,13 +38,20 @@ export default function Calendar() {
             MONTHS[firstOfMonthDate.getMonth()]
           }월`}
         </strong>
-        <button className={styles.button} onClick={handleIncrementMonth}>
+        <button
+          className={styles.button}
+          onClick={() => {
+            reset();
+            handleIncrementMonth();
+          }}
+        >
           ▶
         </button>
       </nav>
       <div className={styles.calendar}>
         <WeekDay />
         <Days
+          firstOfMonthDate={firstOfMonthDate}
           getCurrentDays={getCurrentDays}
           isCurrentMonth={isCurrentMonth}
           isFutureMonth={isFutureMonth}

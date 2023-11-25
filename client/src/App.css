@@ -37,10 +37,6 @@
 .modal-wrap .modal-con {
   position: relative;
   z-index: 10;
-  /* max-width: 500px; */
-  /* min-width: 300px; */
-  /* min-height: 100px; */
-  /* width: 33%; */
   padding: 20px;
   border-radius: 5px;
   background: #fff;

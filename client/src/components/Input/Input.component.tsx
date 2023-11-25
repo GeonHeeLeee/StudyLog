@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 interface OnChangeHandler {
   (e: React.ChangeEvent<HTMLInputElement>): void;
@@ -14,6 +14,7 @@ export default function Input({
   onChangeHandler,
   name,
   value = '',
+  ...props
 }: Props) {
   return (
     <>
@@ -23,6 +24,7 @@ export default function Input({
         name={name}
         value={value}
         aria-label='form-input'
+        {...props}
       />
     </>
   );

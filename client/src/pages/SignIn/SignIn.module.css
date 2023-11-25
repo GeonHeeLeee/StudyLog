@@ -1,0 +1,58 @@
+.container {
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.logo {
+  margin: 0.5rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: absolute;
+  top: 5vh;
+}
+.logo span {
+  letter-spacing: 0.05rem;
+}
+
+.form {
+  width: 70vw;
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-input {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 0.35rem 0.6rem;
+  border: 2px solid black;
+  border-radius: 0.5rem;
+}
+
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+}
+.form-button {
+  flex: 1 1 auto;
+  padding: 0.5rem 1rem;
+  transition: 500ms all;
+  color: white;
+  font-weight: 700;
+  background-color: black;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.15rem;
+}
+
+.form-button:hover {
+  font-weight: 900;
+  transform: scale(1.1);
+}

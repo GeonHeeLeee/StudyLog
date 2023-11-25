@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { FaBookOpen } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
 import Input from '../../components/Input/Input.component';
-import useInput from '../../hooks/form/useInput';
 import Button from '../../components/Button/Button.component';
 import ModalPortal from '../../components/Portal/ModalPortal.component';
 import SignUpModal from '../../components/Modal/SignUpModal.component';
 import ModalWrapper from '../../components/Modal/ModalWrapper.component';
+import styles from './SignIn.module.css';
+
+import useInput from '../../hooks/form/useInput';
 import useLoginState from '../../stores/login';
-import { useNavigate } from 'react-router-dom';
 import useNetwork from '../../stores/network';
-import { FaBookOpen } from 'react-icons/fa';
 
 const initialForm = {
-  id: '',
+  userId: '',
   password: '',
 };
 
@@ -28,7 +31,10 @@ export default function SignIn() {
     //   console.log(res);
     //   signIn({id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)'});
     // });
-    signIn({ id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)' });
+    signIn({
+      id: form.userId,
+      name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
+    });
   };
 
   useEffect(() => {
@@ -36,31 +42,47 @@ export default function SignIn() {
   }, [isLogin, navigate]);
 
   return (
-    <>
-      <p>
+    <main className={styles.container}>
+      <h1 className={styles.logo}>
         <FaBookOpen />
-      </p>
-      <form onSubmit={loginHandler}>
-        <Input
-          type='text'
-          onChangeHandler={onChangeHandler}
-          name='id'
-          value={form.id}
-          placeholder='ID를 입력해주세요'
-        />
-        <Input
-          type='text'
-          onChangeHandler={onChangeHandler}
-          name='password'
-          value={form.password}
-          placeholder='비밀번호를 입력해주세요'
-        />
-        <Button type='submit' text='로그인' />
-        <Button
-          type='button'
-          text='회원가입'
-          onClick={() => toggleShowModal((prev) => !prev)}
-        />
+        <span>StudyLog</span>
+      </h1>
+      <form onSubmit={loginHandler} className={styles.form}>
+        <div>
+          <Input
+            type='text'
+            onChangeHandler={onChangeHandler}
+            name='userId'
+            id='userId'
+            value={form.userId}
+            className={styles['form-input']}
+            placeholder='아이디'
+          />
+        </div>
+        <div>
+          <Input
+            type='text'
+            onChangeHandler={onChangeHandler}
+            id='password'
+            name='password'
+            value={form.password}
+            placeholder='비밀번호'
+            className={styles['form-input']}
+          />
+        </div>
+        <div className={styles['button-container']}>
+          <Button
+            type='submit'
+            text='로그인'
+            className={styles['form-button']}
+          />
+          <Button
+            type='button'
+            text='회원가입'
+            onClick={() => toggleShowModal((prev) => !prev)}
+            className={styles['form-button']}
+          />
+        </div>
 
         {showModal && (
           <ModalPortal>
@@ -73,6 +95,6 @@ export default function SignIn() {
           </ModalPortal>
         )}
       </form>
-    </>
+    </main>
   );
 }

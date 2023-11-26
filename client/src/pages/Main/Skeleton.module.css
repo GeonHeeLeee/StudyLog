@@ -1,109 +1,108 @@
 @-webkit-keyframes skeleton-gradient {
-    0% {
-        background-color: rgba(165, 165, 165, 0.1);
-    }
+  0% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
 
-    50% {
-        background-color: rgba(165, 165, 165, 0.3);
-    }
+  50% {
+    background-color: rgba(165, 165, 165, 0.3);
+  }
 
-    100% {
-        background-color: rgba(165, 165, 165, 0.1);
-    }
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
 }
 
 @keyframes skeleton-gradient {
-    0% {
-        background-color: rgba(165, 165, 165, 0.1);
-    }
+  0% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
 
-    50% {
-        background-color: rgba(165, 165, 165, 0.3);
-    }
+  50% {
+    background-color: rgba(165, 165, 165, 0.3);
+  }
 
-    100% {
-        background-color: rgba(165, 165, 165, 0.1);
-    }
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
 }
 
 .skeleton {
-    width: 100%;
-    /*min-height: 30vh;*/
-    -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
-    animation: skeleton-gradient 1.8s infinite ease-in-out;
+  width: 100%;
+  /*min-height: 30vh;*/
+  -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
+  animation: skeleton-gradient 1.8s infinite ease-in-out;
 }
 
-.feed-article-skeleton{
-    min-height: 30vh;
-    display: flex;
-    justify-content: center;
-    /*margin-bottom: 1.25rem;*/
-    border: 1px solid lightgray;
-    border-bottom: none;
+.feed-article-skeleton {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  /*margin-bottom: 1.25rem;*/
+  border-bottom: 1px solid lightgray;
+  width: 98%;
 }
 
 .profile-icon {
-    flex-basis: 20px;
-    padding: 0.35rem;
+  flex-basis: 20px;
+  padding: 0.35rem;
 }
 .profile-icon > div {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: yellow;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: yellow;
 }
 
 .feed-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .feed-userinfo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: baseline;
-    font-size: 0.75rem;
-    margin-top: 0.35rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
 }
 .username {
-    width: 3rem;
-    height: 1rem;
-    font-weight: bold;
-    margin-right: 0.35rem;
+  width: 4rem;
+  height: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.35rem;
 }
 .userid {
-    width: 4rem;
-    height: 1rem;
-    color: lightgray;
-    font-size: 0.65rem;
-    margin-right: 0.35rem;
+  width: 6rem;
+  height: 1.5rem;
+  color: lightgray;
+  font-size: 0.85rem;
+  margin-right: 0.35rem;
 }
 .date {
-    width: 7rem;
-    height: 1rem;
-    color: lightgray;
-    font-size: 0.65rem;
+  width: 9rem;
+  height: 1.5rem;
+  color: lightgray;
+  font-size: 0.85rem;
 }
 .feed-content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .feed-image {
-    border-radius: 1rem;
-    min-height: 15vh;
-    width: 15vw;
+  border-radius: 1rem;
+  /* max-height: 40vh; */
+  min-height: 40vh;
+  width: 40vh;
 }
 .feed-meta {
-    color: lightgray;
-    font-size: 0.65rem;
-    display: flex;
+  color: lightgray;
+  font-size: 0.65rem;
+  display: flex;
 }
 .feed-comments {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
-
 .feed-likes {
-    
 }

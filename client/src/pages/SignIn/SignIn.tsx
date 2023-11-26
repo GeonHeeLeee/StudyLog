@@ -93,8 +93,14 @@ export default function SignIn() {
           <ModalPortal>
             <ModalWrapper
               show={showModal}
+<<<<<<< HEAD
               closeModal={() => toggleShowModal(false)}>
               <SignUpModal />
+=======
+              closeModal={() => toggleShowModal(false)}
+            >
+              <SignUpModal closeModal={() => toggleShowModal(false)} />
+>>>>>>> feat/schedule
             </ModalWrapper>
           </ModalPortal>
         )}

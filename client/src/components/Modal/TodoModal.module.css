@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+
+}
+.container label {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.header {
+  font-size: 1.5rem;
+}
+.input {
+  flex:1 1 auto;
+  padding: 0.5rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+}
+
+.add-button {
+  box-sizing: border-box;
+  color: white;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 0.5em;
+  padding: 0.5rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  transition: 300ms;
+  transition-property: color, background-color;
+}
+
+.add-button:hover {
+  box-sizing: border-box;
+  border: 3px solid black;
+  background-color: white;
+  color: black;
+}

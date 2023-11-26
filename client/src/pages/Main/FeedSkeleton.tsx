@@ -1,9 +1,8 @@
-import styles from './Skeleton.module.css';
-import Image from "../../components/Image/Image";
 import React from "react";
-import {MoonLoader} from "react-spinners";
 import {FaCommentAlt, FaThumbsUp} from "react-icons/fa";
+import {MoonLoader} from "react-spinners";
 
+import styles from './Skeleton.module.css';
 
 export default function FeedSkeleton() {
 
@@ -20,7 +19,7 @@ export default function FeedSkeleton() {
           </div>
           <div className={styles['feed-content']}>
             <p>
-              <MoonLoader color="#36d7b7" size={30} />
+              <MoonLoader color="#36d7b7" size={50} />
             </p>
             {/* IMG가 존재하면 보여주기 */}
             <div>

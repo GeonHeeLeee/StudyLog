@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SearchInput from './SearchInput.component';
 
 export default function SearchPage() {

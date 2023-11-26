@@ -1,4 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
+
 type Props = {
   text: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;

@@ -1,6 +1,7 @@
 import { MouseEvent } from 'react';
-import styles from './Day.module.css';
+
 import { useScheduleContext } from '../../@contexts/useSchedule';
+import styles from './Day.module.css';
 
 type Props = {
   day: number | string;

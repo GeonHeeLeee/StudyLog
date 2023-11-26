@@ -1,9 +1,8 @@
-import styles from './Skeleton.module.css';
-import Image from "../../components/Image/Image";
 import React from "react";
-import {MoonLoader} from "react-spinners";
 import {FaCommentAlt, FaThumbsUp} from "react-icons/fa";
+import {MoonLoader} from "react-spinners";
 
+import styles from './Skeleton.module.css';
 
 export default function FeedSkeleton() {
 

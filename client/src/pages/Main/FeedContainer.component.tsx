@@ -1,13 +1,14 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useIntersectionObserver } from '../../hooks/intersectionObserver/useIntersectionObserver';
-import Feeds from './Feeds.component';
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+import Feeds from './Feeds.component';
 import FeedSkeleton from './FeedSkeleton';
+import { useIntersectionObserver } from '../../hooks/intersectionObserver/useIntersectionObserver';
 import useNetwork from '../../stores/network';
 import useLoginState from '../../stores/login';
 import { FeedOutline } from '../../api/networkInterface/api/http.type';
-
 import styles from './FeedContainer.module.css';
+
 // interface FetchUrl {
 //   <T>(params: { pageParam: number }): Promise<T>;
 //   (params: { pageParam: number }): Promise<any>;

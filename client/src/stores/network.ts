@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Http } from '../api/networkInterface/api/http';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 import { HttpInterface } from '../api/networkInterface/api/httpInterface';
 
 interface INetwork {

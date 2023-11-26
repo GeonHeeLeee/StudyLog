@@ -1,7 +1,7 @@
 import React from 'react';
-import { CurrentDays } from '../../../../hooks/calendar/useCalendar';
-import Day from './Day.component';
 
+import Day from './Day.component';
+import { CurrentDays } from '../../../../hooks/calendar/useCalendar';
 import styles from './Days.module.css';
 
 type Props = {

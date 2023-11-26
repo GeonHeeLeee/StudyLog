@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+
 import Input from '../../components/Input/Input.component';
 
 export default function SearchInput() {

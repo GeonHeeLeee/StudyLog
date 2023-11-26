@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
-import useLoginState from '../../stores/login';
-import styles from './Header.module.css';
 import { FaBookOpen, FaSearch } from 'react-icons/fa';
 import { IoIosSettings, IoMdHome } from 'react-icons/io';
 import { ImProfile } from 'react-icons/im';
 import { CiLogout } from 'react-icons/ci';
+
+import useLoginState from '../../stores/login';
+import styles from './Header.module.css';
 
 export default function Header() {
   const location = useLocation();

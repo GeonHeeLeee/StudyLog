@@ -2,8 +2,8 @@ import React from 'react';
 
 import Input from '../Input/Input.component';
 import useInput from '../../hooks/form/useInput';
-
 import styles from './Modal.module.css';
+
 
 const initialForm = {
   userId: '',

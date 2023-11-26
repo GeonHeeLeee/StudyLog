@@ -1,9 +1,13 @@
 package KWUniv.studyLog.controller;
 
 
+import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.entity.Feed;
+import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.FeedRepository;
+import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FeedService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +18,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class FeedController {
 
-    @Autowired
-    private FeedRepository feedRepository;
 
-    @Autowired
-    private FeedService feedService;
+    private final FeedRepository feedRepository;
+
+
+    private final UserRepository userRepository;
+
+    private final FeedService feedService;
 
     /*
     특정 피드 조회
@@ -39,11 +46,28 @@ public class FeedController {
 
     /*
     피드 Post 하기
+    - 해당 유저가 존재하지 않으면 400 반환
+    - 성공 시 200
      */
     @PostMapping("/feed")
-    public ResponseEntity<Void> postAndSaveFeed(@RequestBody Feed feed) {
+    public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
+
+        User user = userRepository.findUserById(feedDTO.getWriterId());
+        if(user == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            //유저가 존재하지 않으면 400 반환
+        }
+        Feed feed = new Feed(user, feedDTO.getFeedBody(), feedDTO.getPhoto());
         feedRepository.save(feed);
-        //Feed post시에 실패하는 경우가 있나? - 생각해보고 구현하기
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    /*
+    특정 피드에 댓글 달기
+     */
+    @PostMapping("/feed/comment")
+    public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
+
     }
 }

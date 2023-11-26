@@ -1,11 +1,13 @@
 package KWUniv.studyLog.entity;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 public class Feed {
 
     @Id @GeneratedValue
@@ -24,4 +26,14 @@ public class Feed {
     @OneToMany(mappedBy = "feed")
     private List<Comment> comments;
 
+    /*
+    피드 등록 시 사용
+     */
+    public Feed(User user, String feedBody, String photo) {
+        this.user = user;
+        this.feedBody = feedBody;
+        this.photo = photo;
+        this.date = LocalDateTime.now();
+        this.likes = 0;
+    }
 }

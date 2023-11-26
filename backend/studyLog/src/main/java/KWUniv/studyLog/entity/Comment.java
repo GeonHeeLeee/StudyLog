@@ -21,4 +21,13 @@ public class Comment {
     private String commentBody;
 
 
+    /*
+    댓글 동록 시 사용
+     */
+    public Comment(User user, Feed feed, String commentBody) {
+        this.feed = feed;
+        this.user = user;
+        this.date = LocalDateTime.now();
+        this.commentBody = commentBody;
+    }
 }

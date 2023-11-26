@@ -1,9 +1,12 @@
 package KWUniv.studyLog.controller;
 
 
+import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FeedService;
@@ -24,7 +27,7 @@ public class FeedController {
 
     private final FeedRepository feedRepository;
 
-
+    private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
     private final FeedService feedService;
@@ -46,7 +49,7 @@ public class FeedController {
 
     /*
     피드 Post 하기
-    - 해당 유저가 존재하지 않으면 400 반환
+    - 해당 userId의 user가 존재하지 않으면 400 반환
     - 성공 시 200
      */
     @PostMapping("/feed")
@@ -65,9 +68,18 @@ public class FeedController {
 
     /*
     특정 피드에 댓글 달기
+    - 해당 userId의 user나 feedId의 feed가 없을 시 400 Return
+    - 등록 성공 시 200
      */
     @PostMapping("/feed/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-
+        User user = userRepository.findUserById(commentDTO.getUserId());
+        Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
+        if(user == null || feed == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
+        commentRepository.save(comment);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

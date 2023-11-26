@@ -11,7 +11,8 @@ import styles from './SignIn.module.css';
 
 import useInput from '../../hooks/form/useInput';
 import useLoginState from '../../stores/login';
-// import useNetwork from '../../stores/network';
+
+import useNetwork from '../../stores/network';
 
 const initialForm = {
   userId: '',
@@ -31,6 +32,10 @@ export default function SignIn() {
     //   console.log(res);
     //   signIn({id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)'});
     // });
+    signIn({
+      userId: form.userId,
+      name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
+    });
     signIn({
       userId: form.userId,
       name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
@@ -88,8 +93,7 @@ export default function SignIn() {
           <ModalPortal>
             <ModalWrapper
               show={showModal}
-              closeModal={() => toggleShowModal(false)}
-            >
+              closeModal={() => toggleShowModal(false)}>
               <SignUpModal />
             </ModalWrapper>
           </ModalPortal>

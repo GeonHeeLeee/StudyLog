@@ -1,7 +1,9 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getTodoDummy } from '../../../../@constants/todoDummy';
+
 import Todo from './Todo.component';
+import { getTodoDummy } from '../../../../@constants/todoDummy';
+import styles from './TodoList.module.css';
 
 type Props = {
   date: Date;
@@ -16,7 +18,7 @@ export default function TodoList({ date }: Props) {
   if (isFetching) return <div>로딩 중...</div>;
 
   return (
-    <ul>
+    <ul className={styles.todos}>
       {data?.data.map((item) => (
         <Todo key={item.id} todo={item.todo} />
       ))}

@@ -3,6 +3,7 @@ import styles from './profile.module.css';
 import { ProfileResult } from './ProfileResult';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 type Props = {
   profile: ProfileResult; // 프로필 정보를 담은 객체
@@ -16,6 +17,8 @@ type Feed = {
 };
 
 export default function ProfileContainer() {
+  const { userId } = useParams();
+  console.log(userId);
   const profile: ProfileResult = {
     username: '이석희',
     userid: '@devLee',

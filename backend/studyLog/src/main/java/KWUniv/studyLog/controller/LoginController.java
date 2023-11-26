@@ -12,26 +12,36 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
-@RequestMapping("/users")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping
+    /*
+    회원 가입 메서드
+     */
+    @PostMapping("/join")
     public ResponseEntity registerUser(@RequestBody User user) {
-        boolean registerUserResult = loginService.regiserUser(user);
-        return registerUserResult ? new ResponseEntity<>(HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return loginService.registerUser(user);
     }
 
-    @GetMapping("/login")
+    /*
+    중복 ID 체크
+    - 중복 아이디 있을 시 400
+    - 중복 아이디 없을 시 200
+     */
+    @GetMapping("/join/checkId")
+    public ResponseEntity checkId(@RequestParam String userId) {
+        return loginService.checkDuplicateId(userId);
+    }
+
+
+
+    @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<User> loginUser(@RequestBody User user) {
-        User loginCheckUser = loginService.loginCheck(user);
-        if(loginCheckUser != null) {
-            return new ResponseEntity<>(loginCheckUser, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return loginService.loginCheck(user);
     }
+
+    //logout도 구현하기
 }

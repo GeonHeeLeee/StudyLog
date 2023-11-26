@@ -2,22 +2,34 @@ package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class LoginService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public boolean regiserUser(User user) {
+    /*
+    유저 회원가입 메서드
+    - 성공 시 200
+    - 실패 시 400
+     */
+    @Transactional
+    public ResponseEntity registerUser(User user) {
         if(validateUser(user))
-            return false;
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         userRepository.save(user);
-        return true;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /*
@@ -29,10 +41,25 @@ public class LoginService {
         return findUser.isPresent();
     }
 
-    public User loginCheck(User user) {
+    /*
+    로그인 메서드
+    - 비밀번호 유저가 존재하고 비밀번호 일치 시 200
+    - 없거나 일치하지 않으면 400
+     */
+    public ResponseEntity loginCheck(User user) {
         Optional<User> findUser = Optional.ofNullable(userRepository.findUserById(user.getUserId()));
         return (findUser.isPresent() && findUser.get().getPassword().equals(user.getPassword())) ?
-                 findUser.get() :  null;
+                 new ResponseEntity(HttpStatus.OK) :  new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    /*
+    중복 ID 체크 메서드
+    - 중복 아이디 존재 할 시 400,
+    - 중복 아이디 존재 안할 시 200
+     */
+    public ResponseEntity checkDuplicateId(String userId) {
+        return userRepository.findUserById(userId) == null ?
+                new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -1,6 +1,6 @@
 package KWUniv.studyLog.repository;
 
-import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.entity.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,16 +10,16 @@ import javax.persistence.EntityManager;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository {
+public class CommentRepository {
+
     private final EntityManager em;
 
-
-    public User findUserById(String userId){
-        return em.find(User.class,userId);
+    @Transactional
+    public void save(Comment comment) {
+        em.persist(comment);
     }
 
-
-    public void save(User user) {
-        em.persist(user);
+    public Comment findCommentById(Integer commentId) {
+        return em.find(Comment.class, commentId);
     }
 }

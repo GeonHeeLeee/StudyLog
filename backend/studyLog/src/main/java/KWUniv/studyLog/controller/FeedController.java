@@ -3,6 +3,7 @@ package KWUniv.studyLog.controller;
 
 import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.DTO.FeedResponseDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
@@ -38,13 +39,16 @@ public class FeedController {
     - 특정 피드를 찾으면 HTTPSTATUS 200
      */
     @GetMapping("/feed")
-    public ResponseEntity<Feed> getSelectedFeed(@RequestParam String userId,
-                                    @RequestParam int feedId){
+    public ResponseEntity<FeedResponseDTO> getSelectedFeed(@RequestParam String userId,
+                                    @RequestParam Integer feedId){
         Feed foundFeed = feedService.findFeedById(feedId);
+        if(foundFeed == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        FeedResponseDTO feedResponseDTO = new FeedResponseDTO(foundFeed);
         //여기서 Comment가 자동적으로 들어가는지 확인해야됨
         //Feed 객체를 조회할 때 해당 Feed에 연관된 Comment 리스트도 함께 조회된다.
-        return (foundFeed != null) ? new ResponseEntity<>(foundFeed, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(feedResponseDTO, HttpStatus.OK);
     }
 
     /*
@@ -54,7 +58,6 @@ public class FeedController {
      */
     @PostMapping("/feed")
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
-
         User user = userRepository.findUserById(feedDTO.getWriterId());
         if(user == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -75,9 +78,11 @@ public class FeedController {
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
         User user = userRepository.findUserById(commentDTO.getUserId());
         Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
+
         if(user == null || feed == null) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+
         Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
         commentRepository.save(comment);
         return new ResponseEntity(HttpStatus.OK);

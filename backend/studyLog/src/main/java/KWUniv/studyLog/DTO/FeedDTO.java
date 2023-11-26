@@ -8,10 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class FeedDTO {
-
         private String writerId;
         private String feedBody;
         private String photo;
-
 
 }

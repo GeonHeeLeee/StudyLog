@@ -1,9 +1,14 @@
 package KWUniv.studyLog.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Comment {
 
     @Id @GeneratedValue

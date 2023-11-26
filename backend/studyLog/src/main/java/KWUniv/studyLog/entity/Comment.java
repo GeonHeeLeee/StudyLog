@@ -14,7 +14,7 @@ public class Comment {
     private Feed feed; //Feed 테이블의 feedId와 연결
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writerId")
+    @JoinColumn(name = "userId")
     private User user;
 
     private LocalDateTime date;

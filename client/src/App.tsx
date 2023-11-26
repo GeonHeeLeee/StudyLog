@@ -39,7 +39,6 @@ function App() {
         />
         <Route path='/profile/:userId' element={<Profile />} />
         <Route path='/schedule' element={<Schedule />} />
-
         <Route path='/search' element={<SearchPage />} />
         <Route path='/setting' element={<Setting />} />
         <Route path='/*' element={<NotFound />} />

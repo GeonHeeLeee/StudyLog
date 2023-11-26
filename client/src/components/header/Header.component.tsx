@@ -38,7 +38,7 @@ export default function Header() {
           </Link>
         </li>
         <li className={checkClicked('/profile')}>
-          <Link to={'/profile/' + userInfo.id}>
+          <Link to={'/profile/' + userInfo.userId}>
             <ImProfile />
             Profile
           </Link>

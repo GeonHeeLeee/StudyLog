@@ -2,12 +2,14 @@ package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class LoginService {
 
     @Autowired
@@ -33,6 +35,15 @@ public class LoginService {
         Optional<User> findUser = Optional.ofNullable(userRepository.findUserById(user.getUserId()));
         return (findUser.isPresent() && findUser.get().getPassword().equals(user.getPassword())) ?
                  findUser.get() :  null;
+    }
+
+    /*
+    중복 ID 체크 메서드
+    - 중복 아이디 존재 할 시 true,
+    - 중복 아이디 존재 안할 시 false
+     */
+    public boolean checkDuplicateId(String userId) {
+        return userRepository.findUserById(userId) != null;
     }
 
 }

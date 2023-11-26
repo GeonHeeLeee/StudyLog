@@ -21,7 +21,7 @@ public class Feed {
 
     private String photo; //보통 Local에 저장하고 파일의 경로를 저장한다.
 
-    @OneToMany(mappedBy = "writerId")
+    @OneToMany(mappedBy = "feed")
     private List<Comment> comments;
 
 }

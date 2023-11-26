@@ -16,8 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedRepository {
 
-    @Autowired
-    private EntityManager em;
+
+    private final EntityManager em;
 
 
     @Transactional

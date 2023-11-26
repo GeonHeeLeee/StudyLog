@@ -22,9 +22,7 @@ public class LoginController {
      */
     @PostMapping("/join")
     public ResponseEntity registerUser(@RequestBody User user) {
-        boolean registerUserResult = loginService.registerUser(user);
-        return registerUserResult ? new ResponseEntity<>(HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return loginService.registerUser(user);
     }
 
     /*
@@ -34,9 +32,7 @@ public class LoginController {
      */
     @GetMapping("/join/checkId")
     public ResponseEntity checkId(@RequestParam String userId) {
-        boolean idCheckResult = loginService.checkDuplicateId(userId);
-        return idCheckResult ? new ResponseEntity(HttpStatus.BAD_REQUEST) :
-                new ResponseEntity(HttpStatus.OK);
+        return loginService.checkDuplicateId(userId);
     }
 
 
@@ -44,11 +40,7 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<User> loginUser(@RequestBody User user) {
-        User loginCheckUser = loginService.loginCheck(user);
-        if(loginCheckUser != null) {
-            return new ResponseEntity<>(loginCheckUser, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return loginService.loginCheck(user);
     }
 
     //logout도 구현하기

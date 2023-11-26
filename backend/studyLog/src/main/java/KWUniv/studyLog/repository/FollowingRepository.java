@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 @Repository
+@RequiredArgsConstructor
 public class FollowingRepository {
 
-    @Autowired
-    EntityManager em;
+    private final EntityManager em;
 
 
     public void save(Following following) {

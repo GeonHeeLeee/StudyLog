@@ -28,7 +28,6 @@ public class FollowingController {
     @PostMapping("/follow")
     @Transactional
     public ResponseEntity followUser(@RequestBody FollowingDTO followingDTO) {
-        boolean result = followingService.findSaveFollowingAndSelf(followingDTO);
-        return result ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return followingService.findSaveFollowingAndSelf(followingDTO);
     }
 }

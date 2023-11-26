@@ -1,6 +1,7 @@
 package KWUniv.studyLog.repository;
 
 import KWUniv.studyLog.entity.Comment;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 @Repository
+@RequiredArgsConstructor
 public class CommentRepository {
 
-    @Autowired
-    EntityManager em;
+    private final EntityManager em;
 
     @Transactional
     public void save(Comment comment) {

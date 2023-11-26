@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -46,7 +47,7 @@ public class FeedController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         FeedResponseDTO feedResponseDTO = new FeedResponseDTO(foundFeed);
-        //여기서 Comment가 자동적으로 들어가는지 확인해야됨
+
         //Feed 객체를 조회할 때 해당 Feed에 연관된 Comment 리스트도 함께 조회된다.
         return new ResponseEntity<>(feedResponseDTO, HttpStatus.OK);
     }
@@ -58,14 +59,7 @@ public class FeedController {
      */
     @PostMapping
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
-        User user = userRepository.findUserById(feedDTO.getWriterId());
-        if(user == null) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-            //유저가 존재하지 않으면 400 반환
-        }
-        Feed feed = new Feed(user, feedDTO.getFeedBody(), feedDTO.getPhoto());
-        feedRepository.save(feed);
-        return new ResponseEntity(HttpStatus.OK);
+        return feedService.postAndSaveFeed(feedDTO);
     }
 
 
@@ -76,17 +70,10 @@ public class FeedController {
      */
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-        User user = userRepository.findUserById(commentDTO.getUserId());
-        Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
-
-        if(user == null || feed == null) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-        Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
-        commentRepository.save(comment);
-        return new ResponseEntity(HttpStatus.OK);
+        return feedService.writeComment(commentDTO);
     }
+
+
 
 
 }

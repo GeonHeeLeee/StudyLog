@@ -11,16 +11,14 @@ import javax.persistence.EntityManager;
 @Repository
 @RequiredArgsConstructor
 public class UserRepository {
+    private final EntityManager em;
 
-    @Autowired
-    EntityManager em;
 
-    @Transactional
     public User findUserById(String userId){
         return em.find(User.class,userId);
     }
 
-    @Transactional
+
     public void save(User user) {
         em.persist(user);
     }

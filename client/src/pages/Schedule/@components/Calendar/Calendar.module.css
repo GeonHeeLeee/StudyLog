@@ -1,0 +1,34 @@
+.calendar-container {
+  min-height: 50vh;
+  padding: 1rem;
+}
+.calendar {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 70vw;
+  /* width: 100%; */
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.button {
+  border: none;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: aqua;
+  transition: 500ms all;
+}
+.button:hover {
+  color: black;
+}
+.text {
+  font-weight: 900;
+  font-size: 1.75rem;
+}

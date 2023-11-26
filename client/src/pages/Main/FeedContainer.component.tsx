@@ -1,8 +1,11 @@
-import {useInfiniteQuery} from '@tanstack/react-query';
-import {useIntersectionObserver} from '../../hooks/intersectionObserver/useIntersectionObserver';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useIntersectionObserver } from '../../hooks/intersectionObserver/useIntersectionObserver';
 import Feeds from './Feeds.component';
-import {useEffect, useRef, useState} from "react";
-import FeedSkeleton from "./FeedSkeleton";
+import { useEffect, useRef, useState, useCallback } from 'react';
+import FeedSkeleton from './FeedSkeleton';
+import useNetwork from '../../stores/network';
+import useLoginState from '../../stores/login';
+import { FeedOutline } from '../../api/networkInterface/api/http.type';
 
 // interface FetchUrl {
 //   <T>(params: { pageParam: number }): Promise<T>;
@@ -21,6 +24,7 @@ export type FeedResult = {
 };
 
 const initialUrl = 'https://swapi.dev/api/species/';
+const MIN_FEED_COUNT = 10;
 const fetchUrl = async (url: string) => {
   console.log(url);
 
@@ -28,31 +32,52 @@ const fetchUrl = async (url: string) => {
   return response.json();
 };
 
-const MIN_FEED_COUNT = 10;
 export default function FeedContainer() {
+  const { httpInterface } = useNetwork();
+  const {
+    userInfo: { userId },
+  } = useLoginState();
+
+  const initialFeedUrl = `/home?userId=${userId}&page=1`;
+
+  const getFeeds = useCallback(
+    async (pageNum: number) => {
+      return httpInterface.getFeeds({
+        userId,
+        pageNum,
+      });
+    },
+    [userId, httpInterface]
+  );
+
   const {
     data,
     isFetching,
-    isLoading,
+    // isLoading,
     fetchNextPage,
     hasNextPage,
     isError,
     error,
   } = useInfiniteQuery({
     queryKey: ['mainFeeds'],
-    queryFn: ({pageParam = initialUrl}) => fetchUrl(pageParam + ''),
+    queryFn: ({ pageParam = initialUrl }) => {
+      console.log(pageParam);
+
+      return fetchUrl(pageParam + '');
+    },
+    // queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam + ''),
     initialPageParam: undefined,
     getNextPageParam: (lastPage: {
       next?: string;
       count?: number;
       previous: string | null;
-      results: FeedResult[];
+      results: FeedOutline[];
     }) => {
       return lastPage.next || undefined;
     },
   });
 
-  const {setTarget} = useIntersectionObserver({
+  const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
@@ -60,7 +85,10 @@ export default function FeedContainer() {
   const observerRef = useRef<IntersectionObserver>();
   const [isLoad, setIsLoad] = useState(false);
 
-  const onIntersection = (entries: IntersectionObserverEntry[], io: IntersectionObserver) => {
+  const onIntersection = (
+    entries: IntersectionObserverEntry[],
+    io: IntersectionObserver
+  ) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         io.unobserve(entry.target);
@@ -83,25 +111,25 @@ export default function FeedContainer() {
     return <h1>Error!</h1>;
   }
 
-
   return (
-      <div>
-        <main>
-          {data?.pages.map((feeds, idx) => (
-              <Feeds key={idx} feeds={feeds?.results}/>
-          ))}
-          {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
-        </main>
+    <div>
+      <main>
+        {data?.pages.map((feeds, idx) => (
+          <Feeds key={idx} feeds={feeds?.results} />
+        ))}
+        {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
+      </main>
 
-        {hasNextPage && <div ref={setTarget} style={{width: '100%', height: '0.25rem'}}/>}
-
-      </div>
+      {hasNextPage && (
+        <div ref={setTarget} style={{ width: '100%', height: '0.25rem' }} />
+      )}
+    </div>
   );
 }
 
 function createSkeletonFeed(count: number) {
   let skeletonFeedCount = Array.from({ length: count }, (v, i) => i);
-  return skeletonFeedCount.map(num => {
+  return skeletonFeedCount.map((num) => {
     return <FeedSkeleton key={num} />;
   });
 }

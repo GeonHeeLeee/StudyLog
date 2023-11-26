@@ -1,10 +1,10 @@
 import React from 'react';
+import ProfileContainer from './ProfileContainer.component';
 
 export default function Profile() {
   return (
     <div>
-      <h1>Profile</h1>
+      <ProfileContainer />
     </div>
   );
 }
-

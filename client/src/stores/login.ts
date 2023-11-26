@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 type UserInfo = {
-  id: string;
+  userId: string;
   name: string;
 };
 interface LoginState {
@@ -13,7 +13,7 @@ interface LoginState {
 }
 
 const initialLoginInfo = {
-  id: '',
+  userId: '',
   name: '',
 };
 

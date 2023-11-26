@@ -1,7 +1,7 @@
 .modal-content {
   max-width: 70vw;
   min-width: 60vw;
-  min-height: 30vh;
+  /* min-height: 30vh; */
   width: 50%;
 }
 

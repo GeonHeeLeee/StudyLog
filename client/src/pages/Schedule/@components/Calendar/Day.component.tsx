@@ -17,7 +17,6 @@ export default function Day({
   firstOfMonthDate,
 }: Props) {
   const { setDay, setFirstOfMonth } = useScheduleContext();
-  
   const isBlank = day === '';
   const isCurrentDay = day === new Date().getDate() && isCurrentMonth;
   const isFutureDay =
@@ -30,7 +29,7 @@ export default function Day({
   };
   return (
     <div
-      className={`${styles.container} ${isBlank && styles.blank}`}
+      className={`${styles.container} ${isBlank ? styles.blank: styles.fill} `}
       onClick={clickHandler}
     >
       <p className={`${isCurrentDay && styles.current} ${styles.day}`}>{day}</p>

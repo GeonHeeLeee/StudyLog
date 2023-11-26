@@ -90,7 +90,7 @@ export default function SignIn() {
               show={showModal}
               closeModal={() => toggleShowModal(false)}
             >
-              <SignUpModal />
+              <SignUpModal closeModal={() => toggleShowModal(false)} />
             </ModalWrapper>
           </ModalPortal>
         )}

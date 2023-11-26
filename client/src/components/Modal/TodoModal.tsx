@@ -4,41 +4,58 @@ import Input from '../Input/Input.component';
 import Button from '../Button/Button.component';
 import useNetwork from '../../stores/network';
 import useInput from '../../hooks/form/useInput';
-import { useScheduleContext } from '../../pages/Schedule/@contexts/useSchedule';
-import { addDate } from '../../utils/date/date';
+import styles from './TodoModal.module.css';
+import useLoginState from '../../stores/login';
+
+type Props = {
+  closeModal: () => void;
+  todoDate: Date | undefined;
+};
 
 const initialForm = {
   todo: '',
 };
 
-export default function TodoModal() {
+export default function TodoModal({ closeModal, todoDate }: Props) {
   const [form, onChangeHandler] = useInput(initialForm);
   const [warningText, setWarningText] = useState('');
   const { httpInterface } = useNetwork();
-  const { firstOfMonth, day } = useScheduleContext();
+  const {
+    userInfo: { userId },
+  } = useLoginState();
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.todo.length < 2) {
       setWarningText('최소 2글자를 입력해주세요');
       return;
     }
-    if (firstOfMonth) {
-      const todoDate = addDate(firstOfMonth, day);
-      console.log(todoDate);
-      
+
+    if (!todoDate) return;
+
+    try {
+      // TODO: api 명세 나오는대로 구현
+      const response = await httpInterface.addSchedule({
+        // date: todoDate,
+        userId,
+        toDo: form.todo,
+      });
+    } catch (error) {
+      console.error(error);
     }
-    // httpInterface.get();
+
+    closeModal();
   };
 
   console.log(warningText);
   return (
     <div>
-      <h3>Todo!</h3>
+      <h3 className={styles.header}>Todo!</h3>
       <form onSubmit={submitHandler}>
-        <div>
+        <div className={styles.container}>
           <label htmlFor='todo'>할 일</label>
           <Input
+            className={styles.input}
             id='todo'
             onChangeHandler={(e) => {
               if (e.target.value.length < 2) {
@@ -51,7 +68,7 @@ export default function TodoModal() {
             name='todo'
             value={form.todo}
           />
-          <Button type='submit' text='추가' />
+          <Button type='submit' text='추가' className={styles['add-button']} />
         </div>
         {!!warningText && <span>{warningText}</span>}
       </form>

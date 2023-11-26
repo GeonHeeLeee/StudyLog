@@ -3,3 +3,7 @@ export const addDate = (baseDate: Date, day: number | string) => {
   date.setDate(baseDate.getDate() + parseInt(`${day}`) - 1);
   return date;
 };
+
+export const stringifyDate = (baseDate: Date) => {
+  return baseDate.toISOString().replace('.000Z', 'Z');
+};

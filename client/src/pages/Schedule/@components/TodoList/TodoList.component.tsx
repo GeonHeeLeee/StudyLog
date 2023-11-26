@@ -1,40 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getTodoDummy } from '../../../../@constants/todoDummy';
+import Todo from './Todo.component';
 
-import ModalPortal from '../../../../components/Portal/ModalPortal.component';
-import ModalWrapper from '../../../../components/Modal/ModalWrapper.component';
-import TodoModal from '../../../../components/Modal/TodoModal';
-import { useScheduleContext } from '../../@contexts/useSchedule';
-import { MONTHS } from '../../../../@constants/day';
+type Props = {
+  date: Date;
+};
 
-export default function TodoList() {
-  const { firstOfMonth, day } = useScheduleContext();
-  const [showModal, toggleShowModal] = useState(false);
-  const addTodoHandler = () => {
-    // 모달 나오도록?
-    toggleShowModal(true);
-  };
+export default function TodoList({ date }: Props) {
+  const { isFetching, data, isError } = useQuery({
+    queryKey: ['todo', date],
+    queryFn: () => getTodoDummy,
+  });
 
-  if (!firstOfMonth) return <></>;
+  if (isFetching) return <div>로딩 중...</div>;
+
   return (
-    <div>
-      <header>
-        <h2>
-          {`${firstOfMonth.getFullYear()}. ${
-            MONTHS[firstOfMonth.getMonth()]
-          }. ${day}`}
-        </h2>
-        <button onClick={addTodoHandler}>+</button>
-      </header>
-      {showModal && (
-        <ModalPortal>
-          <ModalWrapper
-            show={showModal}
-            closeModal={() => toggleShowModal(false)}
-          >
-            <TodoModal />
-          </ModalWrapper>
-        </ModalPortal>
-      )}
-    </div>
+    <ul>
+      {data?.data.map((item) => (
+        <Todo key={item.id} todo={item.todo} />
+      ))}
+    </ul>
   );
 }

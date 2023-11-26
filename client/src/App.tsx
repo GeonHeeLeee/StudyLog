@@ -29,7 +29,6 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route path='/' element={<NavToMain />} />
         <Route path='/main' element={<Main />} />
-        <Route path='/profile' element={<Profile />} />
         <Route
           path='/schedule'
           element={
@@ -38,6 +37,9 @@ function App() {
             </ScheduleProvider>
           }
         />
+        <Route path='/profile/:userId' element={<Profile />} />
+        <Route path='/schedule' element={<Schedule />} />
+
         <Route path='/search' element={<SearchPage />} />
         <Route path='/setting' element={<Setting />} />
         <Route path='/*' element={<NotFound />} />

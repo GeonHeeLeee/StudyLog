@@ -17,7 +17,7 @@ export default function Header() {
     [path]
   );
 
-  const { signOut } = useLoginState();
+  const { userInfo, signOut } = useLoginState();
   // TODO: 아이콘 넣기
   return (
     <aside className={styles['layout-header']}>
@@ -38,7 +38,7 @@ export default function Header() {
           </Link>
         </li>
         <li className={checkClicked('/profile')}>
-          <Link to='/profile'>
+          <Link to={'/profile/' + userInfo.id}>
             <ImProfile />
             Profile
           </Link>

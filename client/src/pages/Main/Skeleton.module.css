@@ -63,27 +63,27 @@
   display: flex;
   justify-content: flex-start;
   align-items: baseline;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   margin-top: 0.35rem;
 }
 .username {
-  width: 3rem;
-  height: 1rem;
+  width: 4rem;
+  height: 1.5rem;
   font-weight: bold;
   margin-right: 0.35rem;
 }
 .userid {
-  width: 4rem;
-  height: 1rem;
+  width: 6rem;
+  height: 1.5rem;
   color: lightgray;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   margin-right: 0.35rem;
 }
 .date {
-  width: 7rem;
-  height: 1rem;
+  width: 9rem;
+  height: 1.5rem;
   color: lightgray;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
 }
 .feed-content {
   display: flex;
@@ -91,8 +91,9 @@
 }
 .feed-image {
   border-radius: 1rem;
-  min-height: 15vh;
-  width: 15vw;
+  /* max-height: 40vh; */
+  min-height: 40vh;
+  width: 40vh;
 }
 .feed-meta {
   color: lightgray;

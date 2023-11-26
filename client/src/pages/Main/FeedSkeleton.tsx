@@ -20,7 +20,7 @@ export default function FeedSkeleton() {
           </div>
           <div className={styles['feed-content']}>
             <p>
-              <MoonLoader color="#36d7b7" size={30} />
+              <MoonLoader color="#36d7b7" size={50} />
             </p>
             {/* IMG가 존재하면 보여주기 */}
             <div>

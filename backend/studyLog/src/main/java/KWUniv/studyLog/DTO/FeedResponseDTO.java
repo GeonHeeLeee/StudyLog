@@ -2,6 +2,7 @@ package KWUniv.studyLog.DTO;
 
 import KWUniv.studyLog.entity.Feed;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class FeedResponseDTO {
 
     private Integer feedId;
@@ -18,6 +20,9 @@ public class FeedResponseDTO {
     private String feedBody;
     private String photo;
     private List<CommentDTO> comments;
+
+    private String next;
+    private List<FeedDTO> feeds;
 
     public FeedResponseDTO(Feed feed) {
         this.feedId = feed.getFeedId();

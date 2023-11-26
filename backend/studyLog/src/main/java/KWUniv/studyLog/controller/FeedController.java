@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/feed")
 public class FeedController {
 
 
@@ -30,7 +31,6 @@ public class FeedController {
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
-
     private final FeedService feedService;
 
     /*
@@ -38,7 +38,7 @@ public class FeedController {
     - 찾는 피드가 없으면 HTTPSTATUS 404
     - 특정 피드를 찾으면 HTTPSTATUS 200
      */
-    @GetMapping("/feed")
+    @GetMapping
     public ResponseEntity<FeedResponseDTO> getSelectedFeed(@RequestParam String userId,
                                     @RequestParam Integer feedId){
         Feed foundFeed = feedService.findFeedById(feedId);
@@ -56,7 +56,7 @@ public class FeedController {
     - 해당 userId의 user가 존재하지 않으면 400 반환
     - 성공 시 200
      */
-    @PostMapping("/feed")
+    @PostMapping
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
         User user = userRepository.findUserById(feedDTO.getWriterId());
         if(user == null) {
@@ -74,7 +74,7 @@ public class FeedController {
     - 해당 userId의 user나 feedId의 feed가 없을 시 400 Return
     - 등록 성공 시 200
      */
-    @PostMapping("/feed/comment")
+    @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
         User user = userRepository.findUserById(commentDTO.getUserId());
         Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
@@ -87,4 +87,6 @@ public class FeedController {
         commentRepository.save(comment);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+
 }

@@ -12,4 +12,9 @@ public class FeedDTO {
         private String feedBody;
         private String photo;
 
+        public FeedDTO(String userId, String feedBody, String photo) {
+                this.writerId = userId;
+                this.feedBody = feedBody;
+                this.photo = photo;
+        }
 }

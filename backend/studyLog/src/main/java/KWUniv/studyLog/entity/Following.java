@@ -1,8 +1,11 @@
 package KWUniv.studyLog.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Following {
 
     @Id @GeneratedValue
@@ -16,4 +19,8 @@ public class Following {
     @JoinColumn(name = "followingId")
     private User followingUser;
 
+    public Following(User selfUser, User followingUser){
+        this.selfUser = selfUser;
+        this.followingUser = followingUser;
+    }
 }

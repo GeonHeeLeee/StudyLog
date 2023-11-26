@@ -11,7 +11,7 @@ import useNetwork from '../../stores/network';
 import { FaBookOpen } from 'react-icons/fa';
 
 const initialForm = {
-  id: '',
+  userId: '',
   password: '',
 };
 
@@ -28,7 +28,10 @@ export default function SignIn() {
     //   console.log(res);
     //   signIn({id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)'});
     // });
-    signIn({ id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)' });
+    signIn({
+      userId: form.userId,
+      name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
+    });
   };
 
   useEffect(() => {
@@ -44,8 +47,8 @@ export default function SignIn() {
         <Input
           type='text'
           onChangeHandler={onChangeHandler}
-          name='id'
-          value={form.id}
+          name='userId'
+          value={form.userId}
           placeholder='ID를 입력해주세요'
         />
         <Input
@@ -66,8 +69,7 @@ export default function SignIn() {
           <ModalPortal>
             <ModalWrapper
               show={showModal}
-              closeModal={() => toggleShowModal(false)}
-            >
+              closeModal={() => toggleShowModal(false)}>
               <SignUpModal />
             </ModalWrapper>
           </ModalPortal>

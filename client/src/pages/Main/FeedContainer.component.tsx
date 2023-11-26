@@ -7,6 +7,7 @@ import useNetwork from '../../stores/network';
 import useLoginState from '../../stores/login';
 import { FeedOutline } from '../../api/networkInterface/api/http.type';
 
+import styles from './FeedContainer.module.css';
 // interface FetchUrl {
 //   <T>(params: { pageParam: number }): Promise<T>;
 //   (params: { pageParam: number }): Promise<any>;
@@ -112,8 +113,8 @@ export default function FeedContainer() {
   }
 
   return (
-    <div>
-      <main>
+    <>
+      <main className={styles['feed-container']}>
         {data?.pages.map((feeds, idx) => (
           <Feeds key={idx} feeds={feeds?.results} />
         ))}
@@ -123,7 +124,7 @@ export default function FeedContainer() {
       {hasNextPage && (
         <div ref={setTarget} style={{ width: '100%', height: '0.25rem' }} />
       )}
-    </div>
+    </>
   );
 }
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 import Button from '../../../../components/Button/Button.component';
-import styles from './Todo.module.css';
 import ModalPortal from '../../../../components/Portal/ModalPortal.component';
 import ModalWrapper from '../../../../components/Modal/ModalWrapper.component';
 import TimerModal from '../../../../components/Modal/TimerModal';
+import styles from './Todo.module.css';
+import { checkNotFinish, setTodoState } from './@utils/todo';
 
 type Props = {
   todo: string;
@@ -12,17 +13,7 @@ type Props = {
   endTime?: string;
 };
 
-type TodoState = 'start' | 'doing' | 'finish';
-
-function setTodoState(
-  startTime: string | undefined,
-  endTime: string | undefined
-) {
-  if (!startTime && !endTime) return 'start';
-  if (startTime && !endTime) return 'doing';
-  if (startTime && endTime) return 'finish';
-  return 'start';
-}
+export type TodoState = 'start' | 'doing' | 'finish';
 
 export default function Todo({ todo, startTime, endTime }: Props) {
   const [state, setState] = useState<TodoState>(
@@ -30,47 +21,52 @@ export default function Todo({ todo, startTime, endTime }: Props) {
   );
   const [showModal, toggleShowModal] = useState(false);
 
-  const startTodoHandler = () => {
-    setState('doing');
-  };
+  const startTodoHandler = () => setState('doing');
+  const finishTodoHandler = () => setState('finish');
 
-  const finishTodoHandler = () => {
-    setState('finish');
+  const showTodoModal = () => toggleShowModal(true);
+  const hideTodoModal = () => toggleShowModal(false);
+
+  const setTodoHandlerByState = (state: Exclude<TodoState, 'finish'>) => {
+    if (state === 'start') return startTodoHandler;
+    return finishTodoHandler;
   };
 
   return (
     <li className={styles['todo-item']}>
-      <span>{todo}</span>
+      <span className={`${state === 'finish' && styles.finished}`}>{todo}</span>
+
       {state === 'start' && (
         <Button
           text='타이머 시작'
-          onClick={startTodoHandler}
+          onClick={showTodoModal}
           className={styles['timer-button']}
         />
       )}
+
       {state === 'doing' && (
         <Button
           text='타이머 종료'
-          onClick={() => toggleShowModal((prev) => !prev)}
+          onClick={showTodoModal}
           className={styles['timer-button']}
         />
       )}
+
       {['start', 'doing'].includes(state) && (
         <Button
           text='수동 입력'
-          onClick={startTodoHandler}
+          onClick={showTodoModal}
           className={styles['timer-button']}
         />
       )}
-      {showModal && (
+
+      {showModal && checkNotFinish(state) && (
         <ModalPortal>
-          <ModalWrapper
-            show={showModal}
-            closeModal={() => toggleShowModal(false)}
-          >
+          <ModalWrapper show={showModal} closeModal={hideTodoModal}>
             <TimerModal
-              closeModal={() => toggleShowModal(false)}
-              finishTodo={finishTodoHandler}
+              closeModal={hideTodoModal}
+              todoHandler={setTodoHandlerByState(state)}
+              state={state}
             />
           </ModalWrapper>
         </ModalPortal>

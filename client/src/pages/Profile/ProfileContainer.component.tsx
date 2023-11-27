@@ -4,6 +4,9 @@ import { ProfileResult } from './ProfileResult';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
+import useLoginState from '../../stores/login';
+import Button from '../../components/Button/Button.component';
+import StudyLog from './StudyLog/StudyLog';
 
 type Props = {
   profile: ProfileResult; // 프로필 정보를 담은 객체
@@ -18,7 +21,9 @@ type Feed = {
 
 export default function ProfileContainer() {
   const { userId } = useParams();
-  console.log(userId);
+
+  const { userInfo } = useLoginState();
+
   const profile: ProfileResult = {
     username: '이석희',
     userid: '@devLee',
@@ -59,6 +64,15 @@ export default function ProfileContainer() {
     ],
   };
 
+  const checkMyProfile = () => {
+    return userId === userInfo?.userId;
+  };
+
+  const onFollow = () => {
+    // selfId : 내 id
+    // const selfId = userInfo.userId;
+    // followingId: 상대방 id
+  };
   return (
     <article className={styles['profile-article']}>
       <div className={styles['profile-icon']}>
@@ -69,6 +83,20 @@ export default function ProfileContainer() {
         <div className={styles['profile-userinfo']}>
           <span className={styles['username']}>{profile.username}</span>
           <span className={styles['userid']}>{profile.userid}</span>
+          {checkMyProfile() ? (
+            <Button
+              text={'프로필 편집'}
+              type='button'
+              className={styles['profile-btn']}
+            />
+          ) : (
+            <Button
+              text={'팔로우'}
+              type='button'
+              onClick={onFollow}
+              className={styles['profile-btn']}
+            />
+          )}
         </div>
         <div className={styles['profile-meta']}>
           <div className={styles['profile-followers']}>
@@ -82,6 +110,9 @@ export default function ProfileContainer() {
         </div>
         <div className={styles['profile-bio']}>
           <p>{profile.bio}</p>
+          <div>
+            <StudyLog />
+          </div>
         </div>
         <div className={styles['profile-contents']}>
           {profile.feeds.map((feed) => (

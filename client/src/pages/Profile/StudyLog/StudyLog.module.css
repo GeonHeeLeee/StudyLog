@@ -1,0 +1,11 @@
+.studylog-container {
+  margin-top: 3rem;
+}
+
+.studylog {
+  width: 70vw;
+  height: 12vw;
+  padding: 0 1vw;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}

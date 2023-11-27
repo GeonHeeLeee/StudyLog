@@ -24,11 +24,15 @@ const initialState: ContextProp = {
 
 const ScheduleContext = createContext<ContextProp>(initialState);
 
+function isDate(date: Date | undefined): date is Date {
+  return date instanceof Date;
+}
+
 export const ScheduleProvider = ({ children }: Props) => {
   const [day, setDay] = useState('');
   const [firstOfMonth, setFirstOfMonth] = useState<Date>();
 
-  const show = !!day && !!firstOfMonth;
+  const show = !!day && isDate(firstOfMonth);
   const reset = () => {
     setDay('');
     setFirstOfMonth(undefined);

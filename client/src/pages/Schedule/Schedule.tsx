@@ -5,12 +5,11 @@ import TodoListContainer from './@components/TodoList/TodoListContainer.componen
 import { useScheduleContext } from './@contexts/useSchedule';
 
 export default function Schedule() {
-  const { show } = useScheduleContext();
 
   return (
     <div>
       <Calendar />
-      {show && <TodoListContainer />}
+      {<TodoListContainer />}
     </div>
   );
 }

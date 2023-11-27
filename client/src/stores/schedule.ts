@@ -22,9 +22,7 @@ const useScheduleState = create<Schedule & Actions>()(
       clear: () => {
         set(initalState);
       },
-      setSchedule: () => {
-        
-      },
+      setSchedule: () => {},
     }),
     { name: 'schedule' }
   )

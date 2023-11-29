@@ -21,8 +21,9 @@ public class FeedResponseDTO {
     private String photo;
     private List<CommentDTO> comments;
     private Integer likes;
-    private String next;
-    private List<FeedDTO> feeds;
+
+//    private String next;
+//    private List<FeedDTO> feeds;
 
     public FeedResponseDTO(Feed feed) {
         this.feedId = feed.getFeedId();

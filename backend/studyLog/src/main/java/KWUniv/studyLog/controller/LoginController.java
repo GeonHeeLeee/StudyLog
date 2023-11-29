@@ -5,10 +5,13 @@ import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Slf4j
@@ -49,9 +52,13 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<User> loginUser(@RequestBody User user) {
+    public ResponseEntity<User> loginUser(@RequestBody User user,
+                                          HttpServletRequest request) {
         boolean isLoggedIn =  loginService.loginCheck(user);
         if(isLoggedIn){
+            //세션 생성 후 넣어줌
+            loginService.createSession(request, user.getUserId());
+            //이후 로그인시에 어떤 정보 넘겨줄지 생각
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -59,6 +61,15 @@ public class LoginService {
     public boolean checkDuplicateId(String userId) {
         Optional<User> findUser = Optional.ofNullable(userRepository.findUserById(userId));
         return findUser.isEmpty();
+    }
+
+    /*
+    세션 생성 메서드
+    - 해당 유저 아이디로 세션을 생성하고 넣어줌
+     */
+    public void createSession(HttpServletRequest request, String userId) {
+        HttpSession session = request.getSession();
+        session.setAttribute("user", userId);
     }
 
 }

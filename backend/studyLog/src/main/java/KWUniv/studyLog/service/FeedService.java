@@ -6,6 +6,7 @@ import KWUniv.studyLog.DTO.FeedResponseDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.exception.FeedNotFoundException;
 import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
@@ -90,6 +91,7 @@ public class FeedService {
         if(foundUser == null){
             throw new UserNotFoundException();
         }
+
         //무한참조 문제가 발생해 DTO로 응답
         List<FeedResponseDTO> feedDTOs = foundFeeds.stream()
                 .map(feed -> new FeedResponseDTO(feed))

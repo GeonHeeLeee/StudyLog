@@ -5,6 +5,8 @@ import {
   FeedsData,
   FeedsPaginationData,
   JoinData,
+  ScheduleData,
+  ScheduleTimeData,
   SignInData,
   SignOutData,
 } from './http.type';
@@ -35,6 +37,10 @@ export class HttpInterface {
     const url = '/join';
     return this.post(url, joinData);
   }
+  checkDuplicateId(userId: string) {
+    const url = `/join/checkId?userId=${userId}`;
+    return this.get(url);
+  }
 
   getFeeds(paginationData: FeedsPaginationData): Promise<FeedsData> {
     const url = `/home?userId=${paginationData.userId}&page=${paginationData.pageNum}`;
@@ -44,6 +50,17 @@ export class HttpInterface {
   getFeedById(feedMetadata: FeedMetadata) {
     const url = `/feed?userId=${feedMetadata.userId}&feedId=${feedMetadata.feedId}`;
     return this.get(url);
+  }
+
+  // TODO: API 명세 나오는 대로 구현
+  addSchedule(scheduleData: ScheduleData) {
+    const url = `/schedule`;
+    return this.post(url, scheduleData);
+  }
+
+  enterSchduleTime(scheduleData: ScheduleTimeData) {
+    const url = `/schedule/time`;
+    return this.post(url, scheduleData);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

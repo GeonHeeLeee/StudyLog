@@ -47,3 +47,15 @@ export type Comment = {
 export type FeedDetail = FeedOutline & {
   comments: Comment[];
 };
+
+export type ScheduleData = {
+  userId: string;
+  toDo: string;
+};
+
+export type ScheduleTimeData = {
+  userId: string;
+  toDo: string;
+  startTime: Date;
+  endTime: Date;
+};

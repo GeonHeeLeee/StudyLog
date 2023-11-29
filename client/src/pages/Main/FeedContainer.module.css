@@ -1,0 +1,11 @@
+.feed-container {
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed-container:last-child {
+  border-bottom: none;
+}

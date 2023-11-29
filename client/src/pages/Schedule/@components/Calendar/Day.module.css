@@ -19,3 +19,11 @@
   margin: 0.25rem;
   display: inline-block;
 }
+
+.fill {
+  transition: all 500ms;
+}
+
+.fill:hover {
+  transform: scale(1.2);
+}

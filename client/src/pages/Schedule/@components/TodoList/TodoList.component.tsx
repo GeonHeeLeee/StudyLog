@@ -1,15 +1,27 @@
 import React from 'react';
-import { useScheduleContext } from '../../@contexts/useSchedule';
-import { MONTHS } from '../../../../@constants/day';
+import { useQuery } from '@tanstack/react-query';
 
-export default function TodoList() {
-  const { firstOfMonth, day } = useScheduleContext();
-  if (!firstOfMonth) return <></>;
+import Todo from './Todo.component';
+import { getTodoDummy } from '../../../../@constants/todoDummy';
+import styles from './TodoList.module.css';
+
+type Props = {
+  date: Date;
+};
+
+export default function TodoList({ date }: Props) {
+  const { isFetching, data, isError } = useQuery({
+    queryKey: ['todo', date],
+    queryFn: () => getTodoDummy,
+  });
+
+  if (isFetching) return <div>로딩 중...</div>;
+
   return (
-    <div>
-      <h2>{`${firstOfMonth.getFullYear()}. ${
-        MONTHS[firstOfMonth.getMonth()]
-      }. ${day}`}</h2>
-    </div>
+    <ul className={styles.todos}>
+      {data?.data.map((item) => (
+        <Todo key={item.id} todo={item.todo} />
+      ))}
+    </ul>
   );
 }

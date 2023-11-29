@@ -1,7 +1,7 @@
 import {ImgHTMLAttributes, useEffect, useRef, useState} from "react";
-import {useIsImgLoaded} from "../../hooks/imageLoad/useIsImgLoaded";
-import styles from './Image.module.css';
+
 import Placeholder from '../../img/placeholder.jpeg';
+import styles from './Image.module.css';
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
   // lazy?: boolean;

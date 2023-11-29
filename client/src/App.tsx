@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+
 import Layout from './pages/Layout';
 import Main from './pages/Main/Main';
 import Profile from './pages/Profile/Profile';
@@ -12,6 +12,7 @@ import SearchPage from './pages/Search/SearchPage';
 import NotFound from './pages/Error/NotFound';
 import NavToMain from './pages/NavToMain/NavToMain';
 import { ScheduleProvider } from './pages/Schedule/@contexts/useSchedule';
+import './App.css';
 
 function App() {
   const { isLogin, signOut } = useLoginState();

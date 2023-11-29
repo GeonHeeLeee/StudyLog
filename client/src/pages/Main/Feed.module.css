@@ -1,60 +1,63 @@
-.feed-article{
-    min-height: 30vh;
-    display: flex;
-    justify-content: center;
-    /*margin-bottom: 1.25rem;*/
-    border: 1px solid lightgray;
-    border-bottom: none;
+.feed-article {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  /*margin-bottom: 1.25rem;*/
+  border-bottom: 1px solid lightgray;
+  width: 98%
 }
 
 .profile-icon {
-    flex-basis: 20px;
-    padding: 0.35rem;
+  flex-basis: 20px;
+  padding: 0.35rem 0.35rem 0;
 }
 .profile-icon > div {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    background-color: yellow;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: yellow;
 }
 
 .feed-main {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 .feed-userinfo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: baseline;
-    font-size: 0.75rem;
-    margin-top: 0.35rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  font-size: 1rem;
+  margin-top: 0.35rem;
 }
 .username {
-    font-weight: bold;
-    margin-right: 0.35rem;
+  font-weight: bold;
+  margin-right: 0.35rem;
 }
 .userid {
-    color: lightgray;
-    font-size: 0.65rem;
-    margin-right: 0.35rem;
+  color: lightgray;
+  font-size: 0.85rem;
+  margin-right: 0.35rem;
 }
 .date {
-    color: lightgray;
-    font-size: 0.65rem;
+  color: lightgray;
+  font-size: 0.85rem;
 }
 .feed-content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+
 }
 .feed-image {
-    border-radius: 1rem;
+  border-radius: 1rem;
 }
 .feed-meta {
-    color: lightgray;
-    font-size: 0.65rem;
-    display: flex;
+  margin: 0.45rem 0.5rem;
+  color: lightgray;
+  font-size: 0.85rem;
+  display: flex;
 }
 .feed-comments {
-    margin-right: 1rem;
+  margin-right: 1.5rem;
 }
 .feed-likes {
 }

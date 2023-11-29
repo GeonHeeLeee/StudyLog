@@ -4,18 +4,20 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  padding: 0 0.75rem;
 }
 .navbar {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
   position: fixed;
   padding: 0;
+  font-size: 1.25rem;
 }
 
 .navbar > li > strong {
-  font-size: 1.45rem;
+  font-size: 1.65rem;
 }
 
 .navbar > li > a,

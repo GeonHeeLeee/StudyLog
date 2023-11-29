@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import Input from '../Input/Input.component';
 import useInput from '../../hooks/form/useInput';
-
 import styles from './Modal.module.css';
+import Button from '../Button/Button.component';
+import useNetwork from '../../stores/network';
+
+type Props = {
+  closeModal: () => void;
+};
 
 const initialForm = {
   userId: '',
@@ -15,14 +20,25 @@ const initialForm = {
   domainEmail: '', // email 뒤쪽
   birth: '',
 };
+
 // 회원가입 모달
-export default function SignUpModal() {
+export default function SignUpModal({ closeModal }: Props) {
   const [form, onChangeHandler] = useInput(initialForm);
+  const { httpInterface } = useNetwork();
+
+  const checkDuplicateIdHandler = async () => {
+    const response = await httpInterface.checkDuplicateId(form.userId);
+  };
+
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    closeModal();
+  };
 
   return (
     <div>
       <h2 className={styles.header}>회원가입</h2>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={submitHandler}>
         <div className={styles['input-container']}>
           <label htmlFor='name'>이름</label>
           <Input
@@ -59,7 +75,12 @@ export default function SignUpModal() {
             placeholder='아이디'
             className={styles['form-input']}
           />
-          <button className={styles['check-button']}>중복 체크</button>
+          <Button
+            type='button'
+            className={styles['check-button']}
+            onClick={checkDuplicateIdHandler}
+            text='중복 체크'
+          />
         </div>
         <div className={styles['input-container']}>
           <label htmlFor='name'>비밀번호</label>
@@ -117,7 +138,11 @@ export default function SignUpModal() {
             required
           />
         </div>
-        <button className={styles['form-button']}>회원가입하기</button>
+        <Button
+          type='submit'
+          className={styles['form-button']}
+          text='회원가입하기'
+        />
       </form>
     </div>
   );

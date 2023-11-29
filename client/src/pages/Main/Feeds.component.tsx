@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { FeedResult } from './FeedContainer.component';
 import Feed from './Feed.component';
 

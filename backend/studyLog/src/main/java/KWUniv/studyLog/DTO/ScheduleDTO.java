@@ -12,6 +12,5 @@ public class ScheduleDTO {
     private String userId;
     private String toDo;
     private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private boolean done;
 }

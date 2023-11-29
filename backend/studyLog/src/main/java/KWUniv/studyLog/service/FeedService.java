@@ -46,7 +46,7 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity postAndSaveFeedAndSendResponse(FeedDTO feedDTO){
+    public ResponseEntity postAndSaveFeed(FeedDTO feedDTO){
         Optional<User> user = Optional.ofNullable(userRepository.findUserById(feedDTO.getWriterId()));
         if(user.isEmpty()) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
@@ -61,7 +61,7 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity writeCommentSendResponse(CommentDTO commentDTO) {
+    public ResponseEntity writeComment(CommentDTO commentDTO) {
         User user = userRepository.findUserById(commentDTO.getUserId());
         Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
 
@@ -84,7 +84,7 @@ public class FeedService {
     - 유저가 없을 시, 400 반환
      */
     @Transactional
-    public ResponseEntity<Map<String, Object>> findUserAndFeedAndSendResponse(String userId) {
+    public ResponseEntity<Map<String, Object>> findUserAndFeedSend(String userId) {
         User foundUser = userRepository.findUserById(userId);
         List<Feed> foundFeeds = findFeedsByUserId(userId);
         if(foundUser == null){
@@ -102,7 +102,7 @@ public class FeedService {
     - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
     @Transactional
-    public ResponseEntity likeFeedAndSendResponse(Integer feedId) {
+    public ResponseEntity likeFeed(Integer feedId) {
         Feed foundFeed = findFeedById(feedId);
         if(foundFeed == null){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

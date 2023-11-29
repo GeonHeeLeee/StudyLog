@@ -55,7 +55,7 @@ public class FeedController {
      */
     @PostMapping
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
-        return feedService.postAndSaveFeedAndSendResponse(feedDTO);
+        return feedService.postAndSaveFeed(feedDTO);
     }
 
 
@@ -66,7 +66,7 @@ public class FeedController {
      */
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-        return feedService.writeCommentSendResponse(commentDTO);
+        return feedService.writeComment(commentDTO);
     }
 
     /*
@@ -75,7 +75,7 @@ public class FeedController {
     @GetMapping("/like")
     @Transactional
     public ResponseEntity likeFeed(@RequestParam Integer feedId){
-        return feedService.likeFeedAndSendResponse(feedId);
+        return feedService.likeFeed(feedId);
     }
 
 

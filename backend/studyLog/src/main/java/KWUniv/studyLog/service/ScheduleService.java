@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,27 +36,25 @@ public class ScheduleService {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         Schedule schedule = new Schedule(user, scheduleDTO);
-        Integer scheduleId = scheduleRepository.saveAndGetId(schedule);
+        Integer scheduleId = scheduleRepository.saveAndGetScheduleId(schedule);
         return new ResponseEntity<>(scheduleId, HttpStatus.OK);
     }
 
-
     /*
-    scheduleId로 요청을 받아 startTime, endTime 지정 메서드
-    - 만약 해당 스케쥴을 찾을 수 없으면 400
-    - 성공 시, schedule의 start, endTime 저장하고 200
+    스케줄 상태 변경(완료, 미완료)
+    - 만약 스케줄이 true면 false로, false면 true로 변환
      */
     @Transactional
-    public ResponseEntity setStartAndEndTimeInSchedule(ScheduleDTO scheduleDTO) {
-        LocalTime startTime = scheduleDTO.getStartTime();
-        LocalTime endTime = scheduleDTO.getEndTime();
-        Integer scheduleId = scheduleDTO.getScheduleId();
-
-        Optional<Schedule> foundSchedule = Optional.ofNullable(scheduleRepository.findScheduleById(scheduleId));
-        if(foundSchedule.isEmpty()) return new ResponseEntity(HttpStatus.BAD_REQUEST);
-
-        foundSchedule.get().setStartTime(startTime);
-        foundSchedule.get().setEndTime(endTime);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity changeScheduleState(Integer scheduleId) {
+        Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
+        if(schedule == null){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        boolean state = schedule.changeDoneState();
+        Map<String, Object> response = new HashMap<>();
+        response.put("scheduleId", scheduleId);
+        response.put("done", state);
+        return new ResponseEntity<>(state, HttpStatus.OK);
     }
+
 }

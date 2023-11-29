@@ -31,17 +31,24 @@ public class Schedule {
 
     private String toDo;
 
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private boolean done;
 
     public Schedule(User user, ScheduleDTO scheduleDTO) {
         this.user = user;
         this.date = LocalDate.now();
         this.toDo = scheduleDTO.getToDo();
-        this.startTime = scheduleDTO.getStartTime();
-        this.endTime = scheduleDTO.getEndTime();
+        this.done = false;
     }
 
+    public boolean changeDoneState(){
+        if(this.done){
+            this.done = false;
+        }
+        else{
+            this.done = true;
+        }
+        return this.done;
+    }
 
 
 

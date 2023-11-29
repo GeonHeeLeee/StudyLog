@@ -38,4 +38,12 @@ public class Feed {
         this.date = LocalDateTime.now();
         this.likes = 0;
     }
+
+    /*
+    좋아요 누를 시 like + 1
+     */
+    public void plusFeedLikes(){
+        this.likes += 1;
+    }
+
 }

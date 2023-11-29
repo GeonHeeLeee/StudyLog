@@ -1,11 +1,13 @@
 package KWUniv.studyLog.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Following {
 
     @Id @GeneratedValue
@@ -23,4 +25,5 @@ public class Following {
         this.selfUser = selfUser;
         this.followingUser = followingUser;
     }
+
 }

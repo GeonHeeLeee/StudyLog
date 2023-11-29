@@ -4,17 +4,13 @@ package KWUniv.studyLog.controller;
 import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.DTO.FeedResponseDTO;
-import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
-import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -59,7 +55,7 @@ public class FeedController {
      */
     @PostMapping
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
-        return feedService.postAndSaveFeed(feedDTO);
+        return feedService.postAndSaveFeedAndSendResponse(feedDTO);
     }
 
 
@@ -70,7 +66,16 @@ public class FeedController {
      */
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-        return feedService.writeComment(commentDTO);
+        return feedService.writeCommentSendResponse(commentDTO);
+    }
+
+    /*
+    특정 피드에 좋아요 누르기
+     */
+    @GetMapping("/like")
+    @Transactional
+    public ResponseEntity likeFeed(@RequestParam Integer feedId){
+        return feedService.likeFeedAndSendResponse(feedId);
     }
 
 

@@ -10,10 +10,6 @@ import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,7 +46,7 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity postAndSaveFeed(FeedDTO feedDTO){
+    public ResponseEntity postAndSaveFeedAndSendResponse(FeedDTO feedDTO){
         Optional<User> user = Optional.ofNullable(userRepository.findUserById(feedDTO.getWriterId()));
         if(user.isEmpty()) return new ResponseEntity(HttpStatus.BAD_REQUEST);
 
@@ -65,7 +61,7 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity writeComment(CommentDTO commentDTO) {
+    public ResponseEntity writeCommentSendResponse(CommentDTO commentDTO) {
         User user = userRepository.findUserById(commentDTO.getUserId());
         Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
 
@@ -88,7 +84,7 @@ public class FeedService {
     - 유저가 없을 시, 400 반환
      */
     @Transactional
-    public ResponseEntity<Map<String, Object>> sendUserAndUsersFeed(String userId) {
+    public ResponseEntity<Map<String, Object>> findUserAndFeedAndSendResponse(String userId) {
         User foundUser = userRepository.findUserById(userId);
         List<Feed> foundFeeds = findFeedsByUserId(userId);
         if(foundUser == null){
@@ -99,6 +95,23 @@ public class FeedService {
         response.put("feeds", foundFeeds);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /*
+    피드에 좋아요 누르기
+    - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
+     */
+    @Transactional
+    public ResponseEntity likeFeedAndSendResponse(Integer feedId) {
+        Feed foundFeed = findFeedById(feedId);
+        if(foundFeed == null){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        foundFeed.plusFeedLikes();
+        Map<String, Object> response = new HashMap<>();
+        response.put("feedId", foundFeed.getFeedId());
+        response.put("likes", foundFeed.getLikes());
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
 //    public Page<Feed> findFeedsByUserId(String userId, Pageable pageable) {

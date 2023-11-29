@@ -20,7 +20,7 @@ public class FeedResponseDTO {
     private String feedBody;
     private String photo;
     private List<CommentDTO> comments;
-
+    private Integer likes;
     private String next;
     private List<FeedDTO> feeds;
 
@@ -30,6 +30,7 @@ public class FeedResponseDTO {
         this.date = feed.getDate();
         this.feedBody = feed.getFeedBody();
         this.photo = feed.getPhoto();
+        this.likes = feed.getLikes();
         this.comments = feed.getComments().stream()
                 .map(CommentDTO::new)
                 .collect(Collectors.toList());

@@ -2,6 +2,7 @@ package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.DTO.FeedResponseDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -88,9 +90,14 @@ public class FeedService {
         if(foundUser == null){
             throw new UserNotFoundException();
         }
+        //무한참조 문제가 발생해 DTO로 응답
+        List<FeedResponseDTO> feedDTOs = foundFeeds.stream()
+                .map(feed -> new FeedResponseDTO(feed))
+                .collect(Collectors.toList());
         Map<String, Object> response = new HashMap<>();
+
         response.put("user",foundUser);
-        response.put("feeds", foundFeeds);
+        response.put("feeds", feedDTOs);
         return response;
     }
 

@@ -1,0 +1,18 @@
+.week-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.week-header {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.block {
+  width: 8vw;
+  height: 6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+  font-weight: 700;
+}

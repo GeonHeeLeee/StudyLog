@@ -1,6 +1,13 @@
 import { AxiosRequestConfig } from 'axios';
 import { ICommunication } from './http';
-import { SignInData } from './http.type';
+import {
+  FeedMetadata,
+  FeedsData,
+  FeedsPaginationData,
+  JoinData,
+  SignInData,
+  SignOutData,
+} from './http.type';
 
 export class HttpInterface {
   private defaultOptions;
@@ -8,15 +15,35 @@ export class HttpInterface {
     this.apiClient = apiClient;
     this.defaultOptions = {
       headers: {
-        "Content-Type": 'application/json'
+        'Content-Type': 'application/json',
       },
     };
   }
 
   // TODO: Api 명세 대로 구현하기
-  signIn(signInData: SignInData) {
-    const url = '/signIn';
+  login(signInData: SignInData) {
+    const url = '/login';
     return this.post(url, signInData);
+  }
+
+  logout(signOutData: SignOutData) {
+    const url = '/logout';
+    return this.post(url, signOutData);
+  }
+
+  join(joinData: JoinData) {
+    const url = '/join';
+    return this.post(url, joinData);
+  }
+
+  getFeeds(paginationData: FeedsPaginationData): Promise<FeedsData> {
+    const url = `/home?userId=${paginationData.userId}&page=${paginationData.pageNum}`;
+    return this.get(url);
+  }
+
+  getFeedById(feedMetadata: FeedMetadata) {
+    const url = `/feed?userId=${feedMetadata.userId}&feedId=${feedMetadata.feedId}`;
+    return this.get(url);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

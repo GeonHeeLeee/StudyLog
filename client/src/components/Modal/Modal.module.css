@@ -1,0 +1,87 @@
+.modal-content {
+  max-width: 70vw;
+  min-width: 60vw;
+  min-height: 30vh;
+  width: 50%;
+}
+
+.header {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.input-container {
+  display: flex;
+}
+.input-container label {
+  flex-basis: 18vw;
+  font-size: 3vw;
+}
+label {
+  font-size: 3vw;
+}
+
+.form-input {
+  box-sizing: border-box;
+  /* width: 80%; */
+  flex: 1 1 auto;
+  padding: 0.35rem 0.6rem;
+  border: 2px solid black;
+  border-radius: 0.5rem;
+  transition: 500ms all;
+}
+
+.email-section {
+  display: flex;
+  gap: 0.25rem;
+}
+.email-input {
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  padding: 0.35rem 0.6rem;
+  border: 2px solid black;
+  border-radius: 0.5rem;
+  transition: 500ms all;
+}
+
+.form-input:focus,
+.email-input:focus {
+  transform: scale(1.05);
+}
+
+.form-button {
+  padding: 0.5rem 1rem;
+  transition: 500ms all;
+  color: white;
+  font-weight: 700;
+  background-color: black;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.15rem;
+}
+
+.check-button {
+  transition: 500ms all;
+  color: white;
+  font-weight: 700;
+  background-color: black;
+  border: none;
+  border-radius: 0.5rem;
+  margin-left: 0.25rem;
+}
+
+.check-button:hover,
+.form-button:hover {
+  font-weight: 900;
+  transform: scale(1.1);
+}

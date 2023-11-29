@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  min-width: 500px;
 }
 
 .modal-wrap {
@@ -36,10 +37,6 @@
 .modal-wrap .modal-con {
   position: relative;
   z-index: 10;
-  max-width: 500px;
-  min-width: 300px;
-  min-height: 100px;
-  width: 33%;
   padding: 20px;
   border-radius: 5px;
   background: #fff;
@@ -50,10 +47,10 @@
 .modal-wrap.active .modal-con {
   position: relative;
   z-index: 10;
-  max-width: 500px;
-  min-width: 300px;
-  min-height: 100px;
-  width: 33%;
+  /* max-width: 500px; */
+  /* min-width: 300px; */
+  /* min-height: 100px; */
+  /* width: 33%; */
   padding: 20px;
   border-radius: 5px;
   background: #fff;
@@ -61,7 +58,7 @@
 }
 
 .modal-wrap .modal-con .contents {
-  padding: 20px 0;
+  padding: 0 0 20px 0;
 }
 
 .modal-wrap .modal-con .bottom {

@@ -1,0 +1,13 @@
+.days-container {
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 8vw);
+  gap: 0.5rem;
+}

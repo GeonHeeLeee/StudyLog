@@ -19,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -74,6 +76,29 @@ public class FeedService {
         Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
         commentRepository.save(comment);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    public List<Feed> findFeedsByUserId(String userId){
+        return feedRepository.findFeedsByWriterId(userId);
+    }
+
+    /*
+    프로필 조회 요청이 왔을 때, User와 User가 작성한 Feed 반환
+    - 유저가 없을 시, 400 반환
+     */
+    @Transactional
+    public ResponseEntity<Map<String, Object>> sendUserAndUsersFeed(String userId) {
+        User foundUser = userRepository.findUserById(userId);
+        List<Feed> foundFeeds = findFeedsByUserId(userId);
+        if(foundUser == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("user",foundUser);
+        response.put("feeds", foundFeeds);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 //    public Page<Feed> findFeedsByUserId(String userId, Pageable pageable) {

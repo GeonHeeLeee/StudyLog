@@ -63,6 +63,12 @@ export class HttpInterface {
     return this.post(url, scheduleData);
   }
 
+  // 유저 개인 프로필 정보 가져오기
+  getUsersProfile(userId: string | undefined) {
+    const url = `/profile?userId=${userId}`;
+    return this.get(url);
+  }
+
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {
     return this.apiClient.get(url, options);
   }

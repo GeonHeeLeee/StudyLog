@@ -59,3 +59,7 @@ export type ScheduleTimeData = {
   startTime: Date;
   endTime: Date;
 };
+
+export type ProfileData = {
+  userId: string;
+};

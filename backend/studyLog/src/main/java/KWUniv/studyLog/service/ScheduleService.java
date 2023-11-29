@@ -3,6 +3,8 @@ package KWUniv.studyLog.service;
 import KWUniv.studyLog.DTO.ScheduleDTO;
 import KWUniv.studyLog.entity.Schedule;
 import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.exception.ScheduleNotFoundException;
+import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.ScheduleRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,14 +32,16 @@ public class ScheduleService {
     - 만약 해당 userId의 User 존재하지 않을 시 400 반환
      */
     @Transactional
-    public ResponseEntity registerSchedule(ScheduleDTO scheduleDTO) {
+    public Map<String, Object> registerSchedule(ScheduleDTO scheduleDTO) {
         User user = userRepository.findUserById(scheduleDTO.getUserId());
         if(user == null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            throw new UserNotFoundException();
         }
         Schedule schedule = new Schedule(user, scheduleDTO);
         Integer scheduleId = scheduleRepository.saveAndGetScheduleId(schedule);
-        return new ResponseEntity<>(scheduleId, HttpStatus.OK);
+        Map<String, Object> response = new HashMap<>();
+        response.put("scheduleId", scheduleId);
+        return response;
     }
 
     /*
@@ -45,16 +49,16 @@ public class ScheduleService {
     - 만약 스케줄이 true면 false로, false면 true로 변환
      */
     @Transactional
-    public ResponseEntity changeScheduleState(Integer scheduleId) {
+    public Map<String, Object> changeScheduleState(Integer scheduleId) {
         Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
         if(schedule == null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            throw new ScheduleNotFoundException();
         }
         boolean state = schedule.changeDoneState();
         Map<String, Object> response = new HashMap<>();
         response.put("scheduleId", scheduleId);
         response.put("done", state);
-        return new ResponseEntity<>(state, HttpStatus.OK);
+        return response;
     }
 
 }

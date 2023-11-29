@@ -5,13 +5,12 @@ import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,13 +45,14 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity postAndSaveFeed(FeedDTO feedDTO){
+    public boolean postAndSaveFeed(FeedDTO feedDTO){
         Optional<User> user = Optional.ofNullable(userRepository.findUserById(feedDTO.getWriterId()));
-        if(user.isEmpty()) return new ResponseEntity(HttpStatus.BAD_REQUEST);
-
+        if(user.isEmpty()){
+            return false;
+        }
         Feed feed = new Feed(user.get(), feedDTO.getFeedBody(), feedDTO.getPhoto());
         feedRepository.save(feed);
-        return new ResponseEntity(HttpStatus.OK);
+        return true;
     }
 
     /*
@@ -61,17 +61,15 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public ResponseEntity writeComment(CommentDTO commentDTO) {
+    public boolean writeComment(CommentDTO commentDTO) {
         User user = userRepository.findUserById(commentDTO.getUserId());
         Feed feed = feedRepository.findFeedById(commentDTO.getFeedId());
-
         if(user == null || feed == null) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            throw new UserNotFoundException();
         }
-
         Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
         commentRepository.save(comment);
-        return new ResponseEntity(HttpStatus.OK);
+        return true;
     }
 
 
@@ -84,17 +82,16 @@ public class FeedService {
     - 유저가 없을 시, 400 반환
      */
     @Transactional
-    public ResponseEntity<Map<String, Object>> findUserAndFeedSend(String userId) {
+    public Map<String, Object> findUserAndFeed(String userId) {
         User foundUser = userRepository.findUserById(userId);
         List<Feed> foundFeeds = findFeedsByUserId(userId);
         if(foundUser == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new UserNotFoundException();
         }
         Map<String, Object> response = new HashMap<>();
         response.put("user",foundUser);
         response.put("feeds", foundFeeds);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return response;
     }
 
     /*
@@ -102,16 +99,16 @@ public class FeedService {
     - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
     @Transactional
-    public ResponseEntity likeFeed(Integer feedId) {
+    public Map<String, Object> likeFeed(Integer feedId) {
         Feed foundFeed = findFeedById(feedId);
         if(foundFeed == null){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            throw new UserNotFoundException();
         }
         foundFeed.plusFeedLikes();
         Map<String, Object> response = new HashMap<>();
         response.put("feedId", foundFeed.getFeedId());
         response.put("likes", foundFeed.getLikes());
-        return new ResponseEntity(response, HttpStatus.OK);
+        return response;
     }
 
 //    public Page<Feed> findFeedsByUserId(String userId, Pageable pageable) {

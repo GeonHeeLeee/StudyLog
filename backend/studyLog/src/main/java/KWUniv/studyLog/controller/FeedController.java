@@ -5,6 +5,7 @@ import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.DTO.FeedResponseDTO;
 import KWUniv.studyLog.entity.Feed;
+import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.UserRepository;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -55,7 +58,12 @@ public class FeedController {
      */
     @PostMapping
     public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
-        return feedService.postAndSaveFeed(feedDTO);
+        boolean isPosted = feedService.postAndSaveFeed(feedDTO);
+        if(isPosted){
+            return new ResponseEntity(HttpStatus.OK);
+        }else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 
@@ -66,16 +74,28 @@ public class FeedController {
      */
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-        return feedService.writeComment(commentDTO);
+//        return feedService.writeComment(commentDTO);
+        try{
+            feedService.writeComment(commentDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch(UserNotFoundException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     /*
     특정 피드에 좋아요 누르기
+     - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
     @GetMapping("/like")
     @Transactional
     public ResponseEntity likeFeed(@RequestParam Integer feedId){
-        return feedService.likeFeed(feedId);
+        try{
+            Map response = feedService.likeFeed(feedId);
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch(UserNotFoundException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 

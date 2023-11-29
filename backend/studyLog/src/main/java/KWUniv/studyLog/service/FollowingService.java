@@ -34,13 +34,13 @@ public class FollowingService {
     - 성공적이면 200 반환
      */
     @Transactional
-    public ResponseEntity findSaveFollowingAndSelf(FollowingDTO followingDTO){
+    public boolean findSaveFollowingAndSelf(FollowingDTO followingDTO){
         Optional<User> selfUser = Optional.ofNullable(userRepository.findUserById(followingDTO.getSelfId()));
         Optional<User> followingUser = Optional.ofNullable(userRepository.findUserById(followingDTO.getFollowingId()));
 
         //만약 self나 following User가 존재하지 않는 경우
         if(selfUser.isEmpty() || followingUser.isEmpty()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return false;
         }
 
         //각자 follower, following + 1
@@ -49,6 +49,6 @@ public class FollowingService {
         //Following DB 저장
         Following following = new Following(selfUser.get(), followingUser.get());
         followingRepository.save(following);
-        return new ResponseEntity(HttpStatus.OK);
+        return true;
     }
 }

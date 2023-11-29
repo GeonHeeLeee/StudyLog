@@ -34,6 +34,7 @@ public class FeedRepository {
     작성자의 ID를 받아서 작성자가 쓴 글을 반환해주는 메서드
     - List 형태로 반환
      */
+
     public List<Feed> findFeedsByWriterId(String writerId) {
         return em.createQuery("select f from Feed f where f.user.userId = : writerId", Feed.class)
                 .setParameter("writerId", writerId)

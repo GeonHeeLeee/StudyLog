@@ -25,11 +25,11 @@ public class LoginService {
     - 실패 시 400
      */
     @Transactional
-    public ResponseEntity registerUser(User user) {
+    public boolean registerUser(User user) {
         if(validateUser(user))
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return false;
         userRepository.save(user);
-        return new ResponseEntity(HttpStatus.OK);
+        return true;
     }
 
     /*
@@ -46,10 +46,9 @@ public class LoginService {
     - 비밀번호 유저가 존재하고 비밀번호 일치 시 200
     - 없거나 일치하지 않으면 400
      */
-    public ResponseEntity loginCheck(User user) {
+    public boolean loginCheck(User user) {
         Optional<User> findUser = Optional.ofNullable(userRepository.findUserById(user.getUserId()));
-        return (findUser.isPresent() && findUser.get().getPassword().equals(user.getPassword())) ?
-                 new ResponseEntity(HttpStatus.OK) :  new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return (findUser.isPresent() && findUser.get().getPassword().equals(user.getPassword()));
     }
 
     /*
@@ -57,9 +56,9 @@ public class LoginService {
     - 중복 아이디 존재 할 시 400,
     - 중복 아이디 존재 안할 시 200
      */
-    public ResponseEntity checkDuplicateId(String userId) {
-        return userRepository.findUserById(userId) == null ?
-                new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.BAD_REQUEST);
+    public boolean checkDuplicateId(String userId) {
+        Optional<User> findUser = Optional.ofNullable(userRepository.findUserById(userId));
+        return findUser.isEmpty();
     }
 
 }

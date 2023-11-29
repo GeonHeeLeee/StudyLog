@@ -25,9 +25,17 @@ public class FollowingController {
     private final FollowingService followingService;
     private final UserRepository userRepository;
 
+    /*
+    해당 유저 팔로우
+     */
     @PostMapping("/follow")
     @Transactional
     public ResponseEntity followUser(@RequestBody FollowingDTO followingDTO) {
-        return followingService.findSaveFollowingAndSelf(followingDTO);
+        boolean isFollowed =  followingService.findSaveFollowingAndSelf(followingDTO);
+        if(isFollowed){
+            return new ResponseEntity(HttpStatus.OK);
+        } else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -12,7 +12,7 @@ public class ScheduleRepository {
 
     private final EntityManager em;
 
-    public Integer saveAndGetId(Schedule schedule){
+    public Integer saveAndGetScheduleId(Schedule schedule){
         em.persist(schedule);
         return schedule.getScheduleId();
     }

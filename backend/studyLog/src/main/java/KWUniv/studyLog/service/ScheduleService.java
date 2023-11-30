@@ -4,26 +4,20 @@ import KWUniv.studyLog.DTO.ScheduleDTO;
 import KWUniv.studyLog.entity.Schedule;
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.exception.ScheduleNotFoundException;
-import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.ScheduleRepository;
-import KWUniv.studyLog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     /*
     처음 스케쥴 등록 요청 메서드
@@ -33,10 +27,7 @@ public class ScheduleService {
      */
     @Transactional
     public Map<String, Object> registerSchedule(ScheduleDTO scheduleDTO) {
-        User user = userRepository.findUserById(scheduleDTO.getUserId());
-        if(user == null){
-            throw new UserNotFoundException();
-        }
+        User user = userService.findUserById(scheduleDTO.getUserId());
         Schedule schedule = new Schedule(user, scheduleDTO);
         Integer scheduleId = scheduleRepository.saveAndGetScheduleId(schedule);
         Map<String, Object> response = new HashMap<>();
@@ -51,7 +42,7 @@ public class ScheduleService {
     @Transactional
     public Map<String, Object> changeScheduleState(Integer scheduleId) {
         Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
-        if(schedule == null){
+        if (schedule == null) {
             throw new ScheduleNotFoundException();
         }
         boolean state = schedule.changeDoneState();

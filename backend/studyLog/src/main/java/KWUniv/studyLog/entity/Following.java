@@ -10,7 +10,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Following {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -21,7 +22,7 @@ public class Following {
     @JoinColumn(name = "followingId")
     private User followingUser;
 
-    public Following(User selfUser, User followingUser){
+    public Following(User selfUser, User followingUser) {
         this.selfUser = selfUser;
         this.followingUser = followingUser;
     }

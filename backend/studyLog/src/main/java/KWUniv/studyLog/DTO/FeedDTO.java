@@ -8,13 +8,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class FeedDTO {
-        private String writerId;
-        private String feedBody;
-        private String photo;
+    private String writerId;
+    private String feedBody;
+    private String photo;
+    private String likes;
+    private String date;
 
-        public FeedDTO(String userId, String feedBody, String photo) {
-                this.writerId = userId;
-                this.feedBody = feedBody;
-                this.photo = photo;
-        }
+    public FeedDTO(String userId, String feedBody, String photo) {
+        this.writerId = userId;
+        this.feedBody = feedBody;
+        this.photo = photo;
+    }
 }

@@ -5,7 +5,6 @@ import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,7 +25,7 @@ public class LoginController {
     @PostMapping("/join")
     public ResponseEntity registerUser(@RequestBody User user) {
         boolean isRegistered = loginService.registerUser(user);
-        if(isRegistered){
+        if (isRegistered) {
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -40,8 +39,8 @@ public class LoginController {
      */
     @GetMapping("/join/checkId")
     public ResponseEntity checkId(@RequestParam String userId) {
-        boolean idExisted =  loginService.checkDuplicateId(userId);
-        if(idExisted){
+        boolean idExisted = loginService.checkDuplicateId(userId);
+        if (idExisted) {
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -49,13 +48,12 @@ public class LoginController {
     }
 
 
-
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<User> loginUser(@RequestBody User user,
                                           HttpServletRequest request) {
-        boolean isLoggedIn =  loginService.loginCheck(user);
-        if(isLoggedIn){
+        boolean isLoggedIn = loginService.loginCheck(user);
+        if (isLoggedIn) {
             //세션 생성 후 넣어줌
             loginService.createSession(request, user.getUserId());
             //이후 로그인시에 어떤 정보 넘겨줄지 생각

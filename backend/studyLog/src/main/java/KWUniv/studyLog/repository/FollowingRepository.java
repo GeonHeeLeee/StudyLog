@@ -1,22 +1,10 @@
 package KWUniv.studyLog.repository;
 
 import KWUniv.studyLog.entity.Following;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 @Repository
-@RequiredArgsConstructor
-public class FollowingRepository {
-
-    private final EntityManager em;
-
-
-    public void save(Following following) {
-        em.persist(following);
-    }
-
+public interface FollowingRepository extends JpaRepository<Following, Integer> {
+    // 필요한 추가 메소드를 여기에 선언하면 됩니다.
 }

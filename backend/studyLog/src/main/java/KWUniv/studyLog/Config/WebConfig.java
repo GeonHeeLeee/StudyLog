@@ -2,7 +2,6 @@ package KWUniv.studyLog.Config;
 
 import KWUniv.studyLog.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,9 +12,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
-                .allowedMethods("OPTIONS","GET","POST","PUT","DELETE")
+                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true);
     }
+
     /*
     Interceptor 등록, 세션 처리 메서드
      */
@@ -23,6 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login","/join","/join/checkId");
+                .excludePathPatterns("/login", "/join", "/join/checkId");
     }
 }

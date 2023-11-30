@@ -1,7 +1,6 @@
 package KWUniv.studyLog.entity;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +25,7 @@ public class User {
     public void plusFollowerCount() {
         this.followerCount += 1;
     }
+
     public void plusFollowingCount() {
         this.followingCount += 1;
     }

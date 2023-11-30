@@ -1,18 +1,16 @@
 package KWUniv.studyLog.entity;
 
 import KWUniv.studyLog.DTO.ScheduleDTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Schedule {
     /*
@@ -20,7 +18,8 @@ public class Schedule {
     - 한 날짜의 ToDoList가 여러개 일 수 있으니까 ToDoList를 따로 클래스로 만들어 다대다 매핑
      */
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer scheduleId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,16 +39,14 @@ public class Schedule {
         this.done = false;
     }
 
-    public boolean changeDoneState(){
-        if(this.done){
+    public boolean changeDoneState() {
+        if (this.done) {
             this.done = false;
-        }
-        else{
+        } else {
             this.done = true;
         }
         return this.done;
     }
-
 
 
 }

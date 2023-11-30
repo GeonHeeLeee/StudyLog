@@ -12,16 +12,16 @@ public class ScheduleRepository {
 
     private final EntityManager em;
 
-    public Integer saveAndGetScheduleId(Schedule schedule){
+    public Integer saveAndGetScheduleId(Schedule schedule) {
         em.persist(schedule);
         return schedule.getScheduleId();
     }
 
-    public void save(Schedule schedule){
+    public void save(Schedule schedule) {
         em.persist(schedule);
     }
 
-    public Schedule findScheduleById(Integer scheduleId){
+    public Schedule findScheduleById(Integer scheduleId) {
         return em.find(Schedule.class, scheduleId);
     }
 

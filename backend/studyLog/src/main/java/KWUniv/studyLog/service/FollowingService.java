@@ -4,7 +4,6 @@ import KWUniv.studyLog.DTO.FollowingDTO;
 import KWUniv.studyLog.entity.Following;
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.FollowingRepository;
-import KWUniv.studyLog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

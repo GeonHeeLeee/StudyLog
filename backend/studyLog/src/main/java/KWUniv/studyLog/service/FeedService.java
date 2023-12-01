@@ -2,7 +2,6 @@ package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
-import KWUniv.studyLog.DTO.FeedResponseDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
@@ -38,13 +37,9 @@ public class FeedService {
                 .orElseThrow(() -> new FeedNotFoundException("Feed not found with id : " + feedId));
     }
 
-
     public List<Feed> findFeedsByUserId(String userId) {
         return feedRepository.findByUser_UserId(userId);
     }
-    //    public List<Feed> findFeedsByUserId(String userId){
-    //        return feedRepository.findFeedsByWriterId(userId);
-    //    }
 
 
     /*
@@ -67,12 +62,11 @@ public class FeedService {
     - 성공 시 200
      */
     @Transactional
-    public boolean writeComment(CommentDTO commentDTO) {
+    public void writeComment(CommentDTO commentDTO) {
         User user = userService.findUserById(commentDTO.getUserId());
         Feed feed = findFeedById(commentDTO.getFeedId());
         Comment comment = new Comment(user, feed, commentDTO.getCommentBody());
         commentRepository.save(comment);
-        return true;
     }
 
 
@@ -86,8 +80,8 @@ public class FeedService {
         List<Feed> foundFeeds = findFeedsByUserId(userId);
 
         //무한참조 문제가 발생해 DTO로 응답
-        List<FeedResponseDTO> feedDTOs = foundFeeds.stream()
-                .map(feed -> new FeedResponseDTO(feed))
+        List<FeedDTO> feedDTOs = foundFeeds.stream()
+                .map(FeedDTO::new)
                 .collect(Collectors.toList());
         Map<String, Object> response = new HashMap<>();
 

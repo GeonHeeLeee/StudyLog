@@ -19,6 +19,10 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final UserService userService;
 
+    public Schedule findScheduleById(Integer scheduleId){
+        return scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new ScheduleNotFoundException("Schedule not found with id : " + scheduleId));
+    }
     /*
     처음 스케쥴 등록 요청 메서드
     - 시작시간, 끝난 시간 제외하고 ToDo만 등록
@@ -29,7 +33,7 @@ public class ScheduleService {
     public Map<String, Object> registerSchedule(ScheduleDTO scheduleDTO) {
         User user = userService.findUserById(scheduleDTO.getUserId());
         Schedule schedule = new Schedule(user, scheduleDTO);
-        Integer scheduleId = scheduleRepository.saveAndGetScheduleId(schedule);
+        Integer scheduleId = scheduleRepository.save(schedule).getScheduleId();
         Map<String, Object> response = new HashMap<>();
         response.put("scheduleId", scheduleId);
         return response;
@@ -41,9 +45,9 @@ public class ScheduleService {
      */
     @Transactional
     public Map<String, Object> changeScheduleState(Integer scheduleId) {
-        Schedule schedule = scheduleRepository.findScheduleById(scheduleId);
+        Schedule schedule = findScheduleById(scheduleId);
         if (schedule == null) {
-            throw new ScheduleNotFoundException();
+            throw new ScheduleNotFoundException("Schedule not found with id : " + scheduleId);
         }
         boolean state = schedule.changeDoneState();
         Map<String, Object> response = new HashMap<>();

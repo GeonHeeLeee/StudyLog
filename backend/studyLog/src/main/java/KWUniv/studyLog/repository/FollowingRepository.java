@@ -4,7 +4,10 @@ import KWUniv.studyLog.entity.Following;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FollowingRepository extends JpaRepository<Following, Integer> {
-    // 필요한 추가 메소드를 여기에 선언하면 됩니다.
+    // 무한 스크롤 팔로잉한 유저들만 보여주기
+    List<Following> findBySelfUser_UserId(String userId);
 }

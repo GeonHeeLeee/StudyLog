@@ -1,8 +1,7 @@
 package KWUniv.studyLog.controller;
 
 import KWUniv.studyLog.DTO.FollowingDTO;
-import KWUniv.studyLog.entity.Following;
-import KWUniv.studyLog.entity.User;
+import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.FollowingRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FollowingService;
@@ -11,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 public class FollowingController {
 
-    private final FollowingRepository followingRepository;
     private final FollowingService followingService;
-    private final UserRepository userRepository;
+
 
     /*
     해당 유저 팔로우
@@ -31,10 +28,10 @@ public class FollowingController {
     @PostMapping("/follow")
     @Transactional
     public ResponseEntity followUser(@RequestBody FollowingDTO followingDTO) {
-        boolean isFollowed =  followingService.findSaveFollowingAndSelf(followingDTO);
-        if(isFollowed){
+        try {
+            followingService.findSaveFollowingAndSelf(followingDTO);
             return new ResponseEntity(HttpStatus.OK);
-        } else{
+        } catch (UserNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

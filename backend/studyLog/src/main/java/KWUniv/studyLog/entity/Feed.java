@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Feed {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer feedId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +43,7 @@ public class Feed {
     /*
     좋아요 누를 시 like + 1
      */
-    public void plusFeedLikes(){
+    public void plusFeedLikes() {
         this.likes += 1;
     }
 

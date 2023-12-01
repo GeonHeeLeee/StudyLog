@@ -2,13 +2,10 @@ package KWUniv.studyLog.controller;
 
 
 import KWUniv.studyLog.DTO.CommentDTO;
-import KWUniv.studyLog.DTO.FeedDTO;
-import KWUniv.studyLog.DTO.FeedResponseDTO;
+import KWUniv.studyLog.DTO.FeedsDTO;
+import KWUniv.studyLog.DTO.SelectedFeedDTO;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.exception.UserNotFoundException;
-import KWUniv.studyLog.repository.CommentRepository;
-import KWUniv.studyLog.repository.FeedRepository;
-import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +23,6 @@ import java.util.Map;
 @RequestMapping("/feed")
 public class FeedController {
 
-
-    private final FeedRepository feedRepository;
-
-    private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
     private final FeedService feedService;
 
     /*
@@ -39,13 +31,13 @@ public class FeedController {
     - 특정 피드를 찾으면 HTTPSTATUS 200
      */
     @GetMapping
-    public ResponseEntity<FeedResponseDTO> getSelectedFeed(@RequestParam String userId,
-                                    @RequestParam Integer feedId){
+    public ResponseEntity<SelectedFeedDTO> getSelectedFeed(@RequestParam String userId,
+                                                           @RequestParam Integer feedId) {
         Feed foundFeed = feedService.findFeedById(feedId);
-        if(foundFeed == null){
+        if (foundFeed == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        FeedResponseDTO feedResponseDTO = new FeedResponseDTO(foundFeed);
+        SelectedFeedDTO feedResponseDTO = new SelectedFeedDTO(foundFeed);
 
         //Feed 객체를 조회할 때 해당 Feed에 연관된 Comment 리스트도 함께 조회된다.
         return new ResponseEntity<>(feedResponseDTO, HttpStatus.OK);
@@ -57,11 +49,11 @@ public class FeedController {
     - 성공 시 200
      */
     @PostMapping
-    public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
+    public ResponseEntity postAndSaveFeed(@RequestBody FeedsDTO feedDTO) {
         boolean isPosted = feedService.postAndSaveFeed(feedDTO);
-        if(isPosted){
+        if (isPosted) {
             return new ResponseEntity(HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
@@ -75,10 +67,10 @@ public class FeedController {
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
 //        return feedService.writeComment(commentDTO);
-        try{
+        try {
             feedService.writeComment(commentDTO);
             return new ResponseEntity(HttpStatus.OK);
-        } catch(UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
@@ -89,16 +81,14 @@ public class FeedController {
      */
     @GetMapping("/like")
     @Transactional
-    public ResponseEntity likeFeed(@RequestParam Integer feedId){
-        try{
+    public ResponseEntity likeFeed(@RequestParam Integer feedId) {
+        try {
             Map response = feedService.likeFeed(feedId);
             return new ResponseEntity(response, HttpStatus.OK);
-        } catch(UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
-
 
 
 }

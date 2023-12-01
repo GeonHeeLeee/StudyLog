@@ -21,6 +21,7 @@ public class ProfileContoller {
 
 
     private final FeedService feedService;
+
     /*
     Get으로 쿼리파라미터로 userId만 주면 해당 userId의 정보 반환
     - 이후 타이머 기능 구현 시, 잔디밭도 함께 보내주기
@@ -31,7 +32,7 @@ public class ProfileContoller {
         try {
             Map response = feedService.findUserAndFeed(userId);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch(UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

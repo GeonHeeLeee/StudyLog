@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Comment {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer commentId;
 
     @ManyToOne(fetch = FetchType.LAZY)

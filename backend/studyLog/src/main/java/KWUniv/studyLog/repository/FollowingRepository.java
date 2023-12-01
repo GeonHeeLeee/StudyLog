@@ -1,22 +1,13 @@
 package KWUniv.studyLog.repository;
 
 import KWUniv.studyLog.entity.Following;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
-public class FollowingRepository {
-
-    private final EntityManager em;
-
-
-    public void save(Following following) {
-        em.persist(following);
-    }
-
+public interface FollowingRepository extends JpaRepository<Following, Integer> {
+    // 무한 스크롤 팔로잉한 유저들만 보여주기
+    List<Following> findBySelfUser_UserId(String userId);
 }

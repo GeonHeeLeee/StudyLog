@@ -8,12 +8,35 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class FollowingService {
 
     private final FollowingRepository followingRepository;
     private final UserService userService;
+
+    /*
+    userId로 followings 가져오기
+     */
+    public List<Following> getFollowingsByUserId(String userId) {
+        return followingRepository.findBySelfUser_UserId(userId);
+    }
+
+    /*
+    해당 유저가 팔로잉하는 userId를 가져오기
+    - List로 반환
+     */
+    public List<String> getFollowingUserIds(String userId) {
+        List<Following> followings = getFollowingsByUserId(userId);
+
+        return followings.stream()
+                .map(following -> following.getFollowingUser().getUserId())
+                .collect(Collectors.toList());
+    }
+
 
     /*
     selfId의 팔로잉 + 1, followingId의 팔로워 + 1

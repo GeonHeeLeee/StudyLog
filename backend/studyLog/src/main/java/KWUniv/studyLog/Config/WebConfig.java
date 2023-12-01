@@ -18,11 +18,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     /*
     Interceptor 등록, 세션 처리 메서드
+    - 개발 단계에서는 안하기
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/join", "/join/checkId");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/login", "/join", "/join/checkId");
+//    }
 }

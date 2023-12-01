@@ -5,13 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class FeedDTO {
+public class FeedsDTO {
     private Integer feedId;
     private String writerId;
     private String feedBody;
@@ -22,7 +19,7 @@ public class FeedDTO {
     /*
     응답으로 FeedDTO 사용
      */
-    public FeedDTO(Feed feed) {
+    public FeedsDTO(Feed feed) {
         this.feedId = feed.getFeedId();
         this.writerId = feed.getUser().getUserId();
         this.feedBody = feed.getFeedBody();
@@ -30,5 +27,7 @@ public class FeedDTO {
         this.likes = feed.getLikes().toString();
         this.date = feed.getDate().toString();
     }
+
+
 
 }

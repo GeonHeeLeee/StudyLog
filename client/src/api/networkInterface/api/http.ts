@@ -10,10 +10,12 @@ export interface ICommunication {
   delete(url: string, config?: any): Promise<any>;
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '';
 export class Http implements ICommunication {
   httpClient: AxiosInstance;
 
-  constructor(baseURL = 'http://localhost:8080') {
+  constructor(baseURL = baseUrl) {
     const axiosConfig = {
       baseURL,
       withCredentials: true,

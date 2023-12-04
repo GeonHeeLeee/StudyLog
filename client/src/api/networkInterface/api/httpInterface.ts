@@ -1,12 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
 import { ICommunication } from './http';
 import {
+  AddScheduleData,
   FeedMetadata,
   FeedsData,
   FeedsPaginationData,
   JoinData,
   ScheduleData,
-  ScheduleTimeData,
   SignInData,
   SignOutData,
 } from './http.type';
@@ -14,7 +14,7 @@ import {
 export class HttpInterface {
   private defaultOptions;
   constructor(private apiClient: ICommunication) {
-    this.apiClient = apiClient;
+    this.apiClient = apiClient; // axios
     this.defaultOptions = {
       headers: {
         'Content-Type': 'application/json',
@@ -53,14 +53,18 @@ export class HttpInterface {
   }
 
   // TODO: API 명세 나오는 대로 구현
-  addSchedule(scheduleData: ScheduleData) {
+  addSchedule(scheduleData: AddScheduleData) {
     const url = `/schedule`;
     return this.post(url, scheduleData);
   }
 
-  enterSchduleTime(scheduleData: ScheduleTimeData) {
-    const url = `/schedule/time`;
-    return this.post(url, scheduleData);
+  getScheduleByDate(userId: string, dateString: string): Promise<ScheduleData> {
+    const url = `/schedule?userId=${userId}&date=${dateString}`;
+    return this.get(url);
+  }
+  finishSchedule(scheduleId: string) {
+    const url = `/schedule/done`;
+    return this.post(url, { scheduleId });
   }
 
   // 유저 개인 프로필 정보 가져오기

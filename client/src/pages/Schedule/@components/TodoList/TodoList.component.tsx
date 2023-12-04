@@ -20,7 +20,7 @@ export default function TodoList({ date }: Props) {
   return (
     <ul className={styles.todos}>
       {data?.data.map((item) => (
-        <Todo key={item.id} todo={item.todo} />
+        <Todo key={item.scheduleId} todo={item.todo} done={item.done} />
       ))}
     </ul>
   );

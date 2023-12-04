@@ -1,5 +1,6 @@
 package KWUniv.studyLog.DTO;
 
+import KWUniv.studyLog.entity.Schedule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +14,12 @@ public class ScheduleDTO {
     private String toDo;
     private LocalDate date;
     private boolean done;
+
+    public ScheduleDTO(Schedule schedule) {
+        this.scheduleId = schedule.getScheduleId();
+        this.userId = schedule.getUser().getUserId();
+        this.toDo = schedule.getToDo();
+        this.date = schedule.getDate();
+        this.done = schedule.isDone();
+    }
 }

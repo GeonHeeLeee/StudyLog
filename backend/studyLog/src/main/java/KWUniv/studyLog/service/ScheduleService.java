@@ -9,8 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +33,7 @@ public class ScheduleService {
     - 만약 해당 userId의 User 존재하지 않을 시 400 반환
      */
     @Transactional
-    public Map<String, Object> registerSchedule(ScheduleDTO scheduleDTO) {
+    public Map<String, Object> registerSchedule(ScheduleDTO scheduleDTO){
         User user = userService.findUserById(scheduleDTO.getUserId());
         Schedule schedule = new Schedule(user, scheduleDTO);
         Integer scheduleId = scheduleRepository.save(schedule).getScheduleId();
@@ -54,6 +57,21 @@ public class ScheduleService {
         response.put("scheduleId", scheduleId);
         response.put("done", state);
         return response;
+    }
+
+    /*
+    특정 날짜의 스케줄 받기
+    - 해당 유저와 해당 날짜에 유저가 등록한 할일들 반환
+     */
+    @Transactional
+    public List<ScheduleDTO> getSchedulesOfTheDate(String userId, LocalDate date) throws ScheduleNotFoundException{
+        List<Schedule> schedules = scheduleRepository.findByUserIdAndDate(userId, date);
+        if (schedules.isEmpty()) {
+            throw new ScheduleNotFoundException("해당 날짜에 일정이 없습니다.");
+        }
+        return schedules.stream()
+                .map(ScheduleDTO::new)
+                .collect(Collectors.toList());
     }
 
 }

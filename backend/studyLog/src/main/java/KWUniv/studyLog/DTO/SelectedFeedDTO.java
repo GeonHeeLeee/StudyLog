@@ -22,9 +22,6 @@ public class SelectedFeedDTO {
     private List<CommentDTO> comments;
     private Integer likes;
 
-//    private String next;
-//    private List<FeedDTO> feeds;
-
     public SelectedFeedDTO(Feed feed) {
         this.feedId = feed.getFeedId();
         this.writerId = feed.getUser().getUserId();

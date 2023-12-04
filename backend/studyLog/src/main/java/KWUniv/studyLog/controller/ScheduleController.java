@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,6 +38,23 @@ public class ScheduleController {
     }
 
     /*
+    해당 날짜의 스케쥴 반환 메서드
+     */
+    @GetMapping
+    public ResponseEntity getSchedulesOfTheDate(@RequestParam String userId,
+                                                @RequestParam LocalDate date) {
+        try {
+            List<ScheduleDTO> scheduleDTOList = scheduleService.getSchedulesOfTheDate(userId, date);
+            Map<String, Object> response = new HashMap<>();
+            response.put("schedules", scheduleDTOList);
+            return new ResponseEntity(response,HttpStatus.OK);
+        } catch(ScheduleNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    /*
     스케줄 상태 변경(완료, 미완료)
     - 만약 스케줄이 true면 false로, false면 true로 변환
      */
@@ -50,5 +67,7 @@ public class ScheduleController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 }

@@ -19,7 +19,6 @@ export default function Header() {
   );
 
   const { signOut } = useLoginState();
-  // TODO: 아이콘 넣기
   return (
     <aside className={styles['layout-header']}>
       <ul className={styles.navbar}>

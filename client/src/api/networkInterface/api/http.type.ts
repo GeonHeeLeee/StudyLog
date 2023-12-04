@@ -18,7 +18,7 @@ export type SignOutData = {
 
 export type FeedsPaginationData = {
   userId: string;
-  pageNum: number;
+  pageNum: number | string;
 };
 
 export type FeedMetadata = {

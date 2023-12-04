@@ -20,8 +20,6 @@ export default function Header() {
 
   const { userInfo, signOut } = useLoginState();
 
-  console.log(userInfo);
-
   // TODO: 아이콘 넣기
   return (
     <aside className={styles['layout-header']}>

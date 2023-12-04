@@ -22,24 +22,23 @@ const initialForm = {
 export default function SignIn() {
   const [form, onChangeHandler] = useInput(initialForm);
   const [showModal, toggleShowModal] = useState(false);
-  // const { httpInterface } = useNetwork();
+  const { httpInterface } = useNetwork();
   const { isLogin, signIn } = useLoginState();
   const navigate = useNavigate();
 
   const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // httpInterface.signIn({ id: form.id, password: form.password }).then((res) => {
-    //   console.log(res);
-    //   signIn({id: form.id, name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)'});
-    // });
-    signIn({
-      userId: form.userId,
-      name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
-    });
-    signIn({
-      userId: form.userId,
-      name: '나중에 구현할 내용(백엔드가 넘겨줘야 함)',
-    });
+    httpInterface
+      .login({ userId: form.userId, password: form.password })
+      .then((res) => {
+        signIn({
+          userId: res.data.userId,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('로그인 실패');
+      });
   };
 
   useEffect(() => {
@@ -88,17 +87,17 @@ export default function SignIn() {
             className={styles['form-button']}
           />
         </div>
-
-        {showModal && (
-          <ModalPortal>
-            <ModalWrapper
-              show={showModal}
-              closeModal={() => toggleShowModal(false)}>
-              <SignUpModal closeModal={() => toggleShowModal(false)} />
-            </ModalWrapper>
-          </ModalPortal>
-        )}
       </form>
+      {showModal && (
+        <ModalPortal>
+          <ModalWrapper
+            show={showModal}
+            closeModal={() => toggleShowModal(false)}
+          >
+            <SignUpModal closeModal={() => toggleShowModal(false)} />
+          </ModalWrapper>
+        </ModalPortal>
+      )}
     </main>
   );
 }

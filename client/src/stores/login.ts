@@ -3,7 +3,7 @@ import { devtools, persist } from 'zustand/middleware';
 
 type UserInfo = {
   userId: string;
-  name: string;
+  // name: string;
 };
 type LoginState = {
   isLogin: boolean;

@@ -1,12 +1,12 @@
 import React from 'react';
-import {FeedResult} from './FeedContainer.component';
 import styles from './Feed.module.css';
 import Image from "../../components/Image/Image";
-import {useIsElementInViewport} from "../../hooks/intersectionObserver/useIsElementInViewport";
+// import {useIsElementInViewport} from "../../hooks/intersectionObserver/useIsElementInViewport";
 import {FaCommentAlt, FaThumbsUp} from "react-icons/fa";
+import { FeedOutline } from '../../api/networkInterface/api/http.type';
 
 type Props = {
-  feed: FeedResult;
+  feed: FeedOutline;
 };
 
 export default function Feed({feed}: Props) {

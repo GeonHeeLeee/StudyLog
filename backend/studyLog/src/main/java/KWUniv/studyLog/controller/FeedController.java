@@ -79,8 +79,9 @@ public class FeedController {
      - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
     @GetMapping("/like")
-    public ResponseEntity likeFeed(@RequestParam Integer feedId) {
+    public ResponseEntity likeFeed(@RequestBody FeedDTO feedDTO) {
         try {
+            Integer feedId = feedDTO.getFeedId();
             Map response = feedService.likeFeed(feedId);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (UserNotFoundException e) {

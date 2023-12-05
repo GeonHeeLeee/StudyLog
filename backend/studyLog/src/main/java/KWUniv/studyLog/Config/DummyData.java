@@ -8,10 +8,13 @@ import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.FollowingRepository;
 import KWUniv.studyLog.repository.UserRepository;
+import KWUniv.studyLog.service.FollowingService;
+import KWUniv.studyLog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,7 @@ public class DummyData {
     private final FeedRepository feedRepository;
     private final FollowingRepository followingRepository;
     private final CommentRepository commentRepository;
-
+    private final FollowingService followingService;
     @Bean
     CommandLineRunner initDatabase() {
         return args -> {
@@ -49,8 +52,12 @@ public class DummyData {
 
             // 각 User마다 랜덤한 User를 팔로우
             for (User user : users) {
-                Following following = new Following(user, users.get(new Random().nextInt(users.size())));
+                User randomUser = users.get(new Random().nextInt(users.size()));
+                followingService.plusFollowingCount(user, randomUser);
+                Following following = new Following(user, randomUser);
                 followingRepository.save(following);
+                userRepository.save(user);
+                userRepository.save(randomUser);
             }
         };
     }

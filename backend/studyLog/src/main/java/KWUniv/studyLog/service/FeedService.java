@@ -115,6 +115,9 @@ public class FeedService {
         Foundfeed.modifyFeedBody(feedBody);
     }
 
+    /*
+    피드 삭제 메서드
+     */
     @Transactional
     public void deleteFeed(FeedDTO feedDTO) {
         Integer feedId = feedDTO.getFeedId();

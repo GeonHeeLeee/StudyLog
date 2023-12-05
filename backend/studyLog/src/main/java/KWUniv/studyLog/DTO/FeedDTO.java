@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FeedsDTO {
+public class FeedDTO {
     private Integer feedId;
     private String writerId;
     private String feedBody;
@@ -19,7 +19,7 @@ public class FeedsDTO {
     /*
     응답으로 FeedDTO 사용
      */
-    public FeedsDTO(Feed feed) {
+    public FeedDTO(Feed feed) {
         this.feedId = feed.getFeedId();
         this.writerId = feed.getUser().getUserId();
         this.feedBody = feed.getFeedBody();

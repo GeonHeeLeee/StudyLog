@@ -9,8 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 public class Schedule {
     /*
@@ -34,7 +33,7 @@ public class Schedule {
 
     public Schedule(User user, ScheduleDTO scheduleDTO) {
         this.user = user;
-        this.date = LocalDate.now();
+        this.date = scheduleDTO.getDate();
         this.toDo = scheduleDTO.getToDo();
         this.done = false;
     }
@@ -47,6 +46,5 @@ public class Schedule {
         }
         return this.done;
     }
-
 
 }

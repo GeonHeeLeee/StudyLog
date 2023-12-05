@@ -1,7 +1,7 @@
 package KWUniv.studyLog.controller;
 
-import KWUniv.studyLog.DTO.FeedsDTO;
-import KWUniv.studyLog.entity.Feed;
+import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.DTO.FeedWithCommentDTO;
 import KWUniv.studyLog.exception.FeedNotFoundException;
 import KWUniv.studyLog.service.HomeService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +33,7 @@ public class HomeController {
                                                         @RequestParam("page") int page,
                                                         HttpServletRequest request) {
         try {
-            List<FeedsDTO> feeds = homeService.getMainPageFeeds(userId, page);
+            List<FeedWithCommentDTO> feeds = homeService.getMainPageFeeds(userId, page);
             boolean hasMoreFeeds = homeService.hasMoreFeeds(userId, page);
 
             Map<String, Object> response = new HashMap<>();

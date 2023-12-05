@@ -2,8 +2,8 @@ package KWUniv.studyLog.controller;
 
 
 import KWUniv.studyLog.DTO.CommentDTO;
-import KWUniv.studyLog.DTO.FeedsDTO;
-import KWUniv.studyLog.DTO.SelectedFeedDTO;
+import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.DTO.FeedWithCommentDTO;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.service.FeedService;
@@ -31,13 +31,13 @@ public class FeedController {
     - 특정 피드를 찾으면 HTTPSTATUS 200
      */
     @GetMapping
-    public ResponseEntity<SelectedFeedDTO> getSelectedFeed(@RequestParam String userId,
-                                                           @RequestParam Integer feedId) {
+    public ResponseEntity<FeedWithCommentDTO> getSelectedFeed(@RequestParam String userId,
+                                                              @RequestParam Integer feedId) {
         Feed foundFeed = feedService.findFeedById(feedId);
         if (foundFeed == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        SelectedFeedDTO feedResponseDTO = new SelectedFeedDTO(foundFeed);
+        FeedWithCommentDTO feedResponseDTO = new FeedWithCommentDTO(foundFeed);
 
         //Feed 객체를 조회할 때 해당 Feed에 연관된 Comment 리스트도 함께 조회된다.
         return new ResponseEntity<>(feedResponseDTO, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class FeedController {
     - 성공 시 200
      */
     @PostMapping
-    public ResponseEntity postAndSaveFeed(@RequestBody FeedsDTO feedDTO) {
+    public ResponseEntity postAndSaveFeed(@RequestBody FeedDTO feedDTO) {
         boolean isPosted = feedService.postAndSaveFeed(feedDTO);
         if (isPosted) {
             return new ResponseEntity(HttpStatus.OK);

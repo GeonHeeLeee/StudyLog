@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SelectedFeedDTO {
+public class FeedWithCommentDTO {
 
     private Integer feedId;
     private String writerId;
@@ -22,10 +22,7 @@ public class SelectedFeedDTO {
     private List<CommentDTO> comments;
     private Integer likes;
 
-//    private String next;
-//    private List<FeedDTO> feeds;
-
-    public SelectedFeedDTO(Feed feed) {
+    public FeedWithCommentDTO(Feed feed) {
         this.feedId = feed.getFeedId();
         this.writerId = feed.getUser().getUserId();
         this.date = feed.getDate();

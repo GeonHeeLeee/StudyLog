@@ -33,7 +33,11 @@ export default function TodoListContainer() {
               MONTHS[firstOfMonth.getMonth()]
             }. ${day}`}
         </h2>
-        <Button className={styles['add-button']} onClick={addTodoHandler} text='일정 추가'/>
+        <Button
+          className={styles['add-button']}
+          onClick={addTodoHandler}
+          text='일정 추가'
+        />
       </header>
 
       <TodoList date={todoDate} />

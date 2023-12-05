@@ -29,7 +29,7 @@ export default function Todo({ todo, scheduleId, done, date }: Props) {
     <li className={styles['todo-item']}>
       <span className={`${done && styles.finished}`}>{todo}</span>
       <Button
-        text={!done ? '일정 종료' : '원상 복구'}
+        text={!done ? '일정 종료' : '다시 시작'}
         onClick={showTodoModal}
         className={styles['todo-button']}
       />

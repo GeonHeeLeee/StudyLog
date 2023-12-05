@@ -2,6 +2,7 @@ package KWUniv.studyLog.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class Feed {
 
     private String photo; //보통 Local에 저장하고 파일의 경로를 저장한다.
 
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 
     /*
@@ -45,6 +46,11 @@ public class Feed {
      */
     public void plusFeedLikes() {
         this.likes += 1;
+    }
+
+
+    public void modifyFeedBody(String feedBody) {
+        this.feedBody = feedBody;
     }
 
 }

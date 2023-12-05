@@ -1,14 +1,13 @@
 package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.DTO.CommentDTO;
-import KWUniv.studyLog.DTO.FeedsDTO;
+import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.entity.Comment;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.exception.FeedNotFoundException;
 import KWUniv.studyLog.repository.CommentRepository;
 import KWUniv.studyLog.repository.FeedRepository;
-import KWUniv.studyLog.repository.FollowingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public class FeedService {
     - 성공 시 200
      */
 
-    public boolean postAndSaveFeed(FeedsDTO feedDTO) {
+    public boolean postAndSaveFeed(FeedDTO feedDTO) {
         User user = userService.findUserById(feedDTO.getWriterId());
 
         Feed feed = new Feed(user, feedDTO.getFeedBody(), feedDTO.getPhoto());
@@ -82,8 +81,8 @@ public class FeedService {
         List<Feed> foundFeeds = findFeedsByUserId(userId);
 
         //무한참조 문제가 발생해 DTO로 응답
-        List<FeedsDTO> feedDTOs = foundFeeds.stream()
-                .map(FeedsDTO::new)
+        List<FeedDTO> feedDTOs = foundFeeds.stream()
+                .map(FeedDTO::new)
                 .collect(Collectors.toList());
         Map<String, Object> response = new HashMap<>();
 

@@ -65,7 +65,7 @@ public class ScheduleService {
      */
     @Transactional
     public List<ScheduleDTO> getSchedulesOfTheDate(String userId, LocalDate date) throws ScheduleNotFoundException{
-        List<Schedule> schedules = scheduleRepository.findByUserIdAndDate(userId, date);
+        List<Schedule> schedules = scheduleRepository.findByUser_UserIdAndDate(userId, date);
         if (schedules.isEmpty()) {
             throw new ScheduleNotFoundException("해당 날짜에 일정이 없습니다.");
         }

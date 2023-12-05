@@ -5,6 +5,7 @@ import KWUniv.studyLog.exception.ScheduleNotFoundException;
 import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class ScheduleController {
      */
     @GetMapping
     public ResponseEntity getSchedulesOfTheDate(@RequestParam String userId,
-                                                @RequestParam LocalDate date) {
+                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         try {
             List<ScheduleDTO> scheduleDTOList = scheduleService.getSchedulesOfTheDate(userId, date);
             Map<String, Object> response = new HashMap<>();
@@ -59,9 +60,9 @@ public class ScheduleController {
     - 만약 스케줄이 true면 false로, false면 true로 변환
      */
     @PostMapping("/done")
-    public ResponseEntity changeScheduleState(@RequestParam Integer scheduleId) {
+    public ResponseEntity changeScheduleState(@RequestBody ScheduleDTO scheduleDTO) {
         try {
-            Map response = scheduleService.changeScheduleState(scheduleId);
+            Map response = scheduleService.changeScheduleState(scheduleDTO.getScheduleId());
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (ScheduleNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

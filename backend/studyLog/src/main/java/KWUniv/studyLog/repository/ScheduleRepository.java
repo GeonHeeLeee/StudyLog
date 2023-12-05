@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
-    List<Schedule> findByUserIdAndDate(String userId, LocalDate date);
+    List<Schedule> findByUser_UserIdAndDate(String userId, LocalDate date);
 }
 

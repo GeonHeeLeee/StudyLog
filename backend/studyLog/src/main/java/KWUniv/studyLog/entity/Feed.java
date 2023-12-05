@@ -2,6 +2,7 @@ package KWUniv.studyLog.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,6 +46,11 @@ public class Feed {
      */
     public void plusFeedLikes() {
         this.likes += 1;
+    }
+
+
+    public void modifyFeedBody(String feedBody) {
+        this.feedBody = feedBody;
     }
 
 }

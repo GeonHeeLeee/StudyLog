@@ -62,6 +62,19 @@ export type ScheduleData = {
   done: boolean;
 };
 
+export type Schedules = {
+  status: number;
+  data: {
+    schedules: ScheduleData[];
+  };
+};
+
 export type ProfileData = {
   userId: string;
+};
+
+export type AddTimeData = {
+  userId: string;
+  date: string;
+  studyTime: string | number;
 };

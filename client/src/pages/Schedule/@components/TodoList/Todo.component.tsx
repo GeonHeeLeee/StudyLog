@@ -14,41 +14,34 @@ type Props = {
   // endTime?: string;
   scheduleId: number;
   done: boolean;
+  date: string;
 };
 
 // export type TodoState = 'start' | 'doing' | 'finish';
 
-export default function Todo({ todo, scheduleId, done }: Props) {
+export default function Todo({ todo, scheduleId, done, date }: Props) {
   const [showModal, toggleShowModal] = useState(false);
-
-  // const startTodoHandler = () => setState('doing');
-  // const finishTodoHandler = () => setState('finish');
 
   const showTodoModal = () => toggleShowModal(true);
   const hideTodoModal = () => toggleShowModal(false);
 
-  // const setTodoHandlerByState = (state: Exclude<TodoState, 'finish'>) => {
-  //   if (state === 'start') return startTodoHandler;
-  //   return finishTodoHandler;
-  // };
-
   return (
     <li className={styles['todo-item']}>
       <span className={`${done && styles.finished}`}>{todo}</span>
-      {!done && (
-        <Button
-          text='일정 종료'
-          onClick={showTodoModal}
-          className={styles['todo-button']}
-        />
-      )}
+      <Button
+        text={!done ? '일정 종료' : '원상 복구'}
+        onClick={showTodoModal}
+        className={styles['todo-button']}
+      />
 
       {showModal && (
         <ModalPortal>
           <ModalWrapper show={showModal} closeModal={hideTodoModal}>
             <TodoDoneModal
               closeModal={hideTodoModal}
-              // todoDoneHandler={() => {}}
+              scheduleId={scheduleId}
+              done={done}
+              date={date}
             />
           </ModalWrapper>
         </ModalPortal>

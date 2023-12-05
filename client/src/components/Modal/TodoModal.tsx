@@ -9,6 +9,7 @@ import useLoginState from '../../stores/login';
 import { transformDateObject } from '../../pages/Schedule/@components/TodoList/@utils/dateToString';
 import { stringifyDate } from '../../utils/date/date';
 import { AxiosError } from 'axios';
+import queryClient from '../../api/queryClient/queryClient';
 
 type Props = {
   closeModal: () => void;
@@ -44,13 +45,15 @@ export default function TodoModal({ closeModal, todoDate }: Props) {
         toDo: form.todo,
       });
       console.log(response);
-      
+
       if (response.status === 200) {
-        alert('등록 성공')
+        alert('등록 성공');
+        const date = stringifyDate(todoDate);
+        queryClient.invalidateQueries({ queryKey: ['todo', date] });
       }
     } catch (err) {
       if ((err as AxiosError).response?.status === 400) {
-        alert('등록 실패')
+        alert('등록 실패');
       }
     }
 

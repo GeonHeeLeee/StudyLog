@@ -1,13 +1,17 @@
 .calendar-container {
   min-height: 50vh;
   padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .calendar {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  max-width: 70vw;
-  /* width: 100%; */
+  min-width: 70vw;
+  /* width: 90%; */
   align-items: center;
 }
 

@@ -1,6 +1,7 @@
 .todo-timer-container {
   display: flex;
-  padding: 2rem;
+  padding: 6rem;
+  width: 70%;
 }
 
 .todo-timer-container > *:nth-child(2) {
@@ -9,4 +10,11 @@
 
 .todo-timer-container > *:nth-child(1) {
   flex: 1 1 auto;
+}
+
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }

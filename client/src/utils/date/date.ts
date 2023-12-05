@@ -5,5 +5,5 @@ export const addDate = (baseDate: Date, day: number | string) => {
 };
 
 export const stringifyDate = (baseDate: Date) => {
-  return baseDate.toISOString().replace('.000Z', 'Z');
+  return baseDate.toISOString().replace('.000Z', 'Z').split('T')[0];
 };

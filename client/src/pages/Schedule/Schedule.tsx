@@ -7,7 +7,7 @@ import styles from './Schedule.module.css';
 
 export default function Schedule() {
   return (
-    <div>
+    <div className={styles['schedule-container']}>
       <Calendar />
       <div className={styles['todo-timer-container']}>
         <TodoListContainer />

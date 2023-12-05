@@ -2,11 +2,12 @@ import { AxiosRequestConfig } from 'axios';
 import { ICommunication } from './http';
 import {
   AddScheduleData,
+  AddTimeData,
   FeedMetadata,
   FeedsData,
   FeedsPaginationData,
   JoinData,
-  ScheduleData,
+  Schedules,
   SignInData,
   SignOutData,
 } from './http.type';
@@ -58,13 +59,18 @@ export class HttpInterface {
     return this.post(url, scheduleData);
   }
 
-  getScheduleByDate(userId: string, dateString: string): Promise<ScheduleData[]> {
+  getScheduleByDate(userId: string, dateString: string): Promise<Schedules> {
     const url = `/schedule?userId=${userId}&date=${dateString}`;
     return this.get(url);
   }
-  finishSchedule(scheduleId: string) {
+  toggleScheduleDone(scheduleId: number) {
     const url = `/schedule/done`;
     return this.post(url, { scheduleId });
+  }
+
+  addStudyTime(addTimeData: AddTimeData) {
+    const url = `/timer`;
+    return this.post(url, addTimeData);
   }
 
   // 유저 개인 프로필 정보 가져오기

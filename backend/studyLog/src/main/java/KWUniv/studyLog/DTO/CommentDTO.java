@@ -18,5 +18,6 @@ public class CommentDTO {
     public CommentDTO(Comment comment) {
         this.userId = comment.getUser().getUserId();
         this.commentBody = comment.getCommentBody();
+        this.feedId = comment.getFeed().getFeedId();
     }
 }

@@ -1,8 +1,8 @@
 package KWUniv.studyLog.service;
 
-import KWUniv.studyLog.DTO.FeedsDTO;
+import KWUniv.studyLog.DTO.FeedDTO;
+import KWUniv.studyLog.DTO.FeedWithCommentDTO;
 import KWUniv.studyLog.entity.Feed;
-import KWUniv.studyLog.entity.Following;
 import KWUniv.studyLog.exception.FeedNotFoundException;
 import KWUniv.studyLog.repository.FeedRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class HomeService {
     해당 유저가 팔로잉 하고 있는 user의 Feed 가져오기
     - 응답을위해 FeedsDTO로 변환 후 응답
      */
-    public List<FeedsDTO> getMainPageFeeds(String userId, int page) throws FeedNotFoundException {
+    public List<FeedWithCommentDTO> getMainPageFeeds(String userId, int page) throws FeedNotFoundException {
         List<String> followingUserIds = followingService.getFollowingUserIds(userId);
 
         Pageable pageable = PageRequest.of(page - 1, 5);
@@ -51,7 +51,7 @@ public class HomeService {
         Page<Feed> feedPage = feedRepository.findByUser_UserIdIn(followingUserIds, pageable);
 
         return feedPage.stream()
-                .map(FeedsDTO::new)
+                .map(FeedWithCommentDTO::new)
                 .collect(Collectors.toList());
     }
 }

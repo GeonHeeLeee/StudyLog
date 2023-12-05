@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ICommunication } from './http';
 import {
   AddScheduleData,
@@ -7,6 +7,9 @@ import {
   FeedsData,
   FeedsPaginationData,
   JoinData,
+  ModifyFeedData,
+  PostCommentData,
+  PostFeedData,
   Schedules,
   SignInData,
   SignOutData,
@@ -53,6 +56,28 @@ export class HttpInterface {
     return this.get(url);
   }
 
+  postFeed(feedData: PostFeedData) {
+    const url = `/feed`;
+    return this.post(url, feedData);
+  }
+
+  likeFeed(feedId: number) {
+    const url = `/feed/like`;
+    return this.post(url, {
+      feedId,
+    });
+  }
+
+  postCommentInFeed(comment: PostCommentData) {
+    const url = `/feed/comment`;
+    return this.post(url, comment);
+  }
+
+  modifyFeed(feedData: ModifyFeedData) {
+    const url = `/feed/modify`;
+    return this.post(url, feedData);
+  }
+
   // TODO: API 명세 나오는 대로 구현
   addSchedule(scheduleData: AddScheduleData) {
     const url = `/schedule`;
@@ -71,6 +96,18 @@ export class HttpInterface {
   addStudyTime(addTimeData: AddTimeData) {
     const url = `/timer`;
     return this.post(url, addTimeData);
+  }
+
+  uploadImage(imageFile: FormData) {
+    const CLOUDINARY_NAME = 'dgtozy2lj';
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/image/upload`;
+    const res = axios.post(url, imageFile, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res;
   }
 
   // 유저 개인 프로필 정보 가져오기

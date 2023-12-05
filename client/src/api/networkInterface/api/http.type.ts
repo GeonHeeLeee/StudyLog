@@ -12,6 +12,17 @@ export type JoinData = {
   birth: string;
 };
 
+export type PostFeedData = {
+  writerId: string;
+  photo: string;
+  feedBody: string;
+};
+
+export type ModifyFeedData = {
+  feedId: number;
+  feedBody: string;
+};
+
 export type SignOutData = {
   userId: string;
 };
@@ -27,11 +38,13 @@ export type FeedMetadata = {
 };
 
 export type FeedOutline = {
-  feedId: number | string; // 이부분은 확인 필요
+  feedId: number; // 이부분은 확인 필요
   writerId: string;
   date: string; // 또는 Date
   likes: number;
   photo: string; // URL 형식
+  feedBody: string;
+  userName: string;
 };
 
 export type FeedsData = {
@@ -77,4 +90,10 @@ export type AddTimeData = {
   userId: string;
   date: string;
   studyTime: string | number;
+};
+
+export type PostCommentData = {
+  userId: string;
+  feedId: number;
+  commentBody: string;
 };

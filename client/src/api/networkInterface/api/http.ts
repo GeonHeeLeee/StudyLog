@@ -21,6 +21,8 @@ export class Http implements ICommunication {
       withCredentials: true,
     };
     this.httpClient = axios.create(axiosConfig);
+    // this.httpClient.defaults.headers['Access-Control-Allow-Origin'] = '*';
+    // this.httpClient.defaults.withCredentials = false;
   }
 
   async get(url: string, config?: AxiosRequestConfig<any>) {

@@ -65,7 +65,7 @@ export default function SignIn() {
         </div>
         <div>
           <Input
-            type='text'
+            type='password'
             onChangeHandler={onChangeHandler}
             id='password'
             name='password'

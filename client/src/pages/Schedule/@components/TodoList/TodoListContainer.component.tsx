@@ -10,30 +10,35 @@ import { addDate } from '../../../../utils/date/date';
 import styles from './TodoListContainer.module.css';
 
 export default function TodoListContainer() {
-  const { firstOfMonth, day } = useScheduleContext();
+  const { show, firstOfMonth, day } = useScheduleContext();
 
   const todoDate = firstOfMonth ? addDate(firstOfMonth, day) : new Date();
   const [showModal, toggleShowModal] = useState(false);
 
   const addTodoHandler = () => {
-    // 모달 나오도록?
     toggleShowModal(true);
   };
 
-  if (!firstOfMonth) return <></>;
   return (
-    <div>
+    <div
+      className={`${show ? styles.visible : styles.invisible} ${
+        styles.container
+      }`}
+    >
       <header className={styles.header}>
         <h2>
-          {`${firstOfMonth.getFullYear()}. ${
-            MONTHS[firstOfMonth.getMonth()]
-          }. ${day}`}
+          {firstOfMonth &&
+            `${firstOfMonth.getFullYear()}. ${
+              MONTHS[firstOfMonth.getMonth()]
+            }. ${day}`}
         </h2>
         <button className={styles['add-button']} onClick={addTodoHandler}>
           일정 추가
         </button>
       </header>
+
       <TodoList date={todoDate} />
+
       {showModal && (
         <ModalPortal>
           <ModalWrapper

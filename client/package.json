@@ -5,6 +5,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@tanstack/react-query": "^5.0.5",
+    "@tanstack/react-query-devtools": "^5.8.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -13,6 +14,7 @@
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "axios": "^1.6.0",
+    "http-proxy-middleware": "^2.0.6",
     "msw": "^2.0.0",
     "react": "^18.2.0",
     "react-calendar-heatmap": "^1.9.0",

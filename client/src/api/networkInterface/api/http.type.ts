@@ -18,7 +18,7 @@ export type SignOutData = {
 
 export type FeedsPaginationData = {
   userId: string;
-  pageNum: number;
+  pageNum: number | string;
 };
 
 export type FeedMetadata = {
@@ -48,14 +48,20 @@ export type FeedDetail = FeedOutline & {
   comments: Comment[];
 };
 
+export type AddScheduleData = {
+  userId: string;
+  toDo: string;
+  date: string;
+};
+
 export type ScheduleData = {
   userId: string;
   toDo: string;
+  scheduleId: number;
+  date: string;
+  done: boolean;
 };
 
-export type ScheduleTimeData = {
+export type ProfileData = {
   userId: string;
-  toDo: string;
-  startTime: Date;
-  endTime: Date;
 };

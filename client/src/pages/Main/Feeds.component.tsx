@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { FeedResult } from './FeedContainer.component';
 import Feed from './Feed.component';
+import { FeedOutline } from '../../api/networkInterface/api/http.type';
 
 interface Props {
-  feeds: FeedResult[];
+  feeds: FeedOutline[];
 }
 
 export default function Feeds({ feeds }: Props) {
-
   return (
     <>
-      {feeds.map((feed, idx) => (
+      {feeds?.map((feed, idx) => (
         <Feed key={idx} feed={feed} />
       ))}
     </>

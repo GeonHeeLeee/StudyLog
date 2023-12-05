@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styles from './profile.module.css';
 import { ProfileResult } from './ProfileResult';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import Button from '../../components/Button/Button.component';
 import StudyLog from './StudyLog/StudyLog';
+
+import useNetwork from '../../stores/network';
+import { http } from 'msw';
 
 type Props = {
   profile: ProfileResult; // 프로필 정보를 담은 객체
@@ -24,6 +27,35 @@ export default function ProfileContainer() {
 
   const { userInfo } = useLoginState();
 
+  const { httpInterface } = useNetwork();
+
+  const userProfile = useCallback(
+    async (userId: string) => {
+      return httpInterface.getUsersProfile(userId);
+    },
+    [userId]
+  );
+
+  httpInterface
+    .getUsersProfile(userId)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      redirect('/');
+    });
+
+  // axios.get(`/profile?userId=${userId}`).then((res) => {});
+
+  // axios
+  //   .post('http://localhost:8080/follow', {
+  //     selfId: 'hello',
+  //     followingId: 'world',
+  //   })
+  //   .then((res) => {
+  //     console.log(res);
+  //   });
   const profile: ProfileResult = {
     username: '이석희',
     userid: '@devLee',
@@ -73,6 +105,7 @@ export default function ProfileContainer() {
     // const selfId = userInfo.userId;
     // followingId: 상대방 id
   };
+
   return (
     <article className={styles['profile-article']}>
       <div className={styles['profile-icon']}>

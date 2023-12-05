@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export interface ICommunication {
   get(url: string, config?: any): Promise<any>;
@@ -10,10 +10,12 @@ export interface ICommunication {
   delete(url: string, config?: any): Promise<any>;
 }
 
+const baseUrl =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '';
 export class Http implements ICommunication {
   httpClient: AxiosInstance;
 
-  constructor(baseURL = 'http://localhost:3000/') {
+  constructor(baseURL = baseUrl) {
     const axiosConfig = {
       baseURL,
       withCredentials: true,
@@ -42,7 +44,6 @@ export class Http implements ICommunication {
   async delete(url: string, config?: AxiosRequestConfig<any>) {
     return this.httpClient.delete(url, {
       ...config,
-    })
+    });
   }
-
 }

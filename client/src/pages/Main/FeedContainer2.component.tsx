@@ -70,12 +70,16 @@ export default function FeedContainer() {
     queryFn: ({ pageParam = initialFeedUrl }) => fetchUrl(pageParam),
     initialPageParam: undefined,
     getNextPageParam: (lastPage: {
-      next?: string;
-      count?: number;
-      previous: string | null;
-      results: FeedOutline[];
+      data: {
+        next?: string;
+        count?: number;
+        previous: string | null;
+        feeds: FeedOutline[];
+      };
     }) => {
-      return lastPage.next || undefined;
+      console.log(lastPage);
+
+      return lastPage.data.next || undefined;
     },
   });
 
@@ -112,12 +116,13 @@ export default function FeedContainer() {
     // TODO: 변경할 부분(컴포넌트 꾸며서 바꾸기)
     return <h1>Error!</h1>;
   }
+  console.log(data?.pages);
 
   return (
     <>
       <main className={styles['feed-container']}>
         {data?.pages.map((feeds, idx) => (
-          <Feeds key={idx} feeds={feeds?.results} />
+          <Feeds key={idx} feeds={feeds.data.feeds} />
         ))}
         {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
       </main>

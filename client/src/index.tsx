@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from './api/queryClient/queryClient';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import reportWebVitals from './reportWebVitals';
 import App from './App';
@@ -17,6 +18,7 @@ root.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <App />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -6,6 +6,8 @@ import useNetwork from '../../stores/network';
 import useInput from '../../hooks/form/useInput';
 import styles from './TodoModal.module.css';
 import useLoginState from '../../stores/login';
+import { transformDateObject } from '../../pages/Schedule/@components/TodoList/@utils/dateToString';
+import { stringifyDate } from '../../utils/date/date';
 
 type Props = {
   closeModal: () => void;
@@ -36,7 +38,7 @@ export default function TodoModal({ closeModal, todoDate }: Props) {
     try {
       // TODO: api 명세 나오는대로 구현
       const response = await httpInterface.addSchedule({
-        // date: todoDate,
+        date: stringifyDate(transformDateObject(todoDate)),
         userId,
         toDo: form.todo,
       });

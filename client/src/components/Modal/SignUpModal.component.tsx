@@ -1,10 +1,13 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import Input from '../Input/Input.component';
 import useInput from '../../hooks/form/useInput';
 import styles from './Modal.module.css';
 import Button from '../Button/Button.component';
 import useNetwork from '../../stores/network';
+import { AxiosError } from 'axios';
+import { JoinData } from '../../api/networkInterface/api/http.type';
+import useLoginState from '../../stores/login';
 
 type Props = {
   closeModal: () => void;
@@ -25,13 +28,39 @@ const initialForm = {
 export default function SignUpModal({ closeModal }: Props) {
   const [form, onChangeHandler] = useInput(initialForm);
   const { httpInterface } = useNetwork();
+  const [checkDuplicatedId, setCheckDuplicatedId] = useState(false);
+  const { signIn } = useLoginState();
 
   const checkDuplicateIdHandler = async () => {
-    const response = await httpInterface.checkDuplicateId(form.userId);
+    try {
+      const response = await httpInterface.checkDuplicateId(form.userId);
+      if (response.status === 200) {
+        alert('아이디 사용이 가능합니다.');
+        setCheckDuplicatedId(true);
+      }
+    } catch (err) {
+      if ((err as AxiosError).response?.status === 400) {
+        alert('중복된 아이디가 존재합니다');
+        setCheckDuplicatedId(false);
+      }
+    }
   };
 
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!checkDuplicatedId) {
+      alert('아이디 중복을 먼저 체크해주세요');
+      return;
+    }
+    const signUpForm = makeSignUpForm(form);
+    try {
+      const response = await httpInterface.join(signUpForm);
+      if (response.status === 200) signIn({ userId: response.data.userId });
+    } catch (err) {
+      if ((err as AxiosError).response?.status === 400) {
+        alert('회원가입 실패');
+      }
+    }
     closeModal();
   };
 
@@ -82,6 +111,19 @@ export default function SignUpModal({ closeModal }: Props) {
             text='중복 체크'
           />
         </div>
+
+        <p
+          style={{
+            fontSize: '0.75rem',
+            color: 'red',
+            margin: '0',
+            textAlign: 'center',
+            height: '0.75rem',
+          }}
+        >
+          {!checkDuplicatedId && '아이디 중복을 확인해주세요'}
+        </p>
+
         <div className={styles['input-container']}>
           <label htmlFor='name'>비밀번호</label>
           <Input
@@ -122,7 +164,7 @@ export default function SignUpModal({ closeModal }: Props) {
         <div className={styles['email-section']}>
           <Input
             className={styles['email-input']}
-            type='email'
+            type='text'
             name='localEmail'
             value={form.localEmail}
             onChangeHandler={onChangeHandler}
@@ -131,7 +173,7 @@ export default function SignUpModal({ closeModal }: Props) {
           @
           <Input
             className={styles['email-input']}
-            type='email'
+            type='text'
             name='domainEmail'
             value={form.domainEmail}
             onChangeHandler={onChangeHandler}
@@ -146,4 +188,15 @@ export default function SignUpModal({ closeModal }: Props) {
       </form>
     </div>
   );
+}
+
+function makeSignUpForm(inputForm: typeof initialForm): JoinData {
+  return {
+    userId: inputForm.userId,
+    password: inputForm.password,
+    name: inputForm.name,
+    phoneNumber: inputForm.phoneNumber,
+    email: `${inputForm.localEmail}@${inputForm.domainEmail}`,
+    birth: inputForm.birth,
+  };
 }

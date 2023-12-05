@@ -34,7 +34,6 @@ export default function StudyLog() {
 
   // Tooltip 띄우기 위해 존재하지 않는 날짜 데이터 생성
   const completeStudyLogs = generateYearData(new Date(), studyLogs);
-  console.log(completeStudyLogs);
 
   return (
     <div className={styles['studylog-container']}>
@@ -65,7 +64,6 @@ export default function StudyLog() {
 function shiftDate(date: Date, numDays: number) {
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() + numDays);
-  console.log(newDate);
 
   return newDate;
 }

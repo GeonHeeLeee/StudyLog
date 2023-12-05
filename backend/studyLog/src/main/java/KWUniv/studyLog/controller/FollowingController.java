@@ -35,4 +35,17 @@ public class FollowingController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    /*
+    해당 유저 언팔로우
+     */
+    @PostMapping("/unfollow")
+    public ResponseEntity unfollowUser(@RequestBody FollowingDTO followingDTO) {
+        try {
+            followingService.unfollowUser(followingDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -35,4 +35,7 @@ public class User {
         this.followingCount += 1;
     }
 
+    public void minusFollowerCount() { this.followerCount -= 1; }
+
+    public void minusFollowingCount() { this.followingCount -= 1; }
 }

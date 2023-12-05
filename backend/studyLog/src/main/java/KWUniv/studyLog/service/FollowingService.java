@@ -47,6 +47,14 @@ public class FollowingService {
     }
 
     /*
+    selfId의 팔로잉 -1, followingId의 팔로워 -1
+     */
+    public void minusFollowingCount(User selfUser, User followingUser) {
+        selfUser.minusFollowingCount();
+        followingUser.minusFollowerCount();
+    }
+
+    /*
     self와 following을 찾고, 만약 둘다 값이 있으면 Following 객체를 만들어 저장
     - 만약 self와 following 둘 중 하나라도 없으면 400 반환
     - 성공적이면 200 반환
@@ -62,5 +70,19 @@ public class FollowingService {
         //Following DB 저장
         Following following = new Following(selfUser, followingUser);
         followingRepository.save(following);
+    }
+
+    /*
+    유저 언팔로우 하기
+     */
+    @Transactional
+    public void unfollowUser(FollowingDTO followingDTO) {
+        User selfUser = userService.findUserById(followingDTO.getSelfId());
+        User followingUser = userService.findUserById(followingDTO.getFollowingId());
+
+        minusFollowingCount(selfUser, followingUser);
+
+        Following following = followingRepository.findFollowingBySelfUserAndFollowingUser(selfUser, followingUser);
+        followingRepository.delete(following);
     }
 }

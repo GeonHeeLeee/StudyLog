@@ -95,7 +95,6 @@ public class FeedService {
     피드에 좋아요 누르기
     - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
-
     public Map<String, Object> likeFeed(Integer feedId) {
         Feed foundFeed = findFeedById(feedId);
         foundFeed.plusFeedLikes();
@@ -103,6 +102,26 @@ public class FeedService {
         response.put("feedId", foundFeed.getFeedId());
         response.put("likes", foundFeed.getLikes());
         return response;
+    }
+
+    /*
+    FeedBody 수정 메서드
+     */
+    @Transactional
+    public void modifyFeedBody(FeedDTO feedDTO) {
+        String feedBody = feedDTO.getFeedBody();
+        Integer feedId = feedDTO.getFeedId();
+        Feed Foundfeed = findFeedById(feedId);
+        Foundfeed.modifyFeedBody(feedBody);
+    }
+
+    /*
+    피드 삭제 메서드
+     */
+    @Transactional
+    public void deleteFeed(FeedDTO feedDTO) {
+        Integer feedId = feedDTO.getFeedId();
+        feedRepository.deleteById(feedId);
     }
 
 }

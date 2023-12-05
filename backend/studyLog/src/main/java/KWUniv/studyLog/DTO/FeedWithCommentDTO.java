@@ -22,6 +22,8 @@ public class FeedWithCommentDTO {
     private List<CommentDTO> comments;
     private Integer likes;
 
+    private String userName;
+
     public FeedWithCommentDTO(Feed feed) {
         this.feedId = feed.getFeedId();
         this.writerId = feed.getUser().getUserId();
@@ -29,6 +31,7 @@ public class FeedWithCommentDTO {
         this.feedBody = feed.getFeedBody();
         this.photo = feed.getPhoto();
         this.likes = feed.getLikes();
+        this.userName = feed.getUser().getName();
         this.comments = feed.getComments().stream()
                 .map(CommentDTO::new)
                 .collect(Collectors.toList());

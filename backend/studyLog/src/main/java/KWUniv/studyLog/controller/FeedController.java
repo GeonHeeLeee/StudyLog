@@ -5,6 +5,7 @@ import KWUniv.studyLog.DTO.CommentDTO;
 import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.DTO.FeedWithCommentDTO;
 import KWUniv.studyLog.entity.Feed;
+import KWUniv.studyLog.exception.FeedNotFoundException;
 import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.service.FeedService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -66,7 +66,6 @@ public class FeedController {
      */
     @PostMapping("/comment")
     public ResponseEntity writerComment(@RequestBody CommentDTO commentDTO) {
-//        return feedService.writeComment(commentDTO);
         try {
             feedService.writeComment(commentDTO);
             return new ResponseEntity(HttpStatus.OK);
@@ -80,9 +79,9 @@ public class FeedController {
      - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
     @GetMapping("/like")
-    @Transactional
-    public ResponseEntity likeFeed(@RequestParam Integer feedId) {
+    public ResponseEntity likeFeed(@RequestBody FeedDTO feedDTO) {
         try {
+            Integer feedId = feedDTO.getFeedId();
             Map response = feedService.likeFeed(feedId);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (UserNotFoundException e) {
@@ -90,5 +89,30 @@ public class FeedController {
         }
     }
 
+    /*
+    피드 수정 메서드
+    -feedId를 받아서 feedBody 수정
+     */
+    @PostMapping("/modify")
+    public ResponseEntity modifyFeed(@RequestBody FeedDTO feedDTO) {
+        try {
+            feedService.modifyFeedBody(feedDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (FeedNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    /*
+    특정 피드 삭제 메서드
+     */
+    @PostMapping("/delete")
+    public ResponseEntity deleteFeed(@RequestBody FeedDTO feedDTO) {
+        try {
+            feedService.deleteFeed(feedDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (FeedNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

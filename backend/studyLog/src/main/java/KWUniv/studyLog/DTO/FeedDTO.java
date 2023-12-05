@@ -16,6 +16,7 @@ public class FeedDTO {
     private String likes;
     private String date;
 
+    private String userName;
     /*
     응답으로 FeedDTO 사용
      */
@@ -26,6 +27,7 @@ public class FeedDTO {
         this.photo = feed.getPhoto();
         this.likes = feed.getLikes().toString();
         this.date = feed.getDate().toString();
+        this.userName = feed.getUser().getName();
     }
 
 

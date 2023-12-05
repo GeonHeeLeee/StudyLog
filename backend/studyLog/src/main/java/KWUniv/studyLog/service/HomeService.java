@@ -1,6 +1,5 @@
 package KWUniv.studyLog.service;
 
-import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.DTO.FeedWithCommentDTO;
 import KWUniv.studyLog.entity.Feed;
 import KWUniv.studyLog.exception.FeedNotFoundException;

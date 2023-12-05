@@ -58,6 +58,32 @@
 }
 .feed-comments {
   margin-right: 1.5rem;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-weight: 700;
+  transition: 500ms color;
 }
+
 .feed-likes {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-weight: 700;
+  transition: 500ms all;
+}
+.feed-comments:hover,
+.feed-likes:hover{
+  /* color: gray; */
+  animation: color-change 500ms ease-in infinite alternate;
+} 
+
+@keyframes color-change {
+  0% {
+    color: lightgray;
+  }
+
+  100% {
+    color: gray;
+  }
 }

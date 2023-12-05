@@ -25,7 +25,7 @@ export default function Header() {
     <aside className={styles['layout-header']}>
       <ul className={styles.navbar}>
         <li>
-          <strong>StudyLog</strong>
+            <strong>StudyLog</strong>
         </li>
         <li className={checkClicked('/main')}>
           <Link to='/main'>
@@ -51,12 +51,12 @@ export default function Header() {
             Schedule
           </Link>
         </li>
-        <li className={checkClicked('/setting')}>
+        {/* <li className={checkClicked('/setting')}>
           <Link to='/setting'>
             <IoIosSettings />
             Setting
           </Link>
-        </li>
+        </li> */}
         <li onClick={() => signOut()}>
           <span>
             <CiLogout />

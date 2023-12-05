@@ -1,37 +1,24 @@
-.todo-item {
-  font-size: 1.1rem;
-  max-width: 60vw;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.todo-item span {
-  flex: 1 1 auto;
-}
-
-.todo-button {
-  flex-basis: 10vw;
+.timer-button {
+  /* flex-basis: 10vw; */
   box-sizing: border-box;
   color: white;
   background-color: black;
   border: 3px solid black;
   border-radius: 0.5em;
   margin-left: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   font-weight: 700;
   font-size: 0.75rem;
   transition: 1s;
   transition-property: color, background-color;
+  display: flex;
+  align-items: center;  
+  gap: 5px;
 }
 
-.todo-button:hover {
+.timer-button:hover {
   box-sizing: border-box;
   border: 3px solid black;
   background-color: white;
   color: black;
-}
-
-.finished {
-  text-decoration: line-through;
 }

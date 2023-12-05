@@ -12,12 +12,13 @@ type Props = {
   todo: string;
   // startTime?: string;
   // endTime?: string;
+  scheduleId: number;
   done: boolean;
 };
 
 // export type TodoState = 'start' | 'doing' | 'finish';
 
-export default function Todo({ todo, done }: Props) {
+export default function Todo({ todo, scheduleId, done }: Props) {
   const [showModal, toggleShowModal] = useState(false);
 
   // const startTodoHandler = () => setState('doing');
@@ -36,7 +37,7 @@ export default function Todo({ todo, done }: Props) {
       <span className={`${done && styles.finished}`}>{todo}</span>
       {!done && (
         <Button
-          text='타이머 시작'
+          text='일정 종료'
           onClick={showTodoModal}
           className={styles['todo-button']}
         />

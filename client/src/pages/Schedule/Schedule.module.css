@@ -1,0 +1,12 @@
+.todo-timer-container {
+  display: flex;
+  padding: 2rem;
+}
+
+.todo-timer-container > *:nth-child(2) {
+  min-width: 200px;
+}
+
+.todo-timer-container > *:nth-child(1) {
+  flex: 1 1 auto;
+}

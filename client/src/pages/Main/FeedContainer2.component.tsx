@@ -116,7 +116,7 @@ export default function FeedContainer() {
     // TODO: 변경할 부분(컴포넌트 꾸며서 바꾸기)
     return <h1>Error!</h1>;
   }
-  console.log(data?.pages);
+  console.log(data?.pages[0].data.feeds);
 
   return (
     <>

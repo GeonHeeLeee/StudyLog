@@ -8,6 +8,7 @@ import { useScheduleContext } from '../../@contexts/useSchedule';
 import { MONTHS } from '../../../../@constants/day';
 import { addDate } from '../../../../utils/date/date';
 import styles from './TodoListContainer.module.css';
+import Button from '../../../../components/Button/Button.component';
 
 export default function TodoListContainer() {
   const { show, firstOfMonth, day } = useScheduleContext();
@@ -32,9 +33,7 @@ export default function TodoListContainer() {
               MONTHS[firstOfMonth.getMonth()]
             }. ${day}`}
         </h2>
-        <button className={styles['add-button']} onClick={addTodoHandler}>
-          일정 추가
-        </button>
+        <Button className={styles['add-button']} onClick={addTodoHandler} text='일정 추가'/>
       </header>
 
       <TodoList date={todoDate} />

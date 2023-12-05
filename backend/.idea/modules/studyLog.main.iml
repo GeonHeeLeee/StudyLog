@@ -24,6 +24,13 @@
     <content url="file://$MODULE_DIR$/../../studyLog/build/generated/sources/annotationProcessor/java/main">
       <sourceFolder url="file://$MODULE_DIR$/../../studyLog/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
     </content>
+    <content url="file://$MODULE_DIR$/../../studyLog/build/generated/sources/annotationProcessor/java/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../studyLog/build/generated/sources/annotationProcessor/java/main" isTestSource="false" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../studyLog/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../studyLog/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../studyLog/src/main/resources" type="java-resource" />
+    </content>
     <content url="file://$MODULE_DIR$/../../studyLog/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../studyLog/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../studyLog/src/main/resources" type="java-resource" />

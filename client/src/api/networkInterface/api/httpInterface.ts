@@ -58,7 +58,7 @@ export class HttpInterface {
     return this.post(url, scheduleData);
   }
 
-  getScheduleByDate(userId: string, dateString: string): Promise<ScheduleData> {
+  getScheduleByDate(userId: string, dateString: string): Promise<ScheduleData[]> {
     const url = `/schedule?userId=${userId}&date=${dateString}`;
     return this.get(url);
   }

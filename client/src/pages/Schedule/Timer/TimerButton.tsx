@@ -1,33 +1,35 @@
 import React from 'react';
 import useTimerState from '../../../stores/timer';
-import Button from '../../../components/Button/Button.component';
-import { transformDateObject } from '../@components/TodoList/@utils/dateToString';
+import styles from './TimerButton.module.css';
+import { MdOutlineTimer } from 'react-icons/md';
 
 export default function TimerButton() {
   const { doing, finishStudy, startStudy } = useTimerState();
   return (
     <div>
       {!doing && (
-        <Button
-          text='LOG STUDY'
+        <button
           type='button'
           onClick={() => {
             const now = new Date();
-            startStudy(transformDateObject(now));
+            // startStudy(transformDateObject(now));
             startStudy(now);
           }}
-        />
+          className={styles['timer-button']}
+        >
+          <MdOutlineTimer /> Log Study
+        </button>
       )}
       {doing && (
-        <Button
-          text='FINISH'
+        <button
           type='button'
           onClick={() => {
             const now = new Date();
-            finishStudy(transformDateObject(now));
-            // finishStudy(now);
+            // finishStudy(transformDateObject(now));
+            finishStudy(now);
           }}
-        />
+          className={styles['timer-button']}
+        >Finish</button>
       )}
     </div>
   );

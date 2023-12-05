@@ -40,13 +40,12 @@ const dummyData = [
 
 export default function SearchInput() {
   const [query, setQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]); // TODO: 데이터 형식 어떻게 받아올지 정하기
+  const [searchResults, setSearchResults] = useState([]);
 
   const debouncedSearchText = useDebounce(query, 1000);
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
-  // console.log(debouncedSearchText);
 
   useEffect(() => {
     if (debouncedSearchText) {
@@ -67,12 +66,13 @@ export default function SearchInput() {
           return (
             <a
               className={styles['search-box-a']}
-              href={`profile/${data.userId}`}>
+              href={`profile/${data.userId}`}
+            >
               <div className={styles['search-box']}>
                 <div className={styles['search-users-img']}></div>
                 {/* </div> */}
                 <div className={styles['search-users-info']}>
-                  <div className={styles['search-users-id']}>{data.userId}</div>
+                  <div className={styles['search-users-id']}>@{data.userId}</div>
                   <div className={styles['search-users-name']}>
                     {data.userName}
                   </div>

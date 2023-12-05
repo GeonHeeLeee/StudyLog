@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useTimerState from '../../../stores/timer';
+import styles from './Timer.module.css';
 
 export default function Timer() {
   const { startTime, doing, endTime } = useTimerState();
@@ -25,15 +26,17 @@ export default function Timer() {
   if (time === undefined) return <></>;
   if (!doing) return <></>;
 
-  
-  const hour = parseInt(`${(time) / (60 * 60)}`);
+  const hour = parseInt(`${time / (60 * 60)}`);
   let temp = time - hour * 60 * 60;
   const minute = parseInt(`${temp / 60}`);
   const second = temp - minute * 60;
 
   return (
-    <div>
-      <p>{`공부 시작 시간: ${startTime?.getHours()}시 ${startTime?.getMinutes()}분 ${startTime?.getSeconds()}초`}</p>
+    <div className={styles.timer}>
+      <p>
+        {startTime &&
+          `공부 시작 시간: ${startTime?.getHours()}시 ${startTime?.getMinutes()}분 ${startTime?.getSeconds()}초`}
+      </p>
       <p>{`${hour}시간 ${minute}분 ${second}초`}</p>
     </div>
   );

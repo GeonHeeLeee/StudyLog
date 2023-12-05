@@ -1,7 +1,7 @@
 .profile-article {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  margin: 20px 0;
   padding: 20px;
   border: 1px solid #eee;
   border-radius: 10px;

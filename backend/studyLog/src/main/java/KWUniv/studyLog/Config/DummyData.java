@@ -9,12 +9,10 @@ import KWUniv.studyLog.repository.FeedRepository;
 import KWUniv.studyLog.repository.FollowingRepository;
 import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FollowingService;
-import KWUniv.studyLog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +26,14 @@ public class DummyData {
     private final FollowingRepository followingRepository;
     private final CommentRepository commentRepository;
     private final FollowingService followingService;
+
     @Bean
     CommandLineRunner initDatabase() {
         return args -> {
             // 30명의 더미 User 생성
             List<User> users = new ArrayList<>();
             for (int i = 0; i < 30; i++) {
-                User user = new User("user" + i, "password" + i, "name" + i, "010-1234-56" + i, "user" + i + "@example.com", 1990 + (i % 30), 0,0);
+                User user = new User("user" + i, "password" + i, "name" + i, "010-1234-56" + i, "user" + i + "@example.com", 1990 + (i % 30), 0, 0);
                 users.add(userRepository.save(user));
             }
 

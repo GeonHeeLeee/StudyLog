@@ -69,6 +69,8 @@ export class HttpInterface {
   }
 
   postCommentInFeed(comment: PostCommentData) {
+    console.log(comment);
+    
     const url = `/feed/comment`;
     return this.post(url, comment);
   }

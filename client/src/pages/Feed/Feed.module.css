@@ -1,0 +1,93 @@
+.feed-article {
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  /*margin-bottom: 1.25rem;*/
+  border-bottom: 1px solid lightgray;
+  width: 98%
+}
+
+.profile-icon {
+  flex-basis: 20px;
+  padding: 0.35rem 0.35rem 0;
+}
+.profile-icon > div {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: yellow;
+}
+
+.feed-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+.feed-userinfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  font-size: 1rem;
+  margin-top: 0.35rem;
+}
+.username {
+  font-weight: bold;
+  margin-right: 0.35rem;
+}
+.userid {
+  color: lightgray;
+  font-size: 0.85rem;
+  margin-right: 0.35rem;
+}
+.date {
+  color: lightgray;
+  font-size: 0.85rem;
+}
+.feed-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+
+}
+.feed-image {
+  border-radius: 1rem;
+}
+.feed-meta {
+  margin: 0.45rem 0.5rem;
+  color: lightgray;
+  font-size: 0.85rem;
+  display: flex;
+}
+.feed-comments {
+  margin-right: 1.5rem;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-weight: 700;
+  transition: 500ms color;
+}
+
+.feed-likes {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-weight: 700;
+  transition: 500ms all;
+}
+.feed-comments:hover,
+.feed-likes:hover{
+  /* color: gray; */
+  animation: color-change 500ms ease-in infinite alternate;
+} 
+
+@keyframes color-change {
+  0% {
+    color: lightgray;
+  }
+
+  100% {
+    color: gray;
+  }
+}

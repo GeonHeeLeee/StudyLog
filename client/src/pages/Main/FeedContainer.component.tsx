@@ -24,24 +24,29 @@ export default function FeedContainer() {
     return res;
   };
 
-  const { data, isFetching, fetchNextPage, hasNextPage, isError, error } =
-    useInfiniteQuery({
-      queryKey: ['mainFeeds'],
-      queryFn: ({ pageParam = initialFeedUrl }) => fetchUrl(pageParam),
-      initialPageParam: undefined,
-      getNextPageParam: (lastPage: {
-        data: {
-          next?: string;
-          count?: number;
-          previous: string | null;
-          feeds: FeedOutline[];
-        };
-      }) => {
-        console.log(lastPage);
-
-        return lastPage.data.next || undefined;
-      },
-    });
+  const {
+    data,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ['mainFeeds'],
+    queryFn: ({ pageParam = initialFeedUrl }) => fetchUrl(pageParam),
+    initialPageParam: undefined,
+    getNextPageParam: (lastPage: {
+      data: {
+        next?: string;
+        count?: number;
+        previous: string | null;
+        feeds: FeedOutline[];
+      };
+    }) => {
+      return lastPage.data.next || undefined;
+    },
+  });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -77,13 +82,35 @@ export default function FeedContainer() {
     return <h1>Error!</h1>;
   }
 
+  if (isLoading) {
+    return <>{createSkeletonFeed(MIN_FEED_COUNT)}</>;
+  }
+
+  if (isFetching) {
+    return (
+      <>
+        <main className={styles['feed-container']}>
+          {data?.pages.map((feeds, idx) => (
+            <Feeds key={idx} feeds={feeds.data.feeds} page={idx} />
+          ))}
+          {createSkeletonFeed(MIN_FEED_COUNT)}
+          {/* {isFetching && createSkeletonFeed(MIN_FEED_COUNT)} */}
+        </main>
+
+        {/* {hasNextPage && (
+          <div ref={setTarget} style={{ width: '100%', height: '0.25rem' }} />
+        )} */}
+      </>
+    );
+  }
+
   return (
     <>
       <main className={styles['feed-container']}>
         {data?.pages.map((feeds, idx) => (
           <Feeds key={idx} feeds={feeds.data.feeds} page={idx} />
         ))}
-        {isFetching && createSkeletonFeed(MIN_FEED_COUNT)}
+        {/* {isFetching && createSkeletonFeed(MIN_FEED_COUNT)} */}
       </main>
 
       {hasNextPage && (

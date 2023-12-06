@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { MouseEvent, useRef, useState } from 'react';
 import styles from './Feed.module.css';
 import Image from '../../components/Image/Image';
 // import {useIsElementInViewport} from "../../hooks/intersectionObserver/useIsElementInViewport";
@@ -6,6 +6,7 @@ import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
 import { FeedOutline } from '../../api/networkInterface/api/http.type';
 import { useMutation } from '@tanstack/react-query';
 import useNetwork from '../../stores/network';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   feed: FeedOutline;
@@ -14,6 +15,7 @@ type Props = {
 
 export default function Feed({ feed, page }: Props) {
   const { httpInterface } = useNetwork();
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationKey: ['like', feed.feedId, feed.likes],
     mutationFn: (feedId: number) => httpInterface.likeFeed(feedId),
@@ -21,8 +23,12 @@ export default function Feed({ feed, page }: Props) {
       console.log(data, variables);
     },
   });
+
+  const onClickHandler = (e: MouseEvent<HTMLElement>) => {
+    navigate(`/feed/${feed.feedId}`);
+  };
   return (
-    <article className={styles['feed-article']}>
+    <article className={styles['feed-article']} onClick={onClickHandler}>
       <div className={styles['profile-icon']}>
         {/*<a>Profile 아이콘</a>*/}
         <div></div>
@@ -49,16 +55,18 @@ export default function Feed({ feed, page }: Props) {
           </div>
         </div>
         <div className={styles['feed-meta']}>
-          <div className={styles['feed-comments']} onClick={() => {}}>
+          <div className={styles['feed-comments']}>
             <span>
               <FaCommentAlt />
             </span>
-            <span>6</span>
+            <span>{feed.comments.length}</span>
           </div>
           <div
             className={styles['feed-likes']}
-            onClick={() => {
-              mutate(feed.feedId);
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(e);
+              // TODO: Thumb up event
             }}
           >
             <span>

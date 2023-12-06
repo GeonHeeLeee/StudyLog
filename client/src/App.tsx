@@ -14,6 +14,7 @@ import NavToMain from './pages/NavToMain/NavToMain';
 import { ScheduleProvider } from './pages/Schedule/@contexts/useSchedule';
 import './App.css';
 import CreateFeedPage from './pages/CreateFeed/CreateFeed';
+import FeedPage from './pages/Feed/FeedPage';
 // import { Cloudinary } from '@cloudinary/url-gen';
 
 function App() {
@@ -41,7 +42,10 @@ function App() {
             </ScheduleProvider>
           }
         />
-        <Route path='/feed' element={<CreateFeedPage />} />
+        <Route path='/feed'>
+          <Route path='/feed' element={<CreateFeedPage />} />
+          <Route path='/feed/:id' element={<FeedPage />} />
+        </Route>
         <Route path='/profile/:userId' element={<Profile />} />
         <Route path='/schedule' element={<Schedule />} />
         <Route path='/search' element={<SearchPage />} />

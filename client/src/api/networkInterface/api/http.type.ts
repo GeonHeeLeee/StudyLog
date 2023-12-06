@@ -34,7 +34,7 @@ export type FeedsPaginationData = {
 
 export type FeedMetadata = {
   userId: string;
-  feedId: string | number;
+  feedId: number;
 };
 
 export type FeedOutline = {
@@ -45,6 +45,7 @@ export type FeedOutline = {
   photo: string; // URL 형식
   feedBody: string;
   userName: string;
+  comments: Comment[];
 };
 
 export type FeedsData = {
@@ -55,6 +56,7 @@ export type FeedsData = {
 export type Comment = {
   userId: string;
   commentBody: string;
+  feedId: number;
 };
 
 export type FeedDetail = FeedOutline & {

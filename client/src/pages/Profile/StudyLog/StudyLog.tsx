@@ -2,6 +2,8 @@ import 'react-calendar-heatmap/dist/styles.css';
 import 'react-tooltip/dist/react-tooltip.css';
 import styles from './StudyLog.module.css';
 
+import { Timers } from '../profile.type';
+
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 
@@ -12,28 +14,11 @@ type StudyLog = {
   count: number;
 };
 
-export default function StudyLog() {
-  const studyLogs = [
-    { date: '2023-01-01', count: 1 },
-    { date: '2023-01-02', count: 2 },
-    { date: '2023-01-03', count: 3 },
-    { date: '2023-01-04', count: 1 },
-    { date: '2023-01-05', count: 1 },
-    { date: '2023-11-19', count: 0 },
-    { date: '2023-11-20', count: 1 },
-    { date: '2023-11-21', count: 2 },
-    { date: '2023-11-22', count: 1 },
-    { date: '2023-11-23', count: 3 },
-    { date: '2023-11-24', count: 2 },
-    { date: '2023-11-25', count: 1 },
-    { date: '2023-11-26', count: 2 },
-    { date: '2023-11-27', count: 1 },
-    { date: '2023-11-28', count: 2 },
-    // ...
-  ];
+export default function StudyLog(props: { timers: Timers[] }) {
+  const { timers } = props;
 
   // Tooltip 띄우기 위해 존재하지 않는 날짜 데이터 생성
-  const completeStudyLogs = generateYearData(new Date(), studyLogs);
+  const completeStudyLogs = generateYearData(new Date(), timers);
 
   return (
     <div className={styles['studylog-container']}>
@@ -68,7 +53,7 @@ function shiftDate(date: Date, numDays: number) {
   return newDate;
 }
 
-const generateYearData = (baseDate: Date, logs: StudyLog[]) => {
+const generateYearData = (baseDate: Date, logs: Timers[]) => {
   let data: StudyLog[] = [];
   for (let i = 0; i < 365; i++) {
     const date = shiftDate(baseDate, -i);
@@ -78,7 +63,7 @@ const generateYearData = (baseDate: Date, logs: StudyLog[]) => {
 
     data.push({
       date: dateString,
-      count: log ? log.count : 0,
+      count: log ? log.state : 0,
     });
   }
   return data;

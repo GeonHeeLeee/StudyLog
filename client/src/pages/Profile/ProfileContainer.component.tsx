@@ -1,25 +1,19 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import { ProfileResult } from './ProfileResult';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
-import { redirect, useParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import Button from '../../components/Button/Button.component';
 import StudyLog from './StudyLog/StudyLog';
 
+import { Feeds, Timers, User } from './profile.type';
+
 import useNetwork from '../../stores/network';
-import { http } from 'msw';
 
 type Props = {
   profile: ProfileResult; // 프로필 정보를 담은 객체
-};
-
-type Feed = {
-  content: string;
-  imgUrl: string;
-  comments: number;
-  likes: number;
 };
 
 export default function ProfileContainer() {
@@ -28,6 +22,12 @@ export default function ProfileContainer() {
   const { userInfo } = useLoginState();
 
   const { httpInterface } = useNetwork();
+  const navigate = useNavigate();
+
+  const [follow, setFollow] = useState<boolean>(false);
+  const [feeds, setFeeds] = useState<Feeds[]>([]);
+  const [timers, setTimers] = useState<Timers[]>([]);
+  const [user, setUser] = useState<User>();
 
   const userProfile = useCallback(
     async (userId: string) => {
@@ -36,75 +36,54 @@ export default function ProfileContainer() {
     [userId]
   );
 
-  httpInterface
-    .getUsersProfile(userId)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      redirect('/');
-    });
-
-  // axios.get(`/profile?userId=${userId}`).then((res) => {});
-
-  // axios
-  //   .post('http://localhost:8080/follow', {
-  //     selfId: 'hello',
-  //     followingId: 'world',
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //   });
-  const profile: ProfileResult = {
-    username: '이석희',
-    userid: '@devLee',
-    bio: '안녕하세요. 이석희입니다.',
-    followers: 10,
-    following: 20,
-    feeds: [
-      {
-        content: '문단...',
-        imgUrl: '/img.jpg',
-        comments: 6,
-        likes: 16,
-      },
-      {
-        content: '문단...',
-        imgUrl: '/img.jpg',
-        comments: 6,
-        likes: 16,
-      },
-      {
-        content: '문단...',
-        imgUrl: '/img.jpg',
-        comments: 6,
-        likes: 16,
-      },
-      {
-        content: '문단...',
-        imgUrl: '/img.jpg',
-        comments: 6,
-        likes: 16,
-      },
-      {
-        content: '문단...',
-        imgUrl: '/img.jpg',
-        comments: 6,
-        likes: 16,
-      },
-    ],
-  };
-
   const checkMyProfile = () => {
     return userId === userInfo?.userId;
   };
 
   const onFollow = () => {
-    // selfId : 내 id
-    // const selfId = userInfo.userId;
-    // followingId: 상대방 id
+    const selfId = userInfo.userId;
+    const followingId = userId;
+
+    httpInterface
+      .follow({ selfId, followingId })
+      .then((res) => {
+        console.log(res);
+        res.status === 200 && setFollow(!follow);
+
+        // 팔로우 성공 시 팔로우 버튼을 팔로잉 버튼으로 바꿔준다.
+        // 팔로우 버튼을 누르면 팔로잉 버튼으로 바뀌고, 팔로잉 버튼을 누르면 팔로우 버튼으로 바뀐다.  });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  const onUnfollow = () => {
+    const selfId = userInfo.userId;
+    const followingId = userId;
+
+    httpInterface.unFollow({ selfId, followingId }).then((res) => {
+      console.log(res);
+      res.status === 200 && setFollow(!follow);
+    });
+  };
+
+  // const onClickHandler = (e: MouseEvent) => {
+  //   navigate(`/feed/${feeds?.feedId}`);
+  // };
+
+  useEffect(() => {
+    httpInterface
+      .getUsersProfile(userId)
+      .then((res) => {
+        setFeeds(res.data.feeds);
+        setTimers(res.data.timers);
+        setUser(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [follow]);
 
   return (
     <article className={styles['profile-article']}>
@@ -114,19 +93,26 @@ export default function ProfileContainer() {
       </div>
       <main className={styles['profile-main']}>
         <div className={styles['profile-userinfo']}>
-          <span className={styles['username']}>{profile.username}</span>
-          <span className={styles['userid']}>{profile.userid}</span>
+          <span className={styles['username']}>{user?.name}</span>
+          <span className={styles['userid']}>{`@${user?.userId}`}</span>
           {checkMyProfile() ? (
             <Button
               text={'프로필 편집'}
               type='button'
               className={styles['profile-btn']}
             />
-          ) : (
+          ) : !follow ? (
             <Button
               text={'팔로우'}
               type='button'
               onClick={onFollow}
+              className={styles['profile-btn']}
+            />
+          ) : (
+            <Button
+              text={'팔로잉'}
+              type='button'
+              onClick={onUnfollow}
               className={styles['profile-btn']}
             />
           )}
@@ -134,32 +120,37 @@ export default function ProfileContainer() {
         <div className={styles['profile-meta']}>
           <div className={styles['profile-followers']}>
             <span>팔로워</span>
-            <span>{profile.followers}</span>
+            <span>{user?.followerCount}</span>
           </div>
           <div className={styles['profile-following']}>
             <span>팔로잉</span>
-            <span>{profile.following}</span>
+            <span>{user?.followingCount}</span>
           </div>
         </div>
         <div className={styles['profile-bio']}>
-          <p>{profile.bio}</p>
+          <p>{user?.profilePhrase}</p>
           <div>
-            <StudyLog />
+            <StudyLog timers={timers} />
           </div>
         </div>
         <div className={styles['profile-contents']}>
-          {profile.feeds.map((feed) => (
-            <div className={styles['feed-content']}>
-              <p>{feed.content}</p>
+          {feeds?.map((feed) => (
+            <div
+              className={styles['feed-content']}
+              onClick={(e) => {
+                // e.preventDefault();
+                navigate(`/feed/${feed.feedId}`);
+              }}>
+              <p>{feed.feedBody}</p>
               <div>
                 <Image
-                  src={feed.imgUrl}
-                  alt={''}
+                  src={feed.photo}
+                  alt={'feed image'}
                   className={styles['feed-image']}
                 />{' '}
                 <div className={styles['feed-meta']}>
                   <span>
-                    <FaCommentAlt /> {feed.comments}
+                    <FaCommentAlt /> {feed.comments?.length}
                   </span>
                   <span>
                     <FaThumbsUp /> {feed.likes}

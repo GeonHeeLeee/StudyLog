@@ -23,7 +23,7 @@ export default function Header() {
 
   const signOutHandler = async () => {
     const response = await httpInterface.logout();
-    // console.log(response);
+    console.log(response);
     if (response.status === 200) {
       signOut();
     } else {

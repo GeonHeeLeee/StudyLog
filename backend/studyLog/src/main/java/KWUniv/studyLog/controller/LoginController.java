@@ -1,6 +1,7 @@
 package KWUniv.studyLog.controller;
 
 
+import KWUniv.studyLog.DTO.UserDTO;
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,5 +74,16 @@ public class LoginController {
     }
 
     //logout도 구현하기
-
+    @PostMapping("/logout")
+    public ResponseEntity logoutUser(HttpServletRequest request,
+                                     HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

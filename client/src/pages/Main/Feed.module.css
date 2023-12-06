@@ -4,7 +4,7 @@
   justify-content: center;
   /*margin-bottom: 1.25rem;*/
   border-bottom: 1px solid lightgray;
-  width: 98%
+  width: 98%;
 }
 
 .profile-icon {
@@ -20,6 +20,8 @@
 
 .feed-main {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 .feed-userinfo {
   display: flex;
@@ -42,10 +44,10 @@
   font-size: 0.85rem;
 }
 .feed-content {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
-
 }
 .feed-image {
   border-radius: 1rem;
@@ -73,10 +75,10 @@
   transition: 500ms all;
 }
 .feed-comments:hover,
-.feed-likes:hover{
+.feed-likes:hover {
   /* color: gray; */
   animation: color-change 500ms ease-in infinite alternate;
-} 
+}
 
 @keyframes color-change {
   0% {

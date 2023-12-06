@@ -7,10 +7,17 @@ import { FeedOutline } from '../../api/networkInterface/api/http.type';
 import { useMutation } from '@tanstack/react-query';
 import useNetwork from '../../stores/network';
 import { useNavigate } from 'react-router-dom';
+import queryClient from '../../api/queryClient/queryClient';
+import { FeedData } from './@types/feed.type';
 
 type Props = {
   feed: FeedOutline;
   page: number;
+};
+
+type MainFeed = {
+  pageParams: (string | undefined)[];
+  pages: FeedData[];
 };
 
 export default function Feed({ feed, page }: Props) {
@@ -22,11 +29,56 @@ export default function Feed({ feed, page }: Props) {
     onSuccess: (data, variables) => {
       console.log(data, variables);
     },
+    onMutate: async () => {
+      // await queryClient.cancelQueries({
+      //   queryKey: ['mainFeeds'],
+      // });
+      const previousFeed = queryClient.getQueryData<MainFeed>(['mainFeeds']);
+      console.log('previousFeed', previousFeed);
+
+      queryClient.setQueryData(['mainFeeds'], (old: MainFeed) => {
+        return {
+          pageParams: [...old.pageParams],
+          pages: old.pages.map((item, idx) => {
+            if (idx === page) {
+              return {
+                ...item,
+                data: {
+                  ...item.data,
+                  feeds: item.data.feeds.map((f) => {
+                    if (f.feedId === feed.feedId) {
+                      return {
+                        ...f,
+                        likes: f.likes + 1,
+                      };
+                    } else {
+                      return f;
+                    }
+                  }),
+                },
+              };
+            } else {
+              return item;
+            }
+          }),
+        };
+      });
+
+      return { previousFeed };
+    },
+    onError: (err, data, context) => {
+      queryClient.setQueryData(['mainFeeds'], context?.previousFeed);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['mainFeeds'] });
+    },
   });
 
   const onClickHandler = (e: MouseEvent<HTMLElement>) => {
     navigate(`/feed/${feed.feedId}`);
   };
+  const formattedDate = formatDateString(feed.date);
+
   return (
     <article className={styles['feed-article']} onClick={onClickHandler}>
       <div className={styles['profile-icon']}>
@@ -38,7 +90,9 @@ export default function Feed({ feed, page }: Props) {
           {/* <span className={styles['username']}>{feed.userName}</span> */}
           <span className={styles['username']}>{feed.writerId}</span>
           <span className={styles['userid']}>{feed.writerId}</span>
-          <span className={styles['date']}>{feed.date}</span>
+          <span
+            className={styles['date']}
+          >{`${formattedDate[0]} ${formattedDate[1]}`}</span>
         </div>
         <div className={styles['feed-content']}>
           <p>{feed.feedBody}</p>
@@ -67,6 +121,7 @@ export default function Feed({ feed, page }: Props) {
               e.stopPropagation();
               console.log(e);
               // TODO: Thumb up event
+              mutate(feed.feedId);
             }}
           >
             <span>
@@ -78,4 +133,9 @@ export default function Feed({ feed, page }: Props) {
       </main>
     </article>
   );
+}
+
+function formatDateString(dateString: string) {
+  const date = dateString.split('T');
+  return [date[0], date[1].split('.')[0]];
 }

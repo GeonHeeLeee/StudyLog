@@ -17,10 +17,9 @@ public class User {
     private String userId;
     private String password;
     private String name;
-    private String phoneNumber;
-    private String email;
     private int birth;
-
+    private String profilePhoto;
+    private String profilePhrase;
     private Integer followerCount = 0;
     private Integer followingCount = 0;
 
@@ -38,4 +37,10 @@ public class User {
     public void minusFollowerCount() { this.followerCount -= 1; }
 
     public void minusFollowingCount() { this.followingCount -= 1; }
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+    public void setProfilePhrase(String profilePhrase) {
+        this.profilePhrase = profilePhrase;
+    }
 }

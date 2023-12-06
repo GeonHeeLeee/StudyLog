@@ -78,7 +78,7 @@ public class FeedController {
     특정 피드에 좋아요 누르기
      - 해당 피드를 찾아 좋아요 + 1 한 후, 응답으로 feedId, 좋아요 수 반환
      */
-    @GetMapping("/like")
+    @PostMapping("/like")
     public ResponseEntity likeFeed(@RequestBody FeedDTO feedDTO) {
         try {
             Integer feedId = feedDTO.getFeedId();

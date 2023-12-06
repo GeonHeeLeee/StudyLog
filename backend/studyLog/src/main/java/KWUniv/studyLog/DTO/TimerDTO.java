@@ -30,6 +30,14 @@ public class TimerDTO {
         this.date = timer.getDate();
     }
 
+    /*
+    공부 시간에 따른 잔디밭 상태 로직
+    - 0시간 == 0
+    - 0 ~ 2시간 == 1
+    - 2 ~ 4시간 == 2
+    - 4 ~ 6시간 == 3
+    - 6시간 이상 == 4
+     */
     private Integer calculateState(Integer studyTime) {
         if (studyTime == 0) {
             return 0;

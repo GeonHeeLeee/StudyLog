@@ -1,11 +1,13 @@
 package KWUniv.studyLog.controller;
 
 import KWUniv.studyLog.DTO.TimerDTO;
+import KWUniv.studyLog.DTO.UserDTO;
 import KWUniv.studyLog.entity.Timer;
 import KWUniv.studyLog.exception.UserNotFoundException;
 import KWUniv.studyLog.repository.TimerRepository;
 import KWUniv.studyLog.service.FeedService;
 import KWUniv.studyLog.service.TimerService;
+import KWUniv.studyLog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,11 +26,12 @@ public class ProfileContoller {
 
 
     private final FeedService feedService;
-
+    private final UserService userService;
     private final TimerService timerService;
     /*
     Get으로 쿼리파라미터로 userId만 주면 해당 userId의 정보 반환
-    - 이후 타이머 기능 구현 시, 잔디밭도 함께 보내주기
+    - 유저가 올린 피드들도 반환
+    - 또한, 유저의 타이머 목록도 상태를 지정하여 반환
      */
     @GetMapping
     public ResponseEntity<?> getUserProfile(@RequestParam String userId) {
@@ -41,6 +44,16 @@ public class ProfileContoller {
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /*
+    프로필 검색 기능
+    - 보내준 키워드마다 DB 조회해서 반환
+     */
+    @PostMapping("/search")
+    public ResponseEntity searchUserByIdContaining(@RequestBody UserDTO userDTO) {
+        List<UserDTO> userDTOList = userService.findUserByIdContaining(userDTO.getUserId());
+        return new ResponseEntity(userDTOList, HttpStatus.OK);
     }
 
 }

@@ -32,9 +32,9 @@ export class HttpInterface {
     return this.post(url, signInData);
   }
 
-  logout(signOutData: SignOutData) {
+  logout() {
     const url = '/logout';
-    return this.post(url, signOutData);
+    return this.post(url, {});
   }
 
   join(joinData: JoinData) {

@@ -24,7 +24,7 @@ export type ModifyFeedData = {
 };
 
 export type SignOutData = {
-  userId: string;
+  // userId: string;
 };
 
 export type FeedsPaginationData = {

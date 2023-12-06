@@ -30,11 +30,7 @@ export default function Feed({ feed, page }: Props) {
       console.log(data, variables);
     },
     onMutate: async () => {
-      // await queryClient.cancelQueries({
-      //   queryKey: ['mainFeeds'],
-      // });
       const previousFeed = queryClient.getQueryData<MainFeed>(['mainFeeds']);
-      console.log('previousFeed', previousFeed);
 
       queryClient.setQueryData(['mainFeeds'], (old: MainFeed) => {
         return {

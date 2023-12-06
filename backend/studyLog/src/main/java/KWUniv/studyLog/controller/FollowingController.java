@@ -2,8 +2,6 @@ package KWUniv.studyLog.controller;
 
 import KWUniv.studyLog.DTO.FollowingDTO;
 import KWUniv.studyLog.exception.UserNotFoundException;
-import KWUniv.studyLog.repository.FollowingRepository;
-import KWUniv.studyLog.repository.UserRepository;
 import KWUniv.studyLog.service.FollowingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

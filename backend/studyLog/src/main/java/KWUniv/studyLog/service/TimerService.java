@@ -1,5 +1,6 @@
 package KWUniv.studyLog.service;
 
+import KWUniv.studyLog.DTO.FeedDTO;
 import KWUniv.studyLog.DTO.TimerDTO;
 import KWUniv.studyLog.entity.Timer;
 import KWUniv.studyLog.entity.User;
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class TimerService {
     public Optional<Timer> getTimerByUserIdAndDate(String userId, LocalDate date){
         return Optional.ofNullable(timerRepository.findByUser_UserIdAndDate(userId,date));
     }
+
 
     /*
     TimerDTO를 받아서 User를 찾고 DB에 저장
@@ -56,4 +60,18 @@ public class TimerService {
         }
         return studyTime;
     }
+
+    /*
+    프로필의 잔디밭 구현을 위해 timerDTOList 반환
+     */
+    @Transactional
+    public List<TimerDTO> getUserTimerDTOList(String userId) {
+        List<Timer> timerList = timerRepository.findAllByUser_UserId(userId);
+        List<TimerDTO> timerDTOList = timerList.stream()
+                .map(TimerDTO::new)
+                .collect(Collectors.toList());
+
+        return timerDTOList;
+    }
+
 }

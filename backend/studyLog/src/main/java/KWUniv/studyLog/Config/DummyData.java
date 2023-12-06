@@ -33,7 +33,7 @@ public class DummyData {
             // 30명의 더미 User 생성
             List<User> users = new ArrayList<>();
             for (int i = 0; i < 30; i++) {
-                User user = new User("user" + i, "password" + i, "name" + i, "010-1234-56" + i, "user" + i + "@example.com", 1990 + (i % 30), 0, 0);
+                User user = new User("user" + i, "password" + i, "name" + i,  1990 + (i % 30),null,null, 0, 0);
                 users.add(userRepository.save(user));
             }
 

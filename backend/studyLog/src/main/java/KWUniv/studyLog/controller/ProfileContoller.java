@@ -56,4 +56,20 @@ public class ProfileContoller {
         return new ResponseEntity(userDTOList, HttpStatus.OK);
     }
 
+
+    /*
+    프로필 수정 메서드
+    - 사진 변경
+    - 프로필 문구 변경
+     */
+    @PostMapping("/edit")
+    public ResponseEntity editUserProfile(@RequestBody UserDTO userDTO) {
+        try {
+            userService.editUserProfile(userDTO);
+            return new ResponseEntity(userDTO,HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

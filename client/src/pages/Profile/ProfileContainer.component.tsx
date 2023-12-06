@@ -101,7 +101,7 @@ export default function ProfileContainer() {
               type='button'
               className={styles['profile-btn']}
             />
-          ) : follow ? (
+          ) : !follow ? (
             <Button
               text={'팔로우'}
               type='button'

@@ -99,3 +99,8 @@ export type PostCommentData = {
   feedId: number;
   commentBody: string;
 };
+
+export type FollowUsers = {
+  selfId: string;
+  followingId: string | undefined;
+};

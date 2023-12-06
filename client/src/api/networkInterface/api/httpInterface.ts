@@ -6,6 +6,7 @@ import {
   FeedMetadata,
   FeedsData,
   FeedsPaginationData,
+  FollowUsers,
   JoinData,
   ModifyFeedData,
   PostCommentData,
@@ -116,6 +117,21 @@ export class HttpInterface {
   getUsersProfile(userId: string | undefined) {
     const url = `/profile?userId=${userId}`;
     return this.get(url);
+  }
+
+  searchUsers(userId: string | undefined) {
+    const url = `/profile/search`;
+    return this.post(url, { userId });
+  }
+
+  follow(followUsers: FollowUsers) {
+    const url = `/follow`;
+    return this.post(url, followUsers);
+  }
+
+  unFollow(unFollowUsers: FollowUsers) {
+    const url = `/unfollow`;
+    return this.post(url, unFollowUsers);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

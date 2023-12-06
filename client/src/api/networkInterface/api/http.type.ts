@@ -104,3 +104,8 @@ export type FollowUsers = {
   selfId: string;
   followingId: string | undefined;
 };
+
+export type EditProfileData = {
+  profilePhoto: string;
+  profilePhrase: string;
+};

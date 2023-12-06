@@ -11,6 +11,9 @@ import StudyLog from './StudyLog/StudyLog';
 import { Feeds, Timers, User } from './profile.type';
 
 import useNetwork from '../../stores/network';
+import ModalPortal from '../../components/Portal/ModalPortal.component';
+import ModalWrapper from '../../components/Modal/ModalWrapper.component';
+import EditProfile from '../../components/Modal/EditProfile.component';
 
 type Props = {
   profile: ProfileResult; // 프로필 정보를 담은 객체
@@ -28,6 +31,7 @@ export default function ProfileContainer() {
   const [feeds, setFeeds] = useState<Feeds[]>([]);
   const [timers, setTimers] = useState<Timers[]>([]);
   const [user, setUser] = useState<User>();
+  const [showModal, toggleShowModal] = useState<boolean>(false);
 
   const userProfile = useCallback(
     async (userId: string) => {
@@ -83,7 +87,7 @@ export default function ProfileContainer() {
       .catch((err) => {
         console.log(err);
       });
-  }, [follow]);
+  }, [follow, userId]);
 
   return (
     <article className={styles['profile-article']}>
@@ -99,6 +103,7 @@ export default function ProfileContainer() {
             <Button
               text={'프로필 편집'}
               type='button'
+              onClick={() => toggleShowModal(true)}
               className={styles['profile-btn']}
             />
           ) : !follow ? (
@@ -138,7 +143,6 @@ export default function ProfileContainer() {
             <div
               className={styles['feed-content']}
               onClick={(e) => {
-                // e.preventDefault();
                 navigate(`/feed/${feed.feedId}`);
               }}>
               <p>{feed.feedBody}</p>
@@ -160,6 +164,15 @@ export default function ProfileContainer() {
             </div>
           ))}
         </div>
+        {showModal && (
+          <ModalPortal>
+            <ModalWrapper
+              show={showModal}
+              closeModal={() => toggleShowModal(false)}>
+              <EditProfile closeModal={() => toggleShowModal(false)} />
+            </ModalWrapper>
+          </ModalPortal>
+        )}
       </main>
     </article>
   );

@@ -3,6 +3,7 @@ import { ICommunication } from './http';
 import {
   AddScheduleData,
   AddTimeData,
+  EditProfileData,
   FeedMetadata,
   FeedsData,
   FeedsPaginationData,
@@ -132,6 +133,12 @@ export class HttpInterface {
   unFollow(unFollowUsers: FollowUsers) {
     const url = `/unfollow`;
     return this.post(url, unFollowUsers);
+  }
+
+  // TODO: 이미지 처리 하는대로 구현
+  editProfile(profileData: EditProfileData) {
+    const url = `/profile/edit`;
+    return this.post(url, profileData);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

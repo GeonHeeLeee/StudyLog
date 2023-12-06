@@ -56,6 +56,34 @@ export default function Feed({ feed, id }: Props) {
       queryClient.invalidateQueries({ queryKey: ['feed-detail', id] });
     },
   });
+
+  const { mutate: likeFeed } = useMutation({
+    mutationFn: (feedId: number) => httpInterface.likeFeed(feedId),
+    onMutate: async () => {
+      await queryClient.cancelQueries({
+        queryKey: ['feed-detail', id],
+      });
+      const previousFeed = await queryClient.getQueryData(['feed-detail', id]);
+
+      queryClient.setQueryData(['feed-detail', id], (old: FeedResponseData) => {
+        return {
+          ...old,
+          data: {
+            ...old.data,
+            likes: old.data.likes + 1,
+          },
+        };
+      });
+      setCommentBody('');
+      return { previousFeed };
+    },
+    onError: (err, data, context) => {
+      queryClient.setQueryData(['feed-detail', id], context?.previousFeed);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['feed-detail', id] });
+    },
+  });
   return (
     <div>
       <article className={styles['feed-article']}>
@@ -93,9 +121,9 @@ export default function Feed({ feed, id }: Props) {
             </div>
             <div
               className={styles['feed-likes']}
-              // onClick={() => {
-              //   mutate(feed.feedId);
-              // }}
+              onClick={() => {
+                likeFeed(feed.feedId);
+              }}
             >
               <span>
                 <FaThumbsUp />

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './profile.module.css';
-import { ProfileResult } from './ProfileResult';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
 import { redirect, useNavigate, useParams } from 'react-router-dom';
@@ -14,10 +13,6 @@ import useNetwork from '../../stores/network';
 import ModalPortal from '../../components/Portal/ModalPortal.component';
 import ModalWrapper from '../../components/Modal/ModalWrapper.component';
 import EditProfile from '../../components/Modal/EditProfile.component';
-
-type Props = {
-  profile: ProfileResult; // 프로필 정보를 담은 객체
-};
 
 export default function ProfileContainer() {
   const { userId } = useParams();
@@ -53,9 +48,6 @@ export default function ProfileContainer() {
       .then((res) => {
         console.log(res);
         res.status === 200 && setFollow(!follow);
-
-        // 팔로우 성공 시 팔로우 버튼을 팔로잉 버튼으로 바꿔준다.
-        // 팔로우 버튼을 누르면 팔로잉 버튼으로 바뀌고, 팔로잉 버튼을 누르면 팔로우 버튼으로 바뀐다.  });
       })
       .catch((err) => {
         console.log(err);
@@ -66,10 +58,16 @@ export default function ProfileContainer() {
     const selfId = userInfo.userId;
     const followingId = userId;
 
-    httpInterface.unFollow({ selfId, followingId }).then((res) => {
-      console.log(res);
-      res.status === 200 && setFollow(!follow);
-    });
+    httpInterface
+      .unFollow({ selfId, followingId })
+      .then((res) => {
+        console.log(res);
+        res.status === 200 && setFollow(!follow);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('팔로우 취소에 실패했습니다.');
+      });
   };
 
   // const onClickHandler = (e: MouseEvent) => {
@@ -80,6 +78,8 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userId)
       .then((res) => {
+        console.log(res.data.user);
+
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);
@@ -87,13 +87,18 @@ export default function ProfileContainer() {
       .catch((err) => {
         console.log(err);
       });
-  }, [follow, userId]);
+  }, [follow, userId, showModal]);
 
   return (
     <article className={styles['profile-article']}>
       <div className={styles['profile-icon']}>
-        {/*<a>Profile 아이콘</a>*/}
-        <div></div>
+        {
+          <Image
+            src={user?.profilePhoto}
+            alt={'profile image'}
+            className={styles['profile-image']}
+          />
+        }
       </div>
       <main className={styles['profile-main']}>
         <div className={styles['profile-userinfo']}>
@@ -139,19 +144,20 @@ export default function ProfileContainer() {
           </div>
         </div>
         <div className={styles['profile-contents']}>
-          {feeds?.map((feed) => (
+          {feeds?.reverse().map((feed) => (
             <div
               className={styles['feed-content']}
+              key={feed.feedId}
               onClick={(e) => {
                 navigate(`/feed/${feed.feedId}`);
               }}>
-              <p>{feed.feedBody}</p>
               <div>
                 <Image
                   src={feed.photo}
                   alt={'feed image'}
                   className={styles['feed-image']}
                 />{' '}
+                <p>{feed.feedBody}</p>
                 <div className={styles['feed-meta']}>
                   <span>
                     <FaCommentAlt /> {feed.comments?.length}
@@ -169,7 +175,11 @@ export default function ProfileContainer() {
             <ModalWrapper
               show={showModal}
               closeModal={() => toggleShowModal(false)}>
-              <EditProfile closeModal={() => toggleShowModal(false)} />
+              <EditProfile
+                closeModal={() => toggleShowModal(false)}
+                userId={user?.userId}
+                userName={user?.name}
+              />
             </ModalWrapper>
           </ModalPortal>
         )}

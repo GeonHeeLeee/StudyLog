@@ -106,6 +106,8 @@ export type FollowUsers = {
 };
 
 export type EditProfileData = {
-  profilePhoto: string;
-  profilePhrase: string;
+  profilePhoto: File | null;
+  profilePhrase: string | null;
+  userId: string | undefined;
+  userName: string | undefined;
 };

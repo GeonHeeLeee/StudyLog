@@ -87,8 +87,9 @@ export default function Feed({ feed, page }: Props) {
           <span className={styles['username']}>{feed.writerId}</span>
           <span className={styles['userid']}>{feed.writerId}</span>
           <span
-            className={styles['date']}
-          >{`${formattedDate[0]} ${formattedDate[1]}`}</span>
+            className={
+              styles['date']
+            }>{`${formattedDate[0]} ${formattedDate[1]}`}</span>
         </div>
         <div className={styles['feed-content']}>
           <p>{feed.feedBody}</p>
@@ -118,8 +119,7 @@ export default function Feed({ feed, page }: Props) {
               console.log(e);
               // TODO: Thumb up event
               mutate(feed.feedId);
-            }}
-          >
+            }}>
             <span>
               <FaThumbsUp />
             </span>

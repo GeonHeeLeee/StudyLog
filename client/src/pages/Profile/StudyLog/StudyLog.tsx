@@ -12,6 +12,7 @@ const today = new Date();
 type StudyLog = {
   date: string;
   count: number;
+  studyTime: number;
 };
 
 export default function StudyLog(props: { timers: Timers[] }) {
@@ -36,7 +37,7 @@ export default function StudyLog(props: { timers: Timers[] }) {
           tooltipDataAttrs={(value: StudyLog) => {
             return {
               'data-tooltip-id': 'heatmap-tooltip',
-              'data-tooltip-content': `${value.date}`,
+              'data-tooltip-content': `${value.date}: ${value.studyTime}분 공부했어요!`,
             };
           }}
         />
@@ -64,6 +65,7 @@ const generateYearData = (baseDate: Date, logs: Timers[]) => {
     data.push({
       date: dateString,
       count: log ? log.state : 0,
+      studyTime: log ? log.studyTime : 0,
     });
   }
   return data;

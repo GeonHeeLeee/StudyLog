@@ -4,9 +4,11 @@ import Input from '../Input/Input.component';
 import { useState } from 'react';
 type Props = {
   closeModal: () => void;
+  userId: string | undefined;
+  userName: string | undefined;
 };
 
-export default function EditProfile({ closeModal }: Props) {
+export default function EditProfile({ closeModal, userId, userName }: Props) {
   const { httpInterface } = useNetwork();
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -28,7 +30,21 @@ export default function EditProfile({ closeModal }: Props) {
     e.preventDefault();
     console.log(imageFile, bio);
 
-    // httpInterface.editProfile({ profilePhoto: imageFile, profilePhrase: bio });
+    httpInterface
+      .editProfile({
+        profilePhoto: imageFile,
+        profilePhrase: bio,
+        userId,
+        userName,
+      })
+      .then((res) => {
+        console.log(res);
+        closeModal();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('프로필 수정에 실패했습니다.');
+      });
   };
 
   return (

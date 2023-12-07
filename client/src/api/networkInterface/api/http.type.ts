@@ -7,8 +7,6 @@ export type JoinData = {
   userId: string;
   password: string;
   name: string;
-  phoneNumber: string;
-  email: `${string}@${string}`;
   birth: string;
 };
 

@@ -9,6 +9,7 @@ import useNetwork from '../../stores/network';
 import { useNavigate } from 'react-router-dom';
 import queryClient from '../../api/queryClient/queryClient';
 import { FeedData } from './@types/feed.type';
+import useLoginState from '../../stores/login';
 
 type Props = {
   feed: FeedOutline;
@@ -23,6 +24,9 @@ type MainFeed = {
 export default function Feed({ feed, page }: Props) {
   const { httpInterface } = useNetwork();
   const navigate = useNavigate();
+  const {
+    userInfo: { userId },
+  } = useLoginState();
   const { mutate } = useMutation({
     mutationKey: ['like', feed.feedId, feed.likes],
     mutationFn: (feedId: number) => httpInterface.likeFeed(feedId),
@@ -83,8 +87,8 @@ export default function Feed({ feed, page }: Props) {
       </div>
       <main className={styles['feed-main']}>
         <div className={styles['feed-userinfo']}>
-          {/* <span className={styles['username']}>{feed.userName}</span> */}
-          <span className={styles['username']}>{feed.writerId}</span>
+          <span className={styles['username']}>{feed.userName}</span>
+          {/* <span className={styles['username']}>{feed.writerId}</span> */}
           <span className={styles['userid']}>{feed.writerId}</span>
           <span
             className={styles['date']}
@@ -115,8 +119,10 @@ export default function Feed({ feed, page }: Props) {
             className={styles['feed-likes']}
             onClick={(e) => {
               e.stopPropagation();
-              console.log(e);
-              // TODO: Thumb up event
+              console.log(userId, feed.writerId);
+
+              if (userId === feed.writerId) return;
+
               mutate(feed.feedId);
             }}
           >

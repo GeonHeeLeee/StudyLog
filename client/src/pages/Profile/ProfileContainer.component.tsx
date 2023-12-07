@@ -140,14 +140,15 @@ export default function ProfileContainer() {
               onClick={(e) => {
                 // e.preventDefault();
                 navigate(`/feed/${feed.feedId}`);
-              }}>
+              }}
+            >
               <p>{feed.feedBody}</p>
               <div>
                 <Image
                   src={feed.photo}
                   alt={'feed image'}
                   className={styles['feed-image']}
-                />{' '}
+                />
                 <div className={styles['feed-meta']}>
                   <span>
                     <FaCommentAlt /> {feed.comments?.length}

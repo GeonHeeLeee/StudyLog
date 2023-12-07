@@ -18,9 +18,6 @@ const initialForm = {
   password: '',
   confirmPassword: '',
   name: '',
-  phoneNumber: '',
-  localEmail: '', // email 앞쪽
-  domainEmail: '', // email 뒤쪽
   birth: '',
 };
 
@@ -87,7 +84,7 @@ export default function SignUpModal({ closeModal }: Props) {
             type='text'
             onChangeHandler={onChangeHandler}
             name='birth'
-            placeholder='생년월일(-입력 X)'
+            placeholder='생년월일 i.e 991114 (- 사용X)'
             value={form.birth}
             className={styles['form-input']}
             required
@@ -148,38 +145,6 @@ export default function SignUpModal({ closeModal }: Props) {
             className={styles['form-input']}
           />
         </div>
-        <div className={styles['input-container']}>
-          <label htmlFor='name'>전화번호</label>
-          <Input
-            type='tel'
-            name='phoneNumber'
-            value={form.phoneNumber}
-            onChangeHandler={onChangeHandler}
-            placeholder='전화번호(-입력 X)'
-            required
-            className={styles['form-input']}
-          />
-        </div>
-        <label>이메일</label>
-        <div className={styles['email-section']}>
-          <Input
-            className={styles['email-input']}
-            type='text'
-            name='localEmail'
-            value={form.localEmail}
-            onChangeHandler={onChangeHandler}
-            required
-          />
-          @
-          <Input
-            className={styles['email-input']}
-            type='text'
-            name='domainEmail'
-            value={form.domainEmail}
-            onChangeHandler={onChangeHandler}
-            required
-          />
-        </div>
         <Button
           type='submit'
           className={styles['form-button']}
@@ -195,8 +160,6 @@ function makeSignUpForm(inputForm: typeof initialForm): JoinData {
     userId: inputForm.userId,
     password: inputForm.password,
     name: inputForm.name,
-    phoneNumber: inputForm.phoneNumber,
-    email: `${inputForm.localEmail}@${inputForm.domainEmail}`,
     birth: inputForm.birth,
   };
 }

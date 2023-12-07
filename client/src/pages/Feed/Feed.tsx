@@ -122,6 +122,7 @@ export default function Feed({ feed, id }: Props) {
             <div
               className={styles['feed-likes']}
               onClick={() => {
+                if (userId === feed.writerId) return;
                 likeFeed(feed.feedId);
               }}
             >

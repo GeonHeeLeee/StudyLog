@@ -14,39 +14,6 @@ type SearchResults = {
   userName: string;
 };
 
-const dummyData = [
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '김주현',
-    userId: 'jju.hyeoni',
-  },
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '고석환',
-    userId: 'k_osssshhhh',
-  },
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '이건희',
-    userId: 'blackpepper__17',
-  },
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '윤서환',
-    userId: 's_hxwan',
-  },
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '이승훈',
-    userId: 'tmdgnsle',
-  },
-  {
-    img: 'https://avatars.githubusercontent.com/u/52685261?v=4',
-    userName: '윤성호',
-    userId: 'barley_15',
-  },
-];
-
 export default function SearchInput() {
   const [query, setQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResults[]>([]);

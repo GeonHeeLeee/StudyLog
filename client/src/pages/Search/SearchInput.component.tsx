@@ -81,13 +81,20 @@ export default function SearchInput() {
 
   return (
     <div>
-      <Input name='query' onChangeHandler={changeHandler} value={query} />
+      <Input
+        name='query'
+        onChangeHandler={changeHandler}
+        value={query}
+        className={styles['search-input']}
+        placeholder='검색하실 아이디를 입력해주세요'
+      />
       <ul>
         {searchResults.map((data, index) => {
           return (
             <a
               className={styles['search-box-a']}
-              href={`profile/${data.userId}`}>
+              href={`profile/${data.userId}`}
+            >
               <div className={styles['search-box']}>
                 <div className={styles['search-users-img']}></div>
                 {/* </div> */}

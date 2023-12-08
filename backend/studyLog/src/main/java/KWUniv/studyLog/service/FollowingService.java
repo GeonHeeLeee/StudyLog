@@ -109,6 +109,7 @@ public class FollowingService {
     팔로잉 리스트 반환 메서드
     - 자신이 팔로잉 하는 사람들 반환
      */
+    @Transactional
     public Map<String, Object> getFollowingList(String selfId) {
         List<Following> followingList = followingRepository.findBySelfUser_UserId(selfId);
         Map<String, Object> response = new HashMap<>();
@@ -126,6 +127,7 @@ public class FollowingService {
     팔로워 리스트 반환 메서드
     - 자신을 팔로잉 하는 사람들 반환
      */
+    @Transactional
     public Map<String, Object> getFollowerList(String followingId) {
         List<Following> followerList = followingRepository.findByFollowingUser_UserId(followingId);
         Map<String, Object> response = new HashMap<>();
@@ -135,7 +137,7 @@ public class FollowingService {
                 .collect(Collectors.toList());
 
         response.put("followingId", followingId);
-        response.put("followings", followerIds);
+        response.put("followers", followerIds);
         return response;
     }
 

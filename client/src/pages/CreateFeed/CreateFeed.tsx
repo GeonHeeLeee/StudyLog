@@ -28,8 +28,11 @@ export default function CreateFeed() {
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (feedBody.length < 3) {
+      alert('최소 3 글자 이상입력해주세요');
+      return;
+    }
     let photoUrl = '';
-    console.log(imageFile, photoUrl);
 
     if (imageFile) {
       const formData = new FormData();
@@ -108,7 +111,7 @@ export default function CreateFeed() {
         </div>
         <div className={styles['feedbody-container']}>
           <label htmlFor='feedBody' className={styles['label-text']}>
-            피드본문
+            피드본문(최소 3글자 이상 입력해주세요)
           </label>
           <div className={styles['textarea-container']}>
             <textarea

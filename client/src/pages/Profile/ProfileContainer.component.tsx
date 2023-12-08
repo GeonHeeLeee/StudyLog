@@ -110,7 +110,7 @@ export default function ProfileContainer() {
             />
           ) : (
             <Button
-              text={'팔로잉'}
+              text={'언팔로우'}
               type='button'
               onClick={onUnfollow}
               className={styles['profile-btn']}

@@ -61,13 +61,18 @@ public class FollowingController {
      */
     @GetMapping("/following")
     public ResponseEntity getFollowingList(@RequestParam String selfId) {
-        List<Following> followingList = followingRepository.findBySelfUser_UserId(selfId);
-        Map<String, Object> response = new HashMap<>();
-        List<String> followingIds = followingList.stream()
-                .map(following -> following.getFollowingUser().getUserId())
-                .collect(Collectors.toList());
-        response.put("selfId", selfId);
-        response.put("followingIds",followingIds);
+        Map<String, Object> response = followingService.getFollowingList(selfId);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+
+
+    /*
+    특정 회원의 팔로워 리스트
+     */
+    @GetMapping("/follower")
+    public ResponseEntity getFollowerList(@RequestParam String followingId) {
+        Map<String, Object> response = followingService.getFollowerList(followingId);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 }

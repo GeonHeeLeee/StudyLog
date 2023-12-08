@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,5 +85,18 @@ public class FollowingService {
 
         Following following = followingRepository.findFollowingBySelfUserAndFollowingUser(selfUser, followingUser);
         followingRepository.delete(following);
+    }
+
+    /*
+    해당 팔로우가 존재하는지 찾기
+     */
+    @Transactional
+    public boolean isFollowing(String selfId, String followingId) {
+        Optional<Following> isFollowing = Optional.ofNullable(followingRepository.findFollowingBySelfUser_UserIdAndFollowingUser_UserId(selfId, followingId));
+        if(isFollowing.isPresent()) {
+            return true;
+        } else{
+            return false;
+        }
     }
 }

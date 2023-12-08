@@ -37,12 +37,11 @@ export default function TimerButton() {
             const studyTime = parseInt(
               `${(now.getTime() - startTime?.getTime()) / 1000}`
             );
-            const response = await httpInterface.addStudyTime({
+            await httpInterface.addStudyTime({
               userId,
               date: stringifyDate(startTime),
               studyTime,
             });
-            console.log(response);
 
             finishStudy(now);
           }}

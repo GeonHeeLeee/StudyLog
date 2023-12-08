@@ -39,8 +39,8 @@ public class DummyData {
 
             // 각 User마다 10개의 더미 Feed 생성 및 Comment 생성
             for (User user : users) {
-                for (int j = 0; j < 10; j++) {
-                    Feed feed = new Feed(user, "feedBody" + j, "photoUrl" + j);
+                for (int j = 0; j < 30; j++) {
+                    Feed feed = new Feed(user, "feedBody" + j, "");
                     feedRepository.save(feed);
 
                     // 랜덤한 User가 Comment를 담

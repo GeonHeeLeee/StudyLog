@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ICommunication } from './http';
 import {
   AddScheduleData,
@@ -6,7 +6,11 @@ import {
   FeedMetadata,
   FeedsData,
   FeedsPaginationData,
+  FollowUsers,
   JoinData,
+  ModifyFeedData,
+  PostCommentData,
+  PostFeedData,
   Schedules,
   SignInData,
   SignOutData,
@@ -29,9 +33,9 @@ export class HttpInterface {
     return this.post(url, signInData);
   }
 
-  logout(signOutData: SignOutData) {
+  logout() {
     const url = '/logout';
-    return this.post(url, signOutData);
+    return this.post(url, {});
   }
 
   join(joinData: JoinData) {
@@ -51,6 +55,30 @@ export class HttpInterface {
   getFeedById(feedMetadata: FeedMetadata) {
     const url = `/feed?userId=${feedMetadata.userId}&feedId=${feedMetadata.feedId}`;
     return this.get(url);
+  }
+
+  postFeed(feedData: PostFeedData) {
+    const url = `/feed`;
+    return this.post(url, feedData);
+  }
+
+  likeFeed(feedId: number) {
+    const url = `/feed/like`;
+    return this.post(url, {
+      feedId,
+    });
+  }
+
+  postCommentInFeed(comment: PostCommentData) {
+    console.log(comment);
+
+    const url = `/feed/comment`;
+    return this.post(url, comment);
+  }
+
+  modifyFeed(feedData: ModifyFeedData) {
+    const url = `/feed/modify`;
+    return this.post(url, feedData);
   }
 
   // TODO: API 명세 나오는 대로 구현
@@ -73,10 +101,37 @@ export class HttpInterface {
     return this.post(url, addTimeData);
   }
 
+  uploadImage(imageFile: FormData) {
+    const CLOUDINARY_NAME = 'dgtozy2lj';
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/image/upload`;
+    const res = axios.post(url, imageFile, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return res;
+  }
+
   // 유저 개인 프로필 정보 가져오기
   getUsersProfile(userId: string | undefined) {
     const url = `/profile?userId=${userId}`;
     return this.get(url);
+  }
+
+  searchUsers(userId: string | undefined) {
+    const url = `/profile/search`;
+    return this.post(url, { userId });
+  }
+
+  follow(followUsers: FollowUsers) {
+    const url = `/follow`;
+    return this.post(url, followUsers);
+  }
+
+  unFollow(unFollowUsers: FollowUsers) {
+    const url = `/unfollow`;
+    return this.post(url, unFollowUsers);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

@@ -41,7 +41,11 @@ export default function TodoList({ date }: Props) {
   if (isFetching) {
     child = <BarLoader color='#36d7b7' width={'50%'} height={4} />;
   } else if (!data) {
-    child = <div>텅</div>;
+    // TODO: 빈 요소
+    child = <div>
+      <p>등록된 일정이 없으시네요...😢</p>
+      {/* <p></p> */}
+    </div>;
   } else if (isError) {
     child = <div>Error 발생</div>;
   }

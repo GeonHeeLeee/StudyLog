@@ -8,8 +8,14 @@ export default function TimerComponent() {
   const { doing } = useTimerState();
   return (
     <div className={styles['timer-component']}>
-      <div className={`${styles['timer-container']} ${!doing && styles['invisible']}`}>{doing && <Timer />}</div>
       <TimerButton />
+      <div
+        className={`${styles['timer-container']} ${
+          !doing ? styles['invisible'] : ''
+        }`}
+      >
+        {doing && <Timer />}
+      </div>
     </div>
   );
 }

@@ -8,24 +8,35 @@ import { CiLogout } from 'react-icons/ci';
 
 import useLoginState from '../../stores/login';
 import styles from './Header.module.css';
+import useNetwork from '../../stores/network';
 
 export default function Header() {
   const location = useLocation();
   const path = location.pathname;
+  const { userInfo, signOut } = useLoginState();
+  const { httpInterface } = useNetwork();
 
   const checkClicked = useCallback(
     (to: string) => (path.includes(to) ? styles.select : ''),
     [path]
   );
 
-  const { userInfo, signOut } = useLoginState();
+  const signOutHandler = async () => {
+    const response = await httpInterface.logout();
+    console.log(response);
+    if (response.status === 200) {
+      signOut();
+    } else {
+      alert('로그아웃을 실패하셨습니다');
+    }
+  };
 
   // TODO: 아이콘 넣기
   return (
     <aside className={styles['layout-header']}>
       <ul className={styles.navbar}>
         <li>
-            <strong>StudyLog</strong>
+          <strong>StudyLog</strong>
         </li>
         <li className={checkClicked('/main')}>
           <Link to='/main'>
@@ -57,7 +68,7 @@ export default function Header() {
             Setting
           </Link>
         </li> */}
-        <li onClick={() => signOut()}>
+        <li onClick={signOutHandler}>
           <span>
             <CiLogout />
             로그아웃

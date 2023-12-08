@@ -1,10 +1,10 @@
 .feed-article {
-  min-height: 30vh;
+  min-height: 40vh;
   display: flex;
   justify-content: center;
   /*margin-bottom: 1.25rem;*/
   border-bottom: 1px solid lightgray;
-  width: 98%;
+  width: 98%
 }
 
 .profile-icon {
@@ -22,6 +22,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  align-items: space-between;
 }
 .feed-userinfo {
   display: flex;
@@ -48,6 +49,7 @@
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
+
 }
 .feed-image {
   border-radius: 1rem;
@@ -75,10 +77,10 @@
   transition: 500ms all;
 }
 .feed-comments:hover,
-.feed-likes:hover {
+.feed-likes:hover{
   /* color: gray; */
   animation: color-change 500ms ease-in infinite alternate;
-}
+} 
 
 @keyframes color-change {
   0% {

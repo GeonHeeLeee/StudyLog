@@ -3,13 +3,13 @@
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 }
 
 .timer-container {
   height: 100px;
   position: fixed;
-  right: 1rem;
-  top: 1rem;
+  right: 2rem;
+  bottom: 5rem;
   z-index: 1000;
 }

@@ -141,6 +141,16 @@ export class HttpInterface {
     return this.post(url, profileData);
   }
 
+  followingList(userId: string) {
+    const url = `/following?selfId=${userId}`;
+    return this.get(url);
+  }
+
+  followerList(userId: string) {
+    const url = `/follower?followingId=${userId}`;
+    return this.get(url);
+  }
+
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {
     return this.apiClient.get(url, options);
   }

@@ -27,7 +27,9 @@ export default function ProfileContainer() {
   const [timers, setTimers] = useState<Timers[]>([]);
   const [user, setUser] = useState<User>();
   const [followingState, setFollowingState] = useState<boolean>(false);
-  const [showModal, toggleShowModal] = useState<boolean>(false);
+  const [showEditModal, toggleShowEditModal] = useState<boolean>(false);
+  const [showFollowModal, toggleShowFollowModal] = useState<boolean>(false);
+  const [showFollowerModal, toggleShowFollowerModal] = useState<boolean>(false);
 
   const userProfile = useCallback(
     async (userId: string) => {
@@ -90,7 +92,7 @@ export default function ProfileContainer() {
       .catch((err) => {
         console.log(err);
       });
-  }, [follow, userId, showModal, followingState]);
+  }, [follow, userId, showEditModal, followingState]);
 
   return (
     <article className={styles['profile-article']}>
@@ -111,7 +113,7 @@ export default function ProfileContainer() {
             <Button
               text={'프로필 편집'}
               type='button'
-              onClick={() => toggleShowModal(true)}
+              onClick={() => toggleShowEditModal(true)}
               className={styles['profile-btn']}
             />
           ) : !followingState ? (
@@ -174,13 +176,13 @@ export default function ProfileContainer() {
             </div>
           ))}
         </div>
-        {showModal && (
+        {showEditModal && (
           <ModalPortal>
             <ModalWrapper
-              show={showModal}
-              closeModal={() => toggleShowModal(false)}>
+              show={showEditModal}
+              closeModal={() => toggleShowEditModal(false)}>
               <EditProfile
-                closeModal={() => toggleShowModal(false)}
+                closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
                 userName={user?.name}
               />

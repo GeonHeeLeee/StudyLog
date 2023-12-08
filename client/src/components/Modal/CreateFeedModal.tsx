@@ -15,6 +15,7 @@ export default function CreateFeedModal({ closeModal }: Props) {
       <p>피드를 생성하실 건가요?</p>
       <div>
         <Button
+          className={styles['check-button']}
           text='네'
           onClick={() => {
             navigate('/feed');
@@ -22,6 +23,7 @@ export default function CreateFeedModal({ closeModal }: Props) {
           }}
         />
         <Button
+          className={styles['check-button']}
           text='아니오'
           onClick={() => {
             closeModal();

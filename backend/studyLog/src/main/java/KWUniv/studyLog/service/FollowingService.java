@@ -1,14 +1,20 @@
 package KWUniv.studyLog.service;
 
 import KWUniv.studyLog.DTO.FollowingDTO;
+import KWUniv.studyLog.DTO.UserDTO;
 import KWUniv.studyLog.entity.Following;
 import KWUniv.studyLog.entity.User;
 import KWUniv.studyLog.repository.FollowingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,4 +91,54 @@ public class FollowingService {
         Following following = followingRepository.findFollowingBySelfUserAndFollowingUser(selfUser, followingUser);
         followingRepository.delete(following);
     }
+
+    /*
+    해당 팔로우가 존재하는지 찾기
+     */
+    @Transactional
+    public boolean isFollowing(String selfId, String followingId) {
+        Optional<Following> isFollowing = Optional.ofNullable(followingRepository.findFollowingBySelfUser_UserIdAndFollowingUser_UserId(selfId, followingId));
+        if(isFollowing.isPresent()) {
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    /*
+    팔로잉 리스트 반환 메서드
+    - 자신이 팔로잉 하는 사람들 반환
+     */
+    @Transactional
+    public Map<String, Object> getFollowingList(String selfId) {
+        List<Following> followingList = followingRepository.findBySelfUser_UserId(selfId);
+        Map<String, Object> response = new HashMap<>();
+
+        List<UserDTO> followingIds = followingList.stream()
+                .map(following -> new UserDTO(following.getFollowingUser()))
+                .collect(Collectors.toList());
+
+        response.put("selfId", selfId);
+        response.put("followings", followingIds);
+        return response;
+    }
+
+    /*
+    팔로워 리스트 반환 메서드
+    - 자신을 팔로잉 하는 사람들 반환
+     */
+    @Transactional
+    public Map<String, Object> getFollowerList(String followingId) {
+        List<Following> followerList = followingRepository.findByFollowingUser_UserId(followingId);
+        Map<String, Object> response = new HashMap<>();
+
+        List<UserDTO> followerIds = followerList.stream()
+                .map(following -> new UserDTO(following.getSelfUser()))
+                .collect(Collectors.toList());
+
+        response.put("followingId", followingId);
+        response.put("followers", followerIds);
+        return response;
+    }
+
 }

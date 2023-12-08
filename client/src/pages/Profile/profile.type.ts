@@ -18,7 +18,7 @@ export type Timers = {
 export type User = {
   userId: string;
   profilePhrase: null | string;
-  profilePhoto: null | string;
+  profilePhoto: string;
   name: string;
   followingCount: number;
   followerCount: number;

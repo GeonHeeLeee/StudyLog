@@ -14,6 +14,7 @@ import {
   Schedules,
   SignInData,
   SignOutData,
+  EditProfileData,
 } from './http.type';
 
 export class HttpInterface {
@@ -114,8 +115,8 @@ export class HttpInterface {
   }
 
   // 유저 개인 프로필 정보 가져오기
-  getUsersProfile(userId: string | undefined) {
-    const url = `/profile?userId=${userId}`;
+  getUsersProfile(userId: string | undefined, followingId: string | undefined) {
+    const url = `/profile?userId=${userId}&followingId=${followingId}`;
     return this.get(url);
   }
 
@@ -132,6 +133,12 @@ export class HttpInterface {
   unFollow(unFollowUsers: FollowUsers) {
     const url = `/unfollow`;
     return this.post(url, unFollowUsers);
+  }
+
+  // TODO: 이미지 처리 하는대로 구현
+  editProfile(profileData: EditProfileData) {
+    const url = `/profile/edit`;
+    return this.post(url, profileData);
   }
 
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {

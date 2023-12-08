@@ -41,8 +41,8 @@ public class ProfileContoller {
                                             @RequestParam String followingId) {
         //사용자 정보, 사용자가 올린 피드
         try {
-            Map response = feedService.findUserAndFeed(userId);
-            List<TimerDTO> timerDTOList = timerService.getUserTimerDTOList(userId);
+            Map response = feedService.findUserAndFeed(followingId);
+            List<TimerDTO> timerDTOList = timerService.getUserTimerDTOList(followingId);
             response.put("timers", timerDTOList);
             if(userId == followingId) {
                 response.put("followingState", false);

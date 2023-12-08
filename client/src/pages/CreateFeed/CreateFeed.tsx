@@ -4,6 +4,7 @@ import Input from '../../components/Input/Input.component';
 import Button from '../../components/Button/Button.component';
 import useNetwork from '../../stores/network';
 import { useNavigate } from 'react-router-dom';
+import styles from './CreateFeed.module.css';
 
 export default function CreateFeed() {
   const {
@@ -27,8 +28,11 @@ export default function CreateFeed() {
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (feedBody.length < 3) {
+      alert('최소 3 글자 이상입력해주세요');
+      return;
+    }
     let photoUrl = '';
-    console.log(imageFile, photoUrl);
 
     if (imageFile) {
       const formData = new FormData();
@@ -50,7 +54,7 @@ export default function CreateFeed() {
         photo: photoUrl,
       });
       console.log(response);
-      if(response.status === 200) {
+      if (response.status === 200) {
         navigate('/main');
       } else {
         alert('게시글 올리기 실패');
@@ -62,34 +66,71 @@ export default function CreateFeed() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <header>
-        <h2>피드 생성</h2>
+        <h2 className={styles['feed-name']}>피드 생성</h2>
       </header>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor='photo'>이미지 업로드 (최대 1개)</label>
+
+      <form onSubmit={submitHandler} className={styles['form-container']}>
+        {/* <div>
+          <label htmlFor='photo' className={styles.label}>
+            이미지 업로드 (최대 1개)
+          </label>
           <Input
             name='photo'
             type='file'
             id='photo'
             accept='image/*'
             onChangeHandler={imageUploadHandler}
+            className={styles['file-input']}
+            // style={{ opacity: imageFile?.name ? '0' : '1' }}
           />
           <p>{imageFile?.name}</p>
-        </div>
-        <div>
-          <label htmlFor='feedBody' />
-          <textarea
-            placeholder='200자 이내'
-            id='feedBody'
-            name='feedBody'
-            maxLength={200}
-            value={feedBody}
-            onChange={textInputHandler}
+        </div> */}
+        <div className={styles.filebox}>
+          <label htmlFor='upload-name' className={styles['label-text']}>
+            이미지 업로드 (최대 1개)
+          </label>
+          <Input
+            className={styles['upload-name']}
+            name='upload-name'
+            value={imageFile?.name.length === 0 ? '첨부파일' : imageFile?.name}
+            onChangeHandler={() => {}}
+            placeholder='첨부파일'
+          />
+          <label htmlFor='file' className={styles.label}>
+            파일찾기
+          </label>
+          <Input
+            type='file'
+            id='file'
+            name='file'
+            accept='image/*'
+            onChangeHandler={imageUploadHandler}
           />
         </div>
-        <Button text='피드 업로드' type='submit' />
+        <div className={styles['feedbody-container']}>
+          <label htmlFor='feedBody' className={styles['label-text']}>
+            피드본문(최소 3글자 이상 입력해주세요)
+          </label>
+          <div className={styles['textarea-container']}>
+            <textarea
+              placeholder='200자 이내'
+              id='feedBody'
+              name='feedBody'
+              maxLength={200}
+              value={feedBody}
+              onChange={textInputHandler}
+              className={styles.textarea}
+            />
+            <p className={styles['text-length']}>{feedBody.length}/200</p>
+          </div>
+        </div>
+        <Button
+          text='피드 업로드'
+          type='submit'
+          className={styles['check-button']}
+        />
       </form>
     </div>
   );

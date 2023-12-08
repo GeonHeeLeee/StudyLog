@@ -16,9 +16,7 @@ import EditProfile from '../../components/Modal/EditProfile.component';
 
 export default function ProfileContainer() {
   const { userId } = useParams();
-
   const { userInfo } = useLoginState();
-
   const { httpInterface } = useNetwork();
   const navigate = useNavigate();
 

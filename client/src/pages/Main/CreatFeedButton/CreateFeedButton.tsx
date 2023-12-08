@@ -11,8 +11,9 @@ export default function CreateFeedButton() {
 
   return (
     <>
-      <div className={styles['create-button']}>
+      <div className={styles['create-button-container']}>
         <Button
+          className={styles['create-button']}
           text='+'
           onClick={() => {
             setShowModal(true);

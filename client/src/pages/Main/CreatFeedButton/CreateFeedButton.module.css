@@ -1,5 +1,18 @@
-.create-button {
+.create-button-container {
   position: fixed;
   right: 1rem;
   bottom: 1rem;
+}
+.create-button {
+  font-size: 1.7rem;
+  color: white;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 50%;
+  transition: 500ms all;
+}
+.create-button:hover {
+  font-size: 1.7rem;
+  color: black;
+  background-color: white;
 }

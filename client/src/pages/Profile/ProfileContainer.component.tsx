@@ -18,9 +18,7 @@ type Props = {
 
 export default function ProfileContainer() {
   const { userId } = useParams();
-
   const { userInfo } = useLoginState();
-
   const { httpInterface } = useNetwork();
   const navigate = useNavigate();
 
@@ -49,7 +47,6 @@ export default function ProfileContainer() {
       .then((res) => {
         console.log(res);
         res.status === 200 && setFollow(!follow);
-
         // 팔로우 성공 시 팔로우 버튼을 팔로잉 버튼으로 바꿔준다.
         // 팔로우 버튼을 누르면 팔로잉 버튼으로 바뀌고, 팔로잉 버튼을 누르면 팔로우 버튼으로 바뀐다.  });
       })
@@ -76,6 +73,8 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userId)
       .then((res) => {
+        console.log(res);
+
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);

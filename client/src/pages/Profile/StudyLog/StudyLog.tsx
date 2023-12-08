@@ -21,8 +21,6 @@ export default function StudyLog(props: { timers: Timers[] }) {
   // Tooltip 띄우기 위해 존재하지 않는 날짜 데이터 생성
   const completeStudyLogs = generateYearData(new Date(), timers);
 
-  console.log(timers);
-
   return (
     <div className={styles['studylog-container']}>
       <h1>StudyLog</h1>
@@ -64,7 +62,6 @@ const generateYearData = (baseDate: Date, logs: Timers[]) => {
     const dateString = date.toISOString().split('T')[0]; // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
 
     const log = logs.find((log) => log.date === dateString);
-    console.log(log);
 
     data.push({
       date: dateString,

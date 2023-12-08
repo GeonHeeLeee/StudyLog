@@ -141,12 +141,12 @@ export class HttpInterface {
     return this.post(url, profileData);
   }
 
-  followingList(userId: string) {
+  followingList(userId: string | undefined) {
     const url = `/following?selfId=${userId}`;
     return this.get(url);
   }
 
-  followerList(userId: string) {
+  followerList(userId: string | undefined) {
     const url = `/follower?followingId=${userId}`;
     return this.get(url);
   }

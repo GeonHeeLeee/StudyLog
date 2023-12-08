@@ -60,11 +60,9 @@ export default function SearchInput() {
           return (
             <a
               className={styles['search-box-a']}
-              href={`profile/${data.userId}`}
-            >
+              href={`profile/${data.userId}`}>
               <div className={styles['search-box']}>
                 <div className={styles['search-users-img']}></div>
-                {/* </div> */}
                 <div className={styles['search-users-info']}>
                   <div className={styles['search-users-id']}>
                     @{data.userId}

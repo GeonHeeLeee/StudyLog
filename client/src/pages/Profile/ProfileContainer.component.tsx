@@ -12,7 +12,9 @@ import { Feeds, Timers, User } from './profile.type';
 import useNetwork from '../../stores/network';
 import ModalPortal from '../../components/Portal/ModalPortal.component';
 import ModalWrapper from '../../components/Modal/ModalWrapper.component';
-import EditProfile from '../../components/Modal/EditProfile.component';
+import EditProfile from '../../components/Modal/EditProfileModal';
+import FollowerModal from '../../components/Modal/FollowerModal';
+import FollowModal from '../../components/Modal/FollowModal';
 
 export default function ProfileContainer() {
   const { userId } = useParams();
@@ -79,9 +81,6 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
-        console.log(res.data.user);
-        console.log(res.data);
-
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);
@@ -132,11 +131,11 @@ export default function ProfileContainer() {
         </div>
         <div className={styles['profile-meta']}>
           <div className={styles['profile-followers']}>
-            <span>팔로워</span>
+            <span onClick={() => toggleShowFollowerModal(true)}>팔로워</span>
             <span>{user?.followerCount}</span>
           </div>
           <div className={styles['profile-following']}>
-            <span>팔로우</span>
+            <span onClick={() => toggleShowFollowModal(true)}>팔로우</span>
             <span>{user?.followingCount}</span>
           </div>
         </div>
@@ -183,6 +182,31 @@ export default function ProfileContainer() {
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
                 userName={user?.name}
+              />
+            </ModalWrapper>
+          </ModalPortal>
+        )}
+
+        {showFollowerModal && (
+          <ModalPortal>
+            <ModalWrapper
+              show={showFollowerModal}
+              closeModal={() => toggleShowFollowerModal(false)}>
+              <FollowerModal
+                closeModal={() => toggleShowFollowerModal(false)}
+                userId={userId}
+              />
+            </ModalWrapper>
+          </ModalPortal>
+        )}
+        {showFollowModal && (
+          <ModalPortal>
+            <ModalWrapper
+              show={showFollowModal}
+              closeModal={() => toggleShowFollowModal(false)}>
+              <FollowModal
+                closeModal={() => toggleShowFollowModal(false)}
+                userId={userId}
               />
             </ModalWrapper>
           </ModalPortal>

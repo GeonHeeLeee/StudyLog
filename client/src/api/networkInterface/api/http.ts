@@ -20,8 +20,10 @@ export class Http implements ICommunication {
 
   constructor() {
     const axiosConfig = {
-      baseURL: 'http://34.42.1.187:8081',
+      // baseURL: 'http://34.42.1.187:8081',
+      // baseURL: '',
       // process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '',
+      // 'http://34.42.1.187:8081',
       withCredentials: true,
     };
     this.httpClient = axios.create(axiosConfig);

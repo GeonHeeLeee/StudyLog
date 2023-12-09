@@ -7,7 +7,8 @@ import useLoginState from '../../../stores/login';
 import { stringifyDate } from '../../../utils/date/date';
 
 export default function TimerButton() {
-  const { doing, finishStudy, startStudy, startTime } = useTimerState();
+  const { doing, finishStudy, startStudy, startTime, restore } =
+    useTimerState();
   const { httpInterface } = useNetwork();
   const {
     userInfo: { userId },
@@ -33,7 +34,13 @@ export default function TimerButton() {
           onClick={async () => {
             const now = new Date();
             // finishStudy(transformDateObject(now));
+            if (typeof startTime === 'string') {
+              restore();
+              return;
+            }
+
             if (!startTime) return;
+
             const studyTime = parseInt(
               `${(now.getTime() - startTime?.getTime()) / 1000}`
             );

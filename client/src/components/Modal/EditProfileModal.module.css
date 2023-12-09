@@ -1,0 +1,62 @@
+.filebox .upload-name {
+  display: inline-block;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  width: 78%;
+  color: #999999;
+}
+.filebox .label {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  color: #fff;
+  vertical-align: middle;
+  /* background-color: #999999; */
+  background-color: black;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  border: 3px solid black;
+  cursor: pointer;
+  /* height: 40px; */
+  margin-left: 10px;
+  transition: 500ms all;
+}
+.filebox .label:hover {
+  background-color: white;
+  color: black;
+}
+.filebox input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+.label-text {
+  font-size: 1rem;
+  font-weight: 700;
+  display: block;
+}
+
+.form-contaienr {
+  margin-top: 1rem;
+}
+.submit-button {
+  display: block;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background-color: black;
+  padding: 0.25rem 0.5rem;
+  border: 3px solid black;
+  transition: 500ms all;
+  border-radius: 0.5rem;
+  margin-top: 1.25rem;
+}
+.submit-button:hover {
+  background-color: white;
+  color: black;
+}

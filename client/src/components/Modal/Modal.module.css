@@ -24,8 +24,8 @@
   display: flex;
 }
 .input-container label {
-  flex-basis: 18vw;
-  font-size: 3vw;
+  flex-basis: 15vw;
+  font-size: 2vw;
 }
 label {
   font-size: 3vw;

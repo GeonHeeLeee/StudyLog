@@ -11,6 +11,7 @@ type Actions = {
   clear: () => void;
   startStudy: (date: Date) => void;
   finishStudy: (date: Date) => void;
+  restore: () => void;
 };
 
 const initalState: Timer = {
@@ -33,6 +34,12 @@ const useTimerState = create<Timer & Actions>()(
       finishStudy: (endTime: Date) =>
         set({
           endTime: new Date(endTime),
+          doing: false,
+        }),
+      restore: () =>
+        set({
+          startTime: undefined,
+          endTime: undefined,
           doing: false,
         }),
     }),

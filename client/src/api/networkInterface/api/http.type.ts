@@ -100,12 +100,12 @@ export type PostCommentData = {
 
 export type FollowUsers = {
   selfId: string;
-  followingId: string | undefined;
+  followingId: string;
 };
 
 export type EditProfileData = {
-  profilePhoto: File | null;
-  profilePhrase: string | null;
-  userId: string | undefined;
-  userName: string | undefined;
+  profilePhoto: string;
+  profilePhrase: string;
+  userId: string;
+  userName: string;
 };

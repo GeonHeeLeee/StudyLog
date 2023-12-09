@@ -4,7 +4,7 @@
   justify-content: center;
   /*margin-bottom: 1.25rem;*/
   border-bottom: 1px solid lightgray;
-  width: 98%
+  width: 98%;
 }
 
 .profile-icon {
@@ -49,7 +49,6 @@
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
-
 }
 .feed-image {
   border-radius: 1rem;
@@ -77,10 +76,10 @@
   transition: 500ms all;
 }
 .feed-comments:hover,
-.feed-likes:hover{
+.feed-likes:hover {
   /* color: gray; */
   animation: color-change 500ms ease-in infinite alternate;
-} 
+}
 
 @keyframes color-change {
   0% {
@@ -90,4 +89,25 @@
   100% {
     color: gray;
   }
+}
+.comment-input {
+  padding: 0.25rem 0.75rem;
+  margin-right: 0.5rem;
+  width: 50%;
+  margin-left: 1rem;
+}
+.comment-button {
+  border: 3px solid black;
+  background-color: black;
+  font-weight: 700;
+  transition: 500ms all;
+  color: white;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.comment-header {
+  font-size: 1.5rem;
+  font-weight: 799;
 }

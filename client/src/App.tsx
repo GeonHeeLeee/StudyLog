@@ -15,12 +15,14 @@ import { ScheduleProvider } from './pages/Schedule/@contexts/useSchedule';
 import './App.css';
 import CreateFeedPage from './pages/CreateFeed/CreateFeed';
 import FeedPage from './pages/Feed/FeedPage';
-// import { Cloudinary } from '@cloudinary/url-gen';
 
 function App() {
   const { isLogin, signOut } = useLoginState();
   const navigate = useNavigate();
-  // const cld = new Cloudinary({cloud: {cloudName: 'dgtozy2lj'}});
+
+  // useEffect(() => {
+  //   signOut();
+  // }, []);
 
   useEffect(() => {
     if (!isLogin) {

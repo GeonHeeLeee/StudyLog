@@ -34,6 +34,8 @@ export default function SignIn() {
         signIn({
           userId: res.data.userId,
         });
+        console.log(res);
+        
       })
       .catch((err) => {
         console.log(err);

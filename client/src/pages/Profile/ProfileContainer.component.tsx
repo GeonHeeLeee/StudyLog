@@ -44,6 +44,8 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
+        console.log(res);
+        
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);

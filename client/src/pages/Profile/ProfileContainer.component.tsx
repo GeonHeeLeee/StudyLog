@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import Button from '../../components/Button/Button.component';
 import StudyLog from './StudyLog/StudyLog';
@@ -38,12 +38,29 @@ export default function ProfileContainer() {
     [userId]
   );
 
+  useEffect(() => {
+    httpInterface
+      .getUsersProfile(userInfo.userId, userId)
+      .then((res) => {
+        setFeeds(res.data.feeds);
+        setTimers(res.data.timers);
+        setUser(res.data.user);
+        setFollowingState(res.data.followingState);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [follow, userId, showEditModal, followingState]);
+
+  if (!user) return <></>;
+
   const checkMyProfile = () => {
     return userId === userInfo?.userId;
   };
 
   const onFollow = () => {
     const selfId = userInfo.userId;
+    if (!userId) return;
     const followingId = userId;
 
     httpInterface
@@ -59,6 +76,8 @@ export default function ProfileContainer() {
 
   const onUnfollow = () => {
     const selfId = userInfo.userId;
+    if (!userId) return;
+
     const followingId = userId;
 
     httpInterface
@@ -73,34 +92,20 @@ export default function ProfileContainer() {
       });
   };
 
-  // const onClickHandler = (e: MouseEvent) => {
-  //   navigate(`/feed/${feeds?.feedId}`);
-  // };
-
-  useEffect(() => {
-    httpInterface
-      .getUsersProfile(userInfo.userId, userId)
-      .then((res) => {
-        setFeeds(res.data.feeds);
-        setTimers(res.data.timers);
-        setUser(res.data.user);
-        setFollowingState(res.data.followingState);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [follow, userId, showEditModal, followingState]);
+  console.log(user.profilePhoto);
 
   return (
     <article className={styles['profile-article']}>
       <div className={styles['profile-icon']}>
-        {
-          <Image
-            src={user?.profilePhoto}
-            alt={'profile image'}
+        {user?.profilePhoto && (
+          <div
+            style={{
+              backgroundImage: `url(${user.profilePhoto})`,
+              backgroundSize: 'contain',
+            }}
             className={styles['profile-image']}
           />
-        }
+        )}
       </div>
       <main className={styles['profile-main']}>
         <div className={styles['profile-userinfo']}>
@@ -152,7 +157,8 @@ export default function ProfileContainer() {
               key={feed.feedId}
               onClick={(e) => {
                 navigate(`/feed/${feed.feedId}`);
-              }}>
+              }}
+            >
               <p>{feed.feedBody}</p>
               <div>
                 <Image
@@ -177,7 +183,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditModal}
-              closeModal={() => toggleShowEditModal(false)}>
+              closeModal={() => toggleShowEditModal(false)}
+            >
               <EditProfile
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
@@ -191,7 +198,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowerModal}
-              closeModal={() => toggleShowFollowerModal(false)}>
+              closeModal={() => toggleShowFollowerModal(false)}
+            >
               <FollowerModal
                 closeModal={() => toggleShowFollowerModal(false)}
                 userId={userId}
@@ -203,7 +211,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowModal}
-              closeModal={() => toggleShowFollowModal(false)}>
+              closeModal={() => toggleShowFollowModal(false)}
+            >
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}

@@ -10,19 +10,21 @@ export interface ICommunication {
   delete(url: string, config?: any): Promise<any>;
 }
 
-const baseUrl =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '';
+/* const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:8080'
+    : 'http://34.42.1.187:8081'; */
+
 export class Http implements ICommunication {
   httpClient: AxiosInstance;
 
-  constructor(baseURL = baseUrl) {
+  constructor() {
     const axiosConfig = {
-      baseURL,
+      baseURL: '',
+      // process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '',
       withCredentials: true,
     };
     this.httpClient = axios.create(axiosConfig);
-    // this.httpClient.defaults.headers['Access-Control-Allow-Origin'] = '*';
-    // this.httpClient.defaults.withCredentials = false;
   }
 
   async get(url: string, config?: AxiosRequestConfig<any>) {

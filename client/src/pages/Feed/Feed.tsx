@@ -134,28 +134,35 @@ export default function Feed({ feed, id }: Props) {
           </div>
         </main>
       </article>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (commentBody.length === 0) return;
-          mutate({
-            userId,
-            feedId: parseInt(id),
-            commentBody,
-          });
-        }}
-      >
-        <Input
-          name='comment'
-          onChangeHandler={(e) => {
-            setCommentBody(e.target.value);
-          }}
-          value={commentBody}
-        />
-        <Button type='submit' text='댓글달기' />
-      </form>
-      <p>댓글</p>
+
+      <p className={styles['comment-header']}>댓글</p>
       <div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (commentBody.length === 0) return;
+            mutate({
+              userId,
+              feedId: parseInt(id),
+              commentBody,
+            });
+          }}
+        >
+          <Input
+            className={styles['comment-input']}
+            name='comment'
+            onChangeHandler={(e) => {
+              setCommentBody(e.target.value);
+            }}
+            value={commentBody}
+            placeholder='아름다운 댓글 문화를 만들어나갑시다'
+          />
+          <Button
+            type='submit'
+            text='댓글달기'
+            className={styles['comment-button']}
+          />
+        </form>
         {feed.comments.map((comment: CommentData, idx: number) => (
           <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
         ))}

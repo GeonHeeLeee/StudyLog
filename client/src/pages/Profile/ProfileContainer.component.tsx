@@ -31,12 +31,12 @@ export default function ProfileContainer() {
   const [showFollowModal, toggleShowFollowModal] = useState<boolean>(false);
   const [showFollowerModal, toggleShowFollowerModal] = useState<boolean>(false);
 
-  const userProfile = useCallback(
-    async (userId: string) => {
-      return httpInterface.getUsersProfile(userInfo.userId, userId);
-    },
-    [userId]
-  );
+  // const userProfile = useCallback(
+  //   async (userId: string) => {
+  //     return httpInterface.getUsersProfile(userInfo.userId, userId);
+  //   },
+  //   [userId]
+  // );
 
   useEffect(() => {
     httpInterface

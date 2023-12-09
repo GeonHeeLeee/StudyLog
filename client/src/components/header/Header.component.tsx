@@ -22,11 +22,16 @@ export default function Header() {
   );
 
   const signOutHandler = async () => {
-    const response = await httpInterface.logout();
-    console.log(response);
-    if (response.status === 200) {
-      signOut();
-    } else {
+    // signOut();
+    try {
+      const response = await httpInterface.logout();
+      console.log(response);
+      if (response.status === 200) {
+        signOut();
+      } else {
+        alert('로그아웃을 실패하셨습니다');
+      }
+    } catch (error) {
       alert('로그아웃을 실패하셨습니다');
     }
   };

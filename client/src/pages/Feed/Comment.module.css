@@ -1,0 +1,16 @@
+.comments-container {
+  margin-bottom: 0.75rem;
+  margin-left: 1rem;
+  border-bottom: 1px solid lightgrey;
+}
+
+.comment-id {
+  color: black;
+  font-weight: 700;
+  /* font */
+}
+.comment-text {
+  color: black;
+  font-weight: 400;
+  margin-left: 0.5rem;
+}

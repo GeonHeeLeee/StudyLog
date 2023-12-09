@@ -18,9 +18,29 @@ interface Props {
 export default function Feeds({ feeds, page }: Props) {
   return (
     <>
-      {feeds?.map((feed, idx) => (
-        <Feed key={idx} feed={feed} page={page} />
-      ))}
+      {!(feeds.length === 0) ? (
+        feeds?.map((feed, idx) => <Feed key={idx} feed={feed} page={page} />)
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}>
+          <p
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              color: '#999',
+              textAlign: 'center', // 가운데 정렬을 위한 속성 추가
+            }}>
+            게시물이 없습니다.
+            <br />
+            다른 사람을 팔로우 해보세요!
+          </p>
+        </div>
+      )}
     </>
   );
 }

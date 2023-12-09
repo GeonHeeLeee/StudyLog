@@ -15,7 +15,8 @@
   border-radius: 5px;
 
   border-bottom: 1px solid #ccc;
-  /* 나머지 스타일 */
+
+  transition: 500ms all;
 }
 
 .search-users-img {

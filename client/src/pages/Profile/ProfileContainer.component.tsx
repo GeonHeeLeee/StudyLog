@@ -38,6 +38,8 @@ export default function ProfileContainer() {
   //   [userId]
   // );
 
+  console.log(feeds);
+
   useEffect(() => {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
@@ -151,40 +153,44 @@ export default function ProfileContainer() {
           </div>
         </div>
         <div className={styles['profile-contents']}>
-          {feeds?.reverse().map((feed) => (
-            <div
-              className={styles['feed-content']}
-              key={feed.feedId}
-              onClick={(e) => {
-                navigate(`/feed/${feed.feedId}`);
-              }}
-            >
-              <p>{feed.feedBody}</p>
-              <div>
-                <Image
-                  src={feed.photo}
-                  alt={'feed image'}
-                  className={styles['feed-image']}
-                />{' '}
+          {!(feeds.length === 0) ? (
+            feeds?.reverse().map((feed) => (
+              <div
+                className={styles['feed-content']}
+                key={feed.feedId}
+                onClick={(e) => {
+                  navigate(`/feed/${feed.feedId}`);
+                }}>
                 <p>{feed.feedBody}</p>
-                <div className={styles['feed-meta']}>
-                  <span>
-                    <FaCommentAlt /> {feed.comments?.length}
-                  </span>
-                  <span>
-                    <FaThumbsUp /> {feed.likes}
-                  </span>
+                <div>
+                  <Image
+                    src={feed.photo}
+                    alt={'feed image'}
+                    className={styles['feed-image']}
+                  />{' '}
+                  <p>{feed.feedBody}</p>
+                  <div className={styles['feed-meta']}>
+                    <span>
+                      <FaCommentAlt /> {feed.comments?.length}
+                    </span>
+                    <span>
+                      <FaThumbsUp /> {feed.likes}
+                    </span>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className={styles['not-feeds']}>
+              <p>아직 작성한 피드가 없습니다.</p>
             </div>
-          ))}
+          )}
         </div>
         {showEditModal && (
           <ModalPortal>
             <ModalWrapper
               show={showEditModal}
-              closeModal={() => toggleShowEditModal(false)}
-            >
+              closeModal={() => toggleShowEditModal(false)}>
               <EditProfile
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
@@ -198,8 +204,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowerModal}
-              closeModal={() => toggleShowFollowerModal(false)}
-            >
+              closeModal={() => toggleShowFollowerModal(false)}>
               <FollowerModal
                 closeModal={() => toggleShowFollowerModal(false)}
                 userId={userId}
@@ -211,8 +216,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowModal}
-              closeModal={() => toggleShowFollowModal(false)}
-            >
+              closeModal={() => toggleShowFollowModal(false)}>
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}

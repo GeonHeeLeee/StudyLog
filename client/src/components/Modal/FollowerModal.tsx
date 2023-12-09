@@ -20,11 +20,6 @@ export default function FollowerModal({ closeModal, userId }: Props) {
 
   const [follwor, setFollower] = useState<Follower[]>([]);
 
-  //   httpInterface.followerList(userId).then((res) => {
-  //     console.log(res.data.followers);
-  //     setFollower(res.data.followers);
-  //   });
-
   useEffect(() => {
     httpInterface.followerList(userId).then((res) => {
       console.log(res.data.followers);
@@ -34,14 +29,19 @@ export default function FollowerModal({ closeModal, userId }: Props) {
   return (
     <div>
       <h2 style={{ marginLeft: '30px' }}>팔로워</h2>
-      <div>
+      <div className={styles['modal']}>
         <ul>
           {follwor.map((follower) => {
             return (
               //navigate 로 바꾸기
               <a href={`${follower.userId}`} className={'box-a'}>
-                <div className={'box'}>
-                  <div className={styles['users-img']}></div>
+                <div className={styles['box']}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${follower.profilePhoto})`,
+                      backgroundSize: 'contain',
+                    }}
+                    className={styles['users-img']}></div>
                   <div className={styles['users-info']}>
                     <div className={styles['users-id']}>@{follower.userId}</div>
                     <div className={styles['users-name']}>

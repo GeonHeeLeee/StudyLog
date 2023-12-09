@@ -20,7 +20,7 @@ export class Http implements ICommunication {
 
   constructor() {
     const axiosConfig = {
-      baseURL: '',
+      baseURL: 'http://34.42.1.187:8081',
       // process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '',
       withCredentials: true,
     };

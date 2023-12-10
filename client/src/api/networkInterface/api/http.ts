@@ -24,7 +24,7 @@ export class Http implements ICommunication {
       baseURL:
         window.location.hostname === 'localhost'
           ? 'http://35.230.55.35:8081'
-          : '',
+          : '/api',
       /* process.env.NODE_ENV === 'development'
           ? 'http://localhost:8080'
           : 'api', */

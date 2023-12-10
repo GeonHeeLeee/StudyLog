@@ -22,7 +22,7 @@ export default function Header() {
   );
 
   const signOutHandler = async () => {
-    // signOut();
+    signOut();
     try {
       const response = await httpInterface.logout();
       console.log(response);

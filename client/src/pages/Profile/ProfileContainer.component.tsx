@@ -162,16 +162,19 @@ export default function ProfileContainer() {
                 key={feed.feedId}
                 onClick={(e) => {
                   navigate(`/feed/${feed.feedId}`);
-                }}>
-                <p>{feed.feedBody}</p>
+                }}
+              >
+                {/* <p>{feed.feedBody}</p> */}
                 <div>
-                  !feed.photo ?(
-                  <Image
-                    src={feed.photo}
-                    alt={'feed image'}
-                    className={styles['feed-image']}
-                  />{' '}
-                  ) : <></>
+                  {!feed.photo ? (
+                    <Image
+                      src={feed.photo}
+                      alt={'feed image'}
+                      className={styles['feed-image']}
+                    />
+                  ) : (
+                    <></>
+                  )}
                   <p>{feed.feedBody}</p>
                   <div className={styles['feed-meta']}>
                     <span>
@@ -194,7 +197,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditModal}
-              closeModal={() => toggleShowEditModal(false)}>
+              closeModal={() => toggleShowEditModal(false)}
+            >
               <EditProfile
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
@@ -208,7 +212,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowerModal}
-              closeModal={() => toggleShowFollowerModal(false)}>
+              closeModal={() => toggleShowFollowerModal(false)}
+            >
               <FollowerModal
                 closeModal={() => toggleShowFollowerModal(false)}
                 userId={userId}
@@ -220,7 +225,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowModal}
-              closeModal={() => toggleShowFollowModal(false)}>
+              closeModal={() => toggleShowFollowModal(false)}
+            >
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styles from './profile.module.css';
 import Image from '../../components/Image/Image';
 import { FaCommentAlt, FaThumbsUp } from 'react-icons/fa';
+import { IoSettingsSharp } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 import useLoginState from '../../stores/login';
 import Button from '../../components/Button/Button.component';
@@ -15,6 +16,7 @@ import ModalWrapper from '../../components/Modal/ModalWrapper.component';
 import EditProfile from '../../components/Modal/EditProfileModal';
 import FollowerModal from '../../components/Modal/FollowerModal';
 import FollowModal from '../../components/Modal/FollowModal';
+import EditFeedModal from '../../components/Modal/EditFeedModal';
 
 export default function ProfileContainer() {
   const { userId } = useParams();
@@ -22,14 +24,18 @@ export default function ProfileContainer() {
   const { httpInterface } = useNetwork();
   const navigate = useNavigate();
 
-  const [follow, setFollow] = useState<boolean>(false);
   const [feeds, setFeeds] = useState<Feeds[]>([]);
   const [timers, setTimers] = useState<Timers[]>([]);
   const [user, setUser] = useState<User>();
+
+  const [follow, setFollow] = useState<boolean>(false);
+  const [feedId, setFeedId] = useState<number>(0);
+
   const [followingState, setFollowingState] = useState<boolean>(false);
   const [showEditModal, toggleShowEditModal] = useState<boolean>(false);
   const [showFollowModal, toggleShowFollowModal] = useState<boolean>(false);
   const [showFollowerModal, toggleShowFollowerModal] = useState<boolean>(false);
+  const [showEditFeedModal, toggleShowEditFeedModal] = useState<boolean>(false);
 
   // const userProfile = useCallback(
   //   async (userId: string) => {
@@ -38,14 +44,10 @@ export default function ProfileContainer() {
   //   [userId]
   // );
 
-  console.log(feeds);
-
   useEffect(() => {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
-        console.log(res);
-
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);
@@ -54,7 +56,7 @@ export default function ProfileContainer() {
       .catch((err) => {
         console.log(err);
       });
-  }, [follow, userId, showEditModal, followingState]);
+  }, [follow, userId, showEditModal, followingState, showEditFeedModal]);
 
   if (!user) return <></>;
 
@@ -70,10 +72,10 @@ export default function ProfileContainer() {
     httpInterface
       .follow({ selfId, followingId })
       .then((res) => {
-        console.log(res);
         res.status === 200 && setFollow(!follow);
       })
       .catch((err) => {
+        alert('팔로우에 실패했습니다.');
         console.log(err);
       });
   };
@@ -87,7 +89,6 @@ export default function ProfileContainer() {
     httpInterface
       .unFollow({ selfId, followingId })
       .then((res) => {
-        console.log(res);
         res.status === 200 && setFollow(!follow);
       })
       .catch((err) => {
@@ -96,7 +97,12 @@ export default function ProfileContainer() {
       });
   };
 
-  console.log(user.profilePhoto);
+  const deleteFeed = (feedId: number) => {
+    httpInterface.deleteFeed(feedId).then((res) => {
+      res.status === 200 &&
+        setFeeds(feeds.filter((feed) => feed.feedId !== feedId));
+    });
+  };
 
   return (
     <article className={styles['profile-article']}>
@@ -163,16 +169,15 @@ export default function ProfileContainer() {
                 onClick={(e) => {
                   navigate(`/feed/${feed.feedId}`);
                 }}>
-                <p>{feed.feedBody}</p>
                 <div>
-                  !feed.photo ?(
-                  <Image
-                    src={feed.photo}
-                    alt={'feed image'}
-                    className={styles['feed-image']}
-                  />{' '}
-                  ) : <></>
-                  <p>{feed.feedBody}</p>
+                  {feed.photo && (
+                    <Image
+                      src={feed.photo}
+                      alt={'feed image'}
+                      className={styles['feed-image']}
+                    />
+                  )}
+                  <p className={styles['feed-text']}>{feed.feedBody}</p>
                   <div className={styles['feed-meta']}>
                     <span>
                       <FaCommentAlt /> {feed.comments?.length}
@@ -180,7 +185,30 @@ export default function ProfileContainer() {
                     <span>
                       <FaThumbsUp /> {feed.likes}
                     </span>
+                    <span
+                      className={styles['edit-feed']}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setFeedId(feed.feedId);
+                        toggleShowEditFeedModal(true);
+                      }}>
+                      <IoSettingsSharp className={styles['gear-icon']} />
+                    </span>
                   </div>
+                  <button
+                    className={styles['delete-button']}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      if (
+                        window.confirm('정말로 이 피드를 삭제하시겠습니까?')
+                      ) {
+                        deleteFeed(feed.feedId);
+                      }
+                    }}>
+                    삭제
+                  </button>
                 </div>
               </div>
             ))
@@ -224,6 +252,18 @@ export default function ProfileContainer() {
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}
+              />
+            </ModalWrapper>
+          </ModalPortal>
+        )}
+        {showEditFeedModal && (
+          <ModalPortal>
+            <ModalWrapper
+              show={showEditFeedModal}
+              closeModal={() => toggleShowEditFeedModal(false)}>
+              <EditFeedModal
+                closeModal={() => toggleShowEditFeedModal(false)}
+                feedId={feedId}
               />
             </ModalWrapper>
           </ModalPortal>

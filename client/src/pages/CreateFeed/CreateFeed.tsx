@@ -41,6 +41,8 @@ export default function CreateFeed() {
       try {
         const response = await httpInterface.uploadImage(formData);
         photoUrl = response.data.secure_url;
+        console.log(photoUrl);
+        
       } catch (err) {
         console.error(err);
         return;

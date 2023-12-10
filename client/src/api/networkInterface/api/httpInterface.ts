@@ -102,15 +102,24 @@ export class HttpInterface {
     return this.post(url, addTimeData);
   }
 
-  uploadImage(imageFile: FormData) {
+  async uploadImage(imageFile: FormData) {
     const CLOUDINARY_NAME = 'dgtozy2lj';
-    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/image/upload`;
-    const res = axios.post(url, imageFile, {
+    const url =
+      process.env.NODE_ENV === 'development'
+        ? `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/image/upload`
+        : '/cloudinary';
+    console.log(url);
+
+    const res = await axios.post(url, imageFile, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
       },
+      withCredentials: false,
     });
 
+    console.log(res);
+    
     return res;
   }
 

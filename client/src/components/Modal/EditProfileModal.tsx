@@ -57,10 +57,7 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
         userName,
       });
       console.log('변경', response);
-
-      // if(response) {
-
-      // }
+      alert('변경 완료!');
     } catch (error) {
       console.error(error);
       alert('수정 실패...😢');
@@ -119,8 +116,7 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
             cols={50}
             placeholder='소개글 입력해주세요'
             onChange={textInputHandler}
-            className={styles['textarea']}
-          ></textarea>
+            className={styles['textarea']}></textarea>
           <Button
             type='submit'
             text='업데이트'

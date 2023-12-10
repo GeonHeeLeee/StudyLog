@@ -22,7 +22,6 @@ export default function FollowModal({ closeModal, userId }: Props) {
 
   useEffect(() => {
     httpInterface.followingList(userId).then((res) => {
-      console.log(res.data);
       setFollow(res.data.followings);
     });
   }, [userId]);

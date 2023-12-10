@@ -1,0 +1,31 @@
+.edit-feed-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.textarea {
+  margin: auto;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.textarea::placeholder {
+  text-align: center; /* 플레이스홀더 가운데 정렬 */
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.btn {
+  color: white;
+  padding: 8px 18px;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 500ms all;
+}
+
+.btn:hover {
+  background-color: white;
+  color: black;
+}

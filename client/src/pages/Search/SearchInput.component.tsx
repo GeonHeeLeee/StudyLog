@@ -31,8 +31,6 @@ export default function SearchInput() {
         httpInterface
           .searchUsers(debouncedSearchText)
           .then((res) => {
-            console.log(res.data);
-
             setSearchResults(res.data);
           })
           .catch((err) => {

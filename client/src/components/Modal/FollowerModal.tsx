@@ -22,7 +22,6 @@ export default function FollowerModal({ closeModal, userId }: Props) {
 
   useEffect(() => {
     httpInterface.followerList(userId).then((res) => {
-      console.log(res.data.followers);
       setFollower(res.data.followers);
     });
   }, [userId]);

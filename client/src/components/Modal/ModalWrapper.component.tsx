@@ -20,8 +20,11 @@ export default function ModalWrapper({
       <div className={`${styles['modal-content']} modal-con`}>
         <div className='contents'>{children}</div>
         <div className='bottom'>
-          <button type='button' className={styles['form-button']} onClick={closeModal}>
-            모달 닫기
+          <button
+            type='button'
+            className={styles['form-button']}
+            onClick={closeModal}>
+            닫기
           </button>
         </div>
       </div>

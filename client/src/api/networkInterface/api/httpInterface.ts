@@ -160,6 +160,16 @@ export class HttpInterface {
     return this.get(url);
   }
 
+  deleteFeed(feedId: number) {
+    const url = `/feed/delete`;
+    return this.post(url, { feedId });
+  }
+
+  editFeed(feedId: number, feedBody: string) {
+    const url = `/feed/modify`;
+    return this.post(url, { feedId, feedBody });
+  }
+
   get(url: string, options: AxiosRequestConfig<any> = this.defaultOptions) {
     return this.apiClient.get(url, options);
   }

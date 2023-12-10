@@ -45,7 +45,7 @@ export default function ProfileContainer() {
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
         console.log(res);
-        
+
         setFeeds(res.data.feeds);
         setTimers(res.data.timers);
         setUser(res.data.user);
@@ -165,11 +165,13 @@ export default function ProfileContainer() {
                 }}>
                 <p>{feed.feedBody}</p>
                 <div>
+                  !feed.photo ?(
                   <Image
                     src={feed.photo}
                     alt={'feed image'}
                     className={styles['feed-image']}
                   />{' '}
+                  ) : <></>
                   <p>{feed.feedBody}</p>
                   <div className={styles['feed-meta']}>
                     <span>

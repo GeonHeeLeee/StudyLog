@@ -166,7 +166,7 @@ export default function ProfileContainer() {
               >
                 {/* <p>{feed.feedBody}</p> */}
                 <div>
-                  {!feed.photo ? (
+                  {feed.photo?.length > 0 ? (
                     <Image
                       src={feed.photo}
                       alt={'feed image'}

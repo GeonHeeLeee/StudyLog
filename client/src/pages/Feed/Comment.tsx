@@ -5,8 +5,6 @@ type Props = {
   comment: CommentData;
 };
 export default function Comment({ comment }: Props) {
-  console.log(comment);
-
   return (
     <div className={styles['comments-container']}>
       <p className={styles['comment-id']}>@{comment.userId}</p>

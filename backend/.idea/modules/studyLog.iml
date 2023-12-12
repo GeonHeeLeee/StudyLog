@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="studyLog" external.linked.project.path="$MODULE_DIR$/../../studyLog" external.root.project.path="$MODULE_DIR$/../../studyLog" external.system.id="GRADLE" external.system.module.group="KW-Univ" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../studyLog">
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/build" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../studyLog">
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/build" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../studyLog" />
+    <content url="file://$MODULE_DIR$/../../studyLog">
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../studyLog/build" />
+    </content>
+    <orderEntry type="jdk" jdkName="11" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

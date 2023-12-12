@@ -4,11 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4722818e-5c67-41f7-a93c-abe7b19d9845" name="Changes" comment="" />
+    <list default="true" id="660fd745-5b62-43e3-b44d-3ffe53a7109c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/studyLog/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/studyLog/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/Config/DummyData.java" beforeDir="false" afterPath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/Config/DummyData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/Config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/Config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/service/HomeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/studyLog/src/main/java/KWUniv/studyLog/service/HomeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/studyLog/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/studyLog/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/pages/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/pages/Layout.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/studyLog">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="studyLog" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -16,58 +52,64 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Z4zJBTQo2OgDnSWCEd347bMav8" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2ZFDpbjT0ZWRz4fjBD4HYkMFYJ6" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;82a3e98787a19c127f5d3ebe09bbc7b5&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/LeeGeonHee/Desktop/KW univ/3-2 웹서비스설계및실습/TeamProject/23-teampjt-_/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "97de7647b2e9b8692efbb720930e3949",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="StudyLogApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="KW-Univ.studyLog.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="KWUniv.studyLog.StudyLogApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4722818e-5c67-41f7-a93c-abe7b19d9845" name="Changes" comment="" />
-      <created>1701696064940</created>
+      <changelist id="660fd745-5b62-43e3-b44d-3ffe53a7109c" name="Changes" comment="" />
+      <created>1702009121380</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1701696064940</updated>
-      <workItem from="1701696066017" duration="3098000" />
-      <workItem from="1701755645677" duration="509000" />
-      <workItem from="1701756269208" duration="130000" />
-      <workItem from="1701756465044" duration="4554000" />
-      <workItem from="1701793295014" duration="17000" />
+      <updated>1702009121380</updated>
+      <workItem from="1702009123065" duration="4027000" />
+      <workItem from="1702016874682" duration="2601000" />
+      <workItem from="1702092300229" duration="358000" />
+      <workItem from="1702098113912" duration="3930000" />
+      <workItem from="1702113208365" duration="530000" />
+      <workItem from="1702115795873" duration="319000" />
+      <workItem from="1702136815059" duration="2647000" />
+      <workItem from="1702191845653" duration="14685000" />
+      <workItem from="1702258770622" duration="10000" />
+      <workItem from="1702258968996" duration="1102000" />
+      <workItem from="1702267469259" duration="3984000" />
+      <workItem from="1702279622971" duration="18000" />
+      <workItem from="1702296687390" duration="11000" />
+      <workItem from="1702356185421" duration="1815000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

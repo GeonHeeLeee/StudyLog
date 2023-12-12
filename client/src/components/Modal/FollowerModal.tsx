@@ -1,4 +1,3 @@
-import { HttpInterface } from '../../api/networkInterface/api/httpInterface';
 import useNetwork from '../../stores/network';
 import { useEffect, useState } from 'react';
 import styles from './FollowerModal.module.css';
@@ -29,7 +28,7 @@ export default function FollowerModal({ closeModal, userId }: Props) {
     <div>
       <h2 style={{ marginLeft: '30px' }}>팔로워</h2>
       <div className={styles['modal']}>
-        <ul>
+        <ul className={styles['modal-ul']}>
           {follwor.map((follower) => {
             return (
               //navigate 로 바꾸기
@@ -40,7 +39,8 @@ export default function FollowerModal({ closeModal, userId }: Props) {
                       backgroundImage: `url(${follower.profilePhoto})`,
                       backgroundSize: 'contain',
                     }}
-                    className={styles['users-img']}></div>
+                    className={styles['users-img']}
+                  ></div>
                   <div className={styles['users-info']}>
                     <div className={styles['users-id']}>@{follower.userId}</div>
                     <div className={styles['users-name']}>

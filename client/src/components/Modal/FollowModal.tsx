@@ -1,4 +1,3 @@
-import { HttpInterface } from '../../api/networkInterface/api/httpInterface';
 import useNetwork from '../../stores/network';
 import { useEffect, useState } from 'react';
 import styles from './FollowerModal.module.css';
@@ -40,7 +39,8 @@ export default function FollowModal({ closeModal, userId }: Props) {
                       backgroundImage: `url(${following.profilePhoto})`,
                       backgroundSize: 'contain',
                     }}
-                    className={styles['users-img']}></div>
+                    className={styles['users-img']}
+                  ></div>
                   <div className={styles['users-info']}>
                     <div className={styles['users-id']}>
                       @{following.userId}

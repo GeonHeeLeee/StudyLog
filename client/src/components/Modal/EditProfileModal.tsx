@@ -16,6 +16,7 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
   // const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageFile, setImageFile] = useState<File>();
   const [bio, setBio] = useState<string>('');
+  const [isUploading, setIsUploading] = useState(false);
 
   const imageUploadHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -31,6 +32,11 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
 
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isUploading) {
+      alert('업로드 중입니다!');
+      return;
+    }
+    setIsUploading(true);
 
     let photoUrl = '';
 
@@ -45,6 +51,7 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
       } catch (err) {
         console.error(err);
         alert('이미지 업로드 실패...😢');
+        setIsUploading(false);
         return;
       }
     }
@@ -61,22 +68,9 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
     } catch (error) {
       console.error(error);
       alert('수정 실패...😢');
+    } finally {
+      setIsUploading(false);
     }
-    // httpInterface
-    //   .editProfile({
-    //     profilePhoto:  | '',
-    //     profilePhrase: bio,
-    //     userId,
-    //     userName,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     closeModal();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert('프로필 수정에 실패했습니다.');
-    //   });
   };
 
   return (
@@ -116,10 +110,12 @@ export default function EditProfile({ closeModal, userId, userName }: Props) {
             cols={50}
             placeholder='소개글 입력해주세요'
             onChange={textInputHandler}
-            className={styles['textarea']}></textarea>
+            className={styles['textarea']}
+          ></textarea>
           <Button
             type='submit'
             text='업데이트'
+            disabled={isUploading}
             className={styles['submit-button']}
           />
         </div>

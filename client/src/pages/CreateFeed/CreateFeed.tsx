@@ -12,6 +12,7 @@ export default function CreateFeed() {
   } = useLoginState();
   const [imageFile, setImageFile] = useState<File>();
   const [feedBody, setFeedBody] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const { httpInterface } = useNetwork();
   const navigate = useNavigate();
 
@@ -32,7 +33,12 @@ export default function CreateFeed() {
       alert('최소 3 글자 이상입력해주세요');
       return;
     }
+    if (isUploading) {
+      alert('업로드 중입니다!');
+      return;
+    }
     let photoUrl = '';
+    setIsUploading(true);
 
     if (imageFile) {
       const formData = new FormData();
@@ -42,9 +48,9 @@ export default function CreateFeed() {
         const response = await httpInterface.uploadImage(formData);
         photoUrl = response.data.secure_url;
         console.log(photoUrl);
-        
       } catch (err) {
         console.error(err);
+        setIsUploading(false);
         return;
       }
     }
@@ -64,6 +70,8 @@ export default function CreateFeed() {
       // if (response.status )
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -131,6 +139,7 @@ export default function CreateFeed() {
         <Button
           text='피드 업로드'
           type='submit'
+          disabled={isUploading}
           className={styles['check-button']}
         />
       </form>

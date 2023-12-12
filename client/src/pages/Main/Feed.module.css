@@ -7,7 +7,7 @@
   width: 98%;
 }
 
-.profile-icon {
+/* .profile-icon {
   flex-basis: 20px;
   padding: 0.35rem 0.35rem 0;
 }
@@ -16,7 +16,24 @@
   width: 30px;
   height: 30px;
   background-color: yellow;
+} */
+
+.profile-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
 }
+
+.profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: 50px 50px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
 
 .feed-main {
   flex-grow: 1;

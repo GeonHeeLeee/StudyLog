@@ -40,6 +40,7 @@ export default function FeedPage() {
         userId,
       }),
   });
+  console.log(id, userId);
 
   const { mutate } = useMutation({
     mutationFn: () =>
@@ -88,6 +89,7 @@ export default function FeedPage() {
   if (!id) return <></>;
   if (isFetching) {
     const { data: feed } = data;
+
     return <Feed feed={feed} id={id} />;
     // return (
     //   <div>
@@ -121,7 +123,7 @@ export default function FeedPage() {
     //             <span>
     //               <FaCommentAlt />
     //             </span>
-    //             <span>{feed.comments.length}</span>
+    //             <span>{feed.comments ? feed.comments?.length : 0}</span>
     //           </div>
     //           <div
     //             className={styles['feed-likes']}
@@ -155,9 +157,10 @@ export default function FeedPage() {
     //     </form>
     //     <p>댓글</p>
     //     <div>
-    //       {feed.comments.map((comment: CommentData, idx: number) => (
-    //         <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
-    //       ))}
+    //       {feed.comments &&
+    //         feed.comments?.map((comment: CommentData, idx: number) => (
+    //           <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
+    //         ))}
     //     </div>
     //   </div>
     // );
@@ -166,6 +169,7 @@ export default function FeedPage() {
   if (!data) return <>에러...</>;
 
   const { data: feed } = data;
+  console.log(feed);
   return <Feed feed={feed} id={id} />;
   // return (
   //   <div>
@@ -199,7 +203,7 @@ export default function FeedPage() {
   //             <span>
   //               <FaCommentAlt />
   //             </span>
-  //             <span>{feed.comments.length}</span>
+  //             <span>{feed.comments ? feed.comments?.length : 0}</span>
   //           </div>
   //           <div
   //             className={styles['feed-likes']}
@@ -233,9 +237,10 @@ export default function FeedPage() {
   //     </form>
   //     <p>댓글</p>
   //     <div>
-  //       {feed.comments.map((comment: CommentData, idx: number) => (
-  //         <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
-  //       ))}
+  //       {feed.comments &&
+  //         feed.comments?.map((comment: CommentData, idx: number) => (
+  //           <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
+  //         ))}
   //     </div>
   //   </div>
   // );

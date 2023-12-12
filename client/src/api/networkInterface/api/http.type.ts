@@ -44,6 +44,7 @@ export type FeedOutline = {
   feedBody: string;
   userName: string;
   comments: Comment[];
+  profilePhoto: string;
 };
 
 export type FeedsData = {

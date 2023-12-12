@@ -20,7 +20,7 @@ export default function SearchInput() {
 
   const { httpInterface } = useNetwork();
 
-  const debouncedSearchText = useDebounce(query, 1000);
+  const debouncedSearchText = useDebounce(query, 500);
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };

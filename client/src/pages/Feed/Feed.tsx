@@ -14,6 +14,7 @@ import {
 } from '../../api/networkInterface/api/http.type';
 import Button from '../../components/Button/Button.component';
 import Comment from './Comment';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   feed: FeedData;
@@ -26,6 +27,7 @@ export default function Feed({ feed, id }: Props) {
   const {
     userInfo: { userId },
   } = useLoginState();
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: (data: CommentData) => httpInterface.postCommentInFeed(data),
     onMutate: async () => {
@@ -86,15 +88,25 @@ export default function Feed({ feed, id }: Props) {
   });
   return (
     <div>
-      <article className={styles['feed-article']}>
+      <article
+        className={styles['feed-article']}
+        onClick={() => navigate(`/profile/${feed.writerId}`)}
+      >
         <div className={styles['profile-icon']}>
-          {/*<a>Profile 아이콘</a>*/}
-          <div></div>
+          {feed?.profilePhoto?.length > 0 && (
+            <div
+              style={{
+                backgroundImage: `url(${feed.profilePhoto})`,
+                backgroundSize: 'contain',
+              }}
+              className={styles['profile-image']}
+            />
+          )}
         </div>
         <main className={styles['feed-main']}>
           <div className={styles['feed-userinfo']}>
-            {/* <span className={styles['username']}>{feed.userName}</span> */}
-            <span className={styles['username']}>{feed.writerId}</span>
+            <span className={styles['username']}>{feed.userName}</span>
+            {/* <span className={styles['username']}>{feed.writerId}</span> */}
             <span className={styles['userid']}>{feed.writerId}</span>
             <span className={styles['date']}>{feed.date}</span>
           </div>
@@ -113,15 +125,21 @@ export default function Feed({ feed, id }: Props) {
             </div>
           </div>
           <div className={styles['feed-meta']}>
-            <div className={styles['feed-comments']} onClick={() => {}}>
+            <div
+              className={styles['feed-comments']}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
               <span>
                 <FaCommentAlt />
               </span>
-              <span>{feed.comments.length}</span>
+              <span>{feed.comments ? feed.comments.length : '0'} </span>
             </div>
             <div
               className={styles['feed-likes']}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 if (userId === feed.writerId) return;
                 likeFeed(feed.feedId);
               }}
@@ -163,9 +181,10 @@ export default function Feed({ feed, id }: Props) {
             className={styles['comment-button']}
           />
         </form>
-        {feed.comments.map((comment: CommentData, idx: number) => (
-          <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
-        ))}
+        {feed.comments &&
+          feed.comments?.map((comment: CommentData, idx: number) => (
+            <Comment key={`${comment.feedId}_${idx}`} comment={comment} />
+          ))}
       </div>
     </div>
   );

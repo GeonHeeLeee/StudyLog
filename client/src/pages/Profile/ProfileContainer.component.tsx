@@ -48,7 +48,7 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
-        const sortedFeeds = res.data.feeds.sort(
+        const sortedFeeds = res.data?.feeds?.sort(
           (a: Feeds, b: Feeds) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
         );
@@ -108,6 +108,9 @@ export default function ProfileContainer() {
         setFeeds(feeds.filter((feed) => feed.feedId !== feedId));
     });
   };
+
+  console.log(user);
+  
 
   return (
     <article className={styles['profile-article']}>
@@ -173,7 +176,8 @@ export default function ProfileContainer() {
                 key={feed.feedId}
                 onClick={(e) => {
                   navigate(`/feed/${feed.feedId}`);
-                }}>
+                }}
+              >
                 <div>
                   {feed.photo?.length > 0 ? (
                     <Image
@@ -199,7 +203,8 @@ export default function ProfileContainer() {
                         e.preventDefault();
                         setFeedId(feed.feedId);
                         toggleShowEditFeedModal(true);
-                      }}>
+                      }}
+                    >
                       {checkMyProfile() && (
                         <IoSettingsSharp className={styles['gear-icon']} />
                       )}
@@ -216,7 +221,8 @@ export default function ProfileContainer() {
                         ) {
                           deleteFeed(feed.feedId);
                         }
-                      }}>
+                      }}
+                    >
                       삭제
                     </button>
                   )}
@@ -233,7 +239,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditModal}
-              closeModal={() => toggleShowEditModal(false)}>
+              closeModal={() => toggleShowEditModal(false)}
+            >
               <EditProfile
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
@@ -247,7 +254,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowerModal}
-              closeModal={() => toggleShowFollowerModal(false)}>
+              closeModal={() => toggleShowFollowerModal(false)}
+            >
               <FollowerModal
                 closeModal={() => toggleShowFollowerModal(false)}
                 userId={userId}
@@ -259,7 +267,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowModal}
-              closeModal={() => toggleShowFollowModal(false)}>
+              closeModal={() => toggleShowFollowModal(false)}
+            >
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}
@@ -271,7 +280,8 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditFeedModal}
-              closeModal={() => toggleShowEditFeedModal(false)}>
+              closeModal={() => toggleShowEditFeedModal(false)}
+            >
               <EditFeedModal
                 closeModal={() => toggleShowEditFeedModal(false)}
                 feedId={feedId}

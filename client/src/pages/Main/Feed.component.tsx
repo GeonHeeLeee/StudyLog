@@ -84,6 +84,15 @@ export default function Feed({ feed, page }: Props) {
       <div className={styles['profile-icon']}>
         {/*<a>Profile 아이콘</a>*/}
         <div></div>
+        {feed?.profilePhoto?.length > 0 && (
+          <div
+            style={{
+              backgroundImage: `url(${feed.profilePhoto})`,
+              backgroundSize: 'contain',
+            }}
+            className={styles['profile-image']}
+          />
+        )}
       </div>
       <main className={styles['feed-main']}>
         <div className={styles['feed-userinfo']}>
@@ -109,7 +118,12 @@ export default function Feed({ feed, page }: Props) {
           </div>
         </div>
         <div className={styles['feed-meta']}>
-          <div className={styles['feed-comments']}>
+          <div
+            className={styles['feed-comments']}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <span>
               <FaCommentAlt />
             </span>

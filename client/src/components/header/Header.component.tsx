@@ -29,10 +29,12 @@ export default function Header() {
       if (response.status === 200) {
         signOut();
       } else {
-        alert('로그아웃을 실패하셨습니다');
+        // alert('로그아웃을 실패하셨습니다');
       }
     } catch (error) {
-      alert('로그아웃을 실패하셨습니다');
+      console.error(error);
+
+      // alert('로그아웃을 실패하셨습니다');
     }
   };
 

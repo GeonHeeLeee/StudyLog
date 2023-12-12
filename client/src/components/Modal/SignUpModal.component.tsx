@@ -7,7 +7,6 @@ import Button from '../Button/Button.component';
 import useNetwork from '../../stores/network';
 import { AxiosError } from 'axios';
 import { JoinData } from '../../api/networkInterface/api/http.type';
-import useLoginState from '../../stores/login';
 
 type Props = {
   closeModal: () => void;
@@ -26,7 +25,6 @@ export default function SignUpModal({ closeModal }: Props) {
   const [form, onChangeHandler] = useInput(initialForm);
   const { httpInterface } = useNetwork();
   const [checkDuplicatedId, setCheckDuplicatedId] = useState(false);
-  const { signIn } = useLoginState();
 
   const checkDuplicateIdHandler = async () => {
     try {
@@ -85,7 +83,10 @@ export default function SignUpModal({ closeModal }: Props) {
     const signUpForm = makeSignUpForm(form);
     try {
       const response = await httpInterface.join(signUpForm);
-      if (response.status === 200) signIn({ userId: response.data.userId });
+      if (response.status === 200) {
+        alert('회원가입 성공');
+        return;
+      }
     } catch (err) {
       if ((err as AxiosError).response?.status === 400) {
         alert('회원가입 실패');

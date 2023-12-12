@@ -16,6 +16,7 @@ export interface FeedData {
   comments: Comment[];
   likes: number;
   userName: string;
+  profilePhoto: string;
 }
 
 export interface Comment {

@@ -44,7 +44,15 @@ export default function FeedContainer() {
         feeds: FeedOutline[];
       };
     }) => {
-      return lastPage.data.next || undefined;
+      if (lastPage?.data?.next) {
+        const split = lastPage?.data?.next.split('8081/');
+        const url = split[1];
+        console.log(url);
+
+        return url;
+      } else {
+        return;
+      }
     },
   });
 

@@ -167,7 +167,7 @@ export default function ProfileContainer() {
         </div>
         <div className={styles['profile-contents']}>
           {!(feeds.length === 0) ? (
-            feeds?.reverse().map((feed) => (
+            feeds?.map((feed) => (
               <div
                 className={styles['feed-content']}
                 key={feed.feedId}

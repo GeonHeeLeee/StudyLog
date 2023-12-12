@@ -26,12 +26,12 @@ export class Http implements ICommunication {
       //     ? 'http://35.230.55.35:8081'
       //     : '/api',
 
-      baseURL: 'http://localhost:8081',
+      // baseURL: 'http://localhost:8081',
       //
       //
-      /* process.env.NODE_ENV === 'development'
+      baseURL: process.env.NODE_ENV === 'development'
           ? 'http://localhost:8080'
-          : 'api', */
+          : 'api',
       // 'http://34.42.1.187:8081',
       withCredentials: true,
     };

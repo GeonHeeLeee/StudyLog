@@ -15,10 +15,13 @@ import { ScheduleProvider } from './pages/Schedule/@contexts/useSchedule';
 import './App.css';
 import CreateFeedPage from './pages/CreateFeed/CreateFeed';
 import FeedPage from './pages/Feed/FeedPage';
+import RouteChangeTracker from './RouteChangeTracker';
 
 function App() {
   const { isLogin, signOut } = useLoginState();
   const navigate = useNavigate();
+
+  RouteChangeTracker();
 
   // useEffect(() => {
   //   signOut();

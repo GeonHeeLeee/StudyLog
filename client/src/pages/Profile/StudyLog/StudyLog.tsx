@@ -6,8 +6,7 @@ import { Timers } from '../profile.type';
 
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-
-const today = new Date();
+import { stringifyDate } from '../../../utils/date/date';
 
 type StudyLog = {
   date: string;
@@ -17,9 +16,10 @@ type StudyLog = {
 
 export default function StudyLog(props: { timers: Timers[] }) {
   const { timers } = props;
-
+  const today = new Date();
   // Tooltip 띄우기 위해 존재하지 않는 날짜 데이터 생성
   const completeStudyLogs = generateYearData(new Date(), timers);
+  console.log(timers);
 
   return (
     <div className={styles['studylog-container']}>
@@ -59,7 +59,8 @@ const generateYearData = (baseDate: Date, logs: Timers[]) => {
   let data: StudyLog[] = [];
   for (let i = 0; i < 365; i++) {
     const date = shiftDate(baseDate, -i);
-    const dateString = date.toISOString().split('T')[0]; // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
+    // const dateString = date.toISOString().split('T')[0]; // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
+    const dateString = stringifyDate(date); // 날짜를 'yyyy-mm-dd' 형식의 문자열로 변환
 
     const log = logs.find((log) => log.date === dateString);
 

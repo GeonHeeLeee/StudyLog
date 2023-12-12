@@ -1,7 +1,7 @@
 export type Feeds = {
   feedId: number;
   feedBody: string;
-  data: string;
+  date: string;
   likes: number;
   photo: string;
   comments: string[];

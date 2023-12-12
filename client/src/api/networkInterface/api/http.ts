@@ -21,10 +21,12 @@ export class Http implements ICommunication {
   constructor() {
     const axiosConfig = {
       // baseURL: 'http://35.230.55.35:8081',
-      baseURL:
-        window.location.hostname === 'localhost'
-          ? 'http://35.230.55.35:8081'
-          : '/api',
+      // baseURL:
+      //   window.location.hostname === 'localhost'
+      //     ? 'http://35.230.55.35:8081'
+      //     : '/api',
+
+      baseURL: 'http://localhost:8081',
       //
       //
       /* process.env.NODE_ENV === 'development'

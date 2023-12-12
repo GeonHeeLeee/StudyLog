@@ -48,7 +48,12 @@ export default function ProfileContainer() {
     httpInterface
       .getUsersProfile(userInfo.userId, userId)
       .then((res) => {
-        setFeeds(res.data.feeds);
+        const sortedFeeds = res.data.feeds.sort(
+          (a: Feeds, b: Feeds) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+
+        setFeeds(sortedFeeds);
         setTimers(res.data.timers);
         setUser(res.data.user);
         setFollowingState(res.data.followingState);
@@ -168,8 +173,7 @@ export default function ProfileContainer() {
                 key={feed.feedId}
                 onClick={(e) => {
                   navigate(`/feed/${feed.feedId}`);
-                }}
-              >
+                }}>
                 <div>
                   {feed.photo?.length > 0 ? (
                     <Image
@@ -195,25 +199,27 @@ export default function ProfileContainer() {
                         e.preventDefault();
                         setFeedId(feed.feedId);
                         toggleShowEditFeedModal(true);
-                      }}
-                    >
-                      <IoSettingsSharp className={styles['gear-icon']} />
+                      }}>
+                      {checkMyProfile() && (
+                        <IoSettingsSharp className={styles['gear-icon']} />
+                      )}
                     </span>
                   </div>
-                  <button
-                    className={styles['delete-button']}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      if (
-                        window.confirm('정말로 이 피드를 삭제하시겠습니까?')
-                      ) {
-                        deleteFeed(feed.feedId);
-                      }
-                    }}
-                  >
-                    삭제
-                  </button>
+                  {checkMyProfile() && (
+                    <button
+                      className={styles['delete-button']}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        if (
+                          window.confirm('정말로 이 피드를 삭제하시겠습니까?')
+                        ) {
+                          deleteFeed(feed.feedId);
+                        }
+                      }}>
+                      삭제
+                    </button>
+                  )}
                 </div>
               </div>
             ))
@@ -227,8 +233,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditModal}
-              closeModal={() => toggleShowEditModal(false)}
-            >
+              closeModal={() => toggleShowEditModal(false)}>
               <EditProfile
                 closeModal={() => toggleShowEditModal(false)}
                 userId={user?.userId}
@@ -242,8 +247,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowerModal}
-              closeModal={() => toggleShowFollowerModal(false)}
-            >
+              closeModal={() => toggleShowFollowerModal(false)}>
               <FollowerModal
                 closeModal={() => toggleShowFollowerModal(false)}
                 userId={userId}
@@ -255,8 +259,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showFollowModal}
-              closeModal={() => toggleShowFollowModal(false)}
-            >
+              closeModal={() => toggleShowFollowModal(false)}>
               <FollowModal
                 closeModal={() => toggleShowFollowModal(false)}
                 userId={userId}
@@ -268,8 +271,7 @@ export default function ProfileContainer() {
           <ModalPortal>
             <ModalWrapper
               show={showEditFeedModal}
-              closeModal={() => toggleShowEditFeedModal(false)}
-            >
+              closeModal={() => toggleShowEditFeedModal(false)}>
               <EditFeedModal
                 closeModal={() => toggleShowEditFeedModal(false)}
                 feedId={feedId}
